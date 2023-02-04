@@ -1,4 +1,4 @@
-# Flutter Boilerplate
+# Flutter Shusekibo
 
 ![coverage][coverage_badge]
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
@@ -11,14 +11,14 @@ A boilerplate project for Flutter using [RiverPod](https://riverpod.dev/), [Dio]
 
 ---
 
-This is a very simple Boilerplate application, this has following features.
+This is a very simple Shusekibo application, this has following features.
 
   - User can Sign In and Up
   - After signing in he can see a list of items
 
 > It uses a mock json server which doesn't store or validate anything, so for signing in/up any email, password will simply work.
 
-[RiverPod](https://riverpod.dev/) was used for state management, but there's an old implementation with [Flutter bloc](https://bloclibrary.dev/#/) as well, you may check out [bloc](https://github.com/SimpleBoilerplates/Flutter/tree/bloc) branch, though that branch doesn't have many of the latest changes.
+[RiverPod](https://riverpod.dev/) was used for state management, but there's an old implementation with [Flutter bloc](https://bloclibrary.dev/#/) as well, you may check out [bloc](https://github.com/SimpleShusekibos/Flutter/tree/bloc) branch, though that branch doesn't have many of the latest changes.
 
   
 ## Getting Started 🚀
@@ -44,14 +44,14 @@ $ flutter run --flavor staging --target lib/main_staging.dart
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 
-_\*Flutter Boilerplate works on iOS, Android, and Web._
+_\*Flutter Shusekibo works on iOS, Android, and Web._
 
 ---
 
 
 ## Use MakeFile / Derry to avoid writing your own scripts.
 
-You can run all these scripts manually or could use  [MakeFile](https://github.com/SimpleBoilerplates/Flutter/blob/master/makefile) / [Derry](https://pub.dev/packages/derry) and maintain a file, where you can define all those scripts and run in a very convinient way. All the scripts for this project is defined here [derry scripts](https://github.com/SimpleBoilerplates/Flutter/blob/master/derry.yaml) and [makefile scripts](https://github.com/SimpleBoilerplates/Flutter/blob/master/makefile)
+You can run all these scripts manually or could use  [MakeFile](https://github.com/SimpleShusekibos/Flutter/blob/master/makefile) / [Derry](https://pub.dev/packages/derry) and maintain a file, where you can define all those scripts and run in a very convinient way. All the scripts for this project is defined here [derry scripts](https://github.com/SimpleShusekibos/Flutter/blob/master/derry.yaml) and [makefile scripts](https://github.com/SimpleShusekibos/Flutter/blob/master/makefile)
 
 Example: 
 
@@ -126,7 +126,7 @@ This project relies on [flutter_localizations][flutter_localizations_link] and f
 3. Use the new string
 
 ```dart
-import 'package:flutter_boilerplate/l10n/l10n.dart';
+import 'package:shusekibo/l10n/l10n.dart';
 
 @override
 Widget build(BuildContext context) {
@@ -197,8 +197,8 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 
 ### Same implementation in other platforms
    - [iOS](https://github.com/simpleboilerplates/BooksDemoiOS) 
-   - [Android](https://github.com/SimpleBoilerplates/Android) 
-   - [React Native](https://github.com/SimpleBoilerplates/React-Native) 
+   - [Android](https://github.com/SimpleShusekibos/Android) 
+   - [React Native](https://github.com/SimpleShusekibos/React-Native) 
    - [NodeJS backend](https://github.com/simpleboilerplates/BooksDemoNode)
 
 ---

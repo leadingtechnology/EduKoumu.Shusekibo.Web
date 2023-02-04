@@ -1,4 +1,4 @@
-import 'package:flutter_boilerplate/shared/http/app_exception.dart';
+import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_state.freezed.dart';

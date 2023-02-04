@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/feature/home/provider/books_provider.dart';
-import 'package:flutter_boilerplate/feature/home/provider/home_provider.dart';
-import 'package:flutter_boilerplate/feature/home/widget/row_book_widget.dart';
-import 'package:flutter_boilerplate/l10n/l10n.dart';
-import 'package:flutter_boilerplate/shared/http/app_exception.dart';
+import 'package:shusekibo/feature/home/provider/books_provider.dart';
+import 'package:shusekibo/feature/home/provider/home_provider.dart';
+import 'package:shusekibo/feature/home/widget/row_book_widget.dart';
+import 'package:shusekibo/l10n/l10n.dart';
+import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerWidget {

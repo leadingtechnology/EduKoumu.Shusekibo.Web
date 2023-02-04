@@ -1,4 +1,4 @@
-package com.example.verygoodcore.flutter_boilerplate
+package jp.co.uchida.shusekibo
 
 import io.flutter.embedding.android.FlutterActivity
 

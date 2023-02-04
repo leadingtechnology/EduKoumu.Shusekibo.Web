@@ -1,11 +1,11 @@
 {
-    "name": "Flutter Boilerplate",
-    "short_name": "Flutter Boilerplate",
+    "name": "Uchida Shusekibo",
+    "short_name": "Uchida Shusekibo",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A simple boilerplate project.",
+    "description": "A shusekibo project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

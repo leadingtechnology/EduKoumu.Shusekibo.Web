@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/feature/auth/provider/auth_provider.dart';
-import 'package:flutter_boilerplate/l10n/l10n.dart';
-import 'package:flutter_boilerplate/shared/route/router.gr.dart';
+import 'package:shusekibo/feature/auth/provider/auth_provider.dart';
+import 'package:shusekibo/l10n/l10n.dart';
+import 'package:shusekibo/shared/route/router.gr.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SignInPage extends ConsumerWidget {

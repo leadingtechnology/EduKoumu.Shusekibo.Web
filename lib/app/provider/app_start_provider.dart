@@ -1,9 +1,9 @@
-import 'package:flutter_boilerplate/app/state/app_start_state.dart';
-import 'package:flutter_boilerplate/feature/auth/model/auth_state.dart';
-import 'package:flutter_boilerplate/feature/auth/provider/auth_provider.dart';
-import 'package:flutter_boilerplate/feature/home/provider/home_provider.dart';
-import 'package:flutter_boilerplate/feature/home/state/home_state.dart';
-import 'package:flutter_boilerplate/shared/repository/token_repository.dart';
+import 'package:shusekibo/app/state/app_start_state.dart';
+import 'package:shusekibo/feature/auth/model/auth_state.dart';
+import 'package:shusekibo/feature/auth/provider/auth_provider.dart';
+import 'package:shusekibo/feature/home/provider/home_provider.dart';
+import 'package:shusekibo/feature/home/state/home_state.dart';
+import 'package:shusekibo/shared/repository/token_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final appStartProvider =

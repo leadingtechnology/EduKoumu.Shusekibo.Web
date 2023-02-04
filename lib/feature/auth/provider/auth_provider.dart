@@ -1,5 +1,5 @@
-import 'package:flutter_boilerplate/feature/auth/model/auth_state.dart';
-import 'package:flutter_boilerplate/feature/auth/repository/auth_repository.dart';
+import 'package:shusekibo/feature/auth/model/auth_state.dart';
+import 'package:shusekibo/feature/auth/repository/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final authProvider = StateNotifierProvider<AuthProvider, AuthState>((ref) {

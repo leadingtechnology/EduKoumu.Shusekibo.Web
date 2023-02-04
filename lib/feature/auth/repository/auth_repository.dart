@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter_boilerplate/feature/auth/model/auth_state.dart';
-import 'package:flutter_boilerplate/shared/http/api_provider.dart';
-import 'package:flutter_boilerplate/shared/http/app_exception.dart';
-import 'package:flutter_boilerplate/shared/model/token.dart';
-import 'package:flutter_boilerplate/shared/repository/token_repository.dart';
-import 'package:flutter_boilerplate/shared/util/validator.dart';
+import 'package:shusekibo/feature/auth/model/auth_state.dart';
+import 'package:shusekibo/shared/http/api_provider.dart';
+import 'package:shusekibo/shared/http/app_exception.dart';
+import 'package:shusekibo/shared/model/token.dart';
+import 'package:shusekibo/shared/repository/token_repository.dart';
+import 'package:shusekibo/shared/util/validator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class AuthRepositoryProtocol {

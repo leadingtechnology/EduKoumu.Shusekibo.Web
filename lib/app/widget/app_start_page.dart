@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/app/provider/app_start_provider.dart';
-import 'package:flutter_boilerplate/feature/auth/widget/sign_in_page.dart';
-import 'package:flutter_boilerplate/feature/home/widget/home_page.dart';
-import 'package:flutter_boilerplate/shared/widget/connection_unavailable_widget.dart';
-import 'package:flutter_boilerplate/shared/widget/loading_widget.dart';
+import 'package:shusekibo/app/provider/app_start_provider.dart';
+import 'package:shusekibo/feature/auth/widget/sign_in_page.dart';
+import 'package:shusekibo/feature/home/widget/home_page.dart';
+import 'package:shusekibo/shared/widget/connection_unavailable_widget.dart';
+import 'package:shusekibo/shared/widget/loading_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AppStartPage extends ConsumerWidget {

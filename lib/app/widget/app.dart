@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/l10n/l10n.dart';
-import 'package:flutter_boilerplate/shared/route/router.dart';
-import 'package:flutter_boilerplate/shared/route/router.gr.dart';
+import 'package:shusekibo/l10n/l10n.dart';
+import 'package:shusekibo/shared/route/router.dart';
+import 'package:shusekibo/shared/route/router.gr.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class App extends StatelessWidget {

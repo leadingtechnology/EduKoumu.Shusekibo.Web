@@ -1,5 +1,5 @@
-import 'package:flutter_boilerplate/feature/home/model/book.dart';
-import 'package:flutter_boilerplate/shared/http/app_exception.dart';
+import 'package:shusekibo/feature/home/model/book.dart';
+import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'books_state.freezed.dart';

@@ -1,7 +1,7 @@
-import 'package:flutter_boilerplate/app/provider/app_start_provider.dart';
-import 'package:flutter_boilerplate/app/state/app_start_state.dart';
-import 'package:flutter_boilerplate/feature/home/repository/books_repository.dart';
-import 'package:flutter_boilerplate/feature/home/state/books_state.dart';
+import 'package:shusekibo/app/provider/app_start_provider.dart';
+import 'package:shusekibo/app/state/app_start_state.dart';
+import 'package:shusekibo/feature/home/repository/books_repository.dart';
+import 'package:shusekibo/feature/home/state/books_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final booksProvider = StateNotifierProvider<BooksProvider, BooksState>((ref) {
