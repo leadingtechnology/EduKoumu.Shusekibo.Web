@@ -64,21 +64,17 @@ class ApiProvider {
   Future<APIResponse> post(
     String path,
     dynamic body, {
-    String? newBaseUrl,
     String? token,
-    Map<String, String?>? query,
     ContentType contentType = ContentType.json,
   }) async {
+    Map<String, String?>? query;
+
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       return const APIResponse.error(AppException.connectivity());
     }
-    String url;
-    if (newBaseUrl != null) {
-      url = newBaseUrl + path;
-    } else {
-      url = this._baseUrl + path;
-    }
+    String url = _baseUrl + path;
+
     var content = 'application/x-www-form-urlencoded';
 
     if (contentType == ContentType.json) {
@@ -127,7 +123,7 @@ class ApiProvider {
         } else {
           if (response.data['message'] != null) {
             return APIResponse.error(AppException.errorWithMessage(
-                response.data['message'] as String ?? ''));
+                response.data['message'] as String));
           } else {
             return const APIResponse.error(AppException.error());
           }
@@ -158,21 +154,17 @@ class ApiProvider {
 
   Future<APIResponse> get(
     String path, {
-    String? newBaseUrl,
     String? token,
-    Map<String, dynamic>? query,
+    
     ContentType contentType = ContentType.json,
   }) async {
+    Map<String, dynamic>? query;
+
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       return const APIResponse.error(AppException.connectivity());
     }
-    String url;
-    if (newBaseUrl != null) {
-      url = newBaseUrl + path;
-    } else {
-      url = this._baseUrl + path;
-    }
+    String url = _baseUrl + path;
 
     var content = 'application/x-www-form-urlencoded';
 
@@ -215,7 +207,7 @@ class ApiProvider {
         } else {
           if (response.data['error'] != null) {
             return APIResponse.error(AppException.errorWithMessage(
-                response.data['error'] as String ?? ''));
+                response.data['error'] as String));
           } else {
             return const APIResponse.error(AppException.error());
           }
