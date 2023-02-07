@@ -20,7 +20,13 @@ Token _$TokenFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Token {
-  String get token => throw _privateConstructorUsedError;
+  String get access_token => throw _privateConstructorUsedError;
+  String? get token_type => throw _privateConstructorUsedError;
+  int? get expires_in => throw _privateConstructorUsedError;
+  String? get TenantId => throw _privateConstructorUsedError;
+  String? get LoginId => throw _privateConstructorUsedError;
+  String? get Dantai => throw _privateConstructorUsedError;
+  String? get UserName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -31,7 +37,14 @@ mixin _$Token {
 abstract class $TokenCopyWith<$Res> {
   factory $TokenCopyWith(Token value, $Res Function(Token) then) =
       _$TokenCopyWithImpl<$Res>;
-  $Res call({String token});
+  $Res call(
+      {String access_token,
+      String? token_type,
+      int? expires_in,
+      String? TenantId,
+      String? LoginId,
+      String? Dantai,
+      String? UserName});
 }
 
 /// @nodoc
@@ -44,13 +57,43 @@ class _$TokenCopyWithImpl<$Res> implements $TokenCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? token = freezed,
+    Object? access_token = freezed,
+    Object? token_type = freezed,
+    Object? expires_in = freezed,
+    Object? TenantId = freezed,
+    Object? LoginId = freezed,
+    Object? Dantai = freezed,
+    Object? UserName = freezed,
   }) {
     return _then(_value.copyWith(
-      token: token == freezed
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
+      access_token: access_token == freezed
+          ? _value.access_token
+          : access_token // ignore: cast_nullable_to_non_nullable
               as String,
+      token_type: token_type == freezed
+          ? _value.token_type
+          : token_type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expires_in: expires_in == freezed
+          ? _value.expires_in
+          : expires_in // ignore: cast_nullable_to_non_nullable
+              as int?,
+      TenantId: TenantId == freezed
+          ? _value.TenantId
+          : TenantId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      LoginId: LoginId == freezed
+          ? _value.LoginId
+          : LoginId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      Dantai: Dantai == freezed
+          ? _value.Dantai
+          : Dantai // ignore: cast_nullable_to_non_nullable
+              as String?,
+      UserName: UserName == freezed
+          ? _value.UserName
+          : UserName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -60,7 +103,14 @@ abstract class _$$_TokenCopyWith<$Res> implements $TokenCopyWith<$Res> {
   factory _$$_TokenCopyWith(_$_Token value, $Res Function(_$_Token) then) =
       __$$_TokenCopyWithImpl<$Res>;
   @override
-  $Res call({String token});
+  $Res call(
+      {String access_token,
+      String? token_type,
+      int? expires_in,
+      String? TenantId,
+      String? LoginId,
+      String? Dantai,
+      String? UserName});
 }
 
 /// @nodoc
@@ -74,13 +124,43 @@ class __$$_TokenCopyWithImpl<$Res> extends _$TokenCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? token = freezed,
+    Object? access_token = freezed,
+    Object? token_type = freezed,
+    Object? expires_in = freezed,
+    Object? TenantId = freezed,
+    Object? LoginId = freezed,
+    Object? Dantai = freezed,
+    Object? UserName = freezed,
   }) {
     return _then(_$_Token(
-      token: token == freezed
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
+      access_token: access_token == freezed
+          ? _value.access_token
+          : access_token // ignore: cast_nullable_to_non_nullable
               as String,
+      token_type: token_type == freezed
+          ? _value.token_type
+          : token_type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expires_in: expires_in == freezed
+          ? _value.expires_in
+          : expires_in // ignore: cast_nullable_to_non_nullable
+              as int?,
+      TenantId: TenantId == freezed
+          ? _value.TenantId
+          : TenantId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      LoginId: LoginId == freezed
+          ? _value.LoginId
+          : LoginId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      Dantai: Dantai == freezed
+          ? _value.Dantai
+          : Dantai // ignore: cast_nullable_to_non_nullable
+              as String?,
+      UserName: UserName == freezed
+          ? _value.UserName
+          : UserName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -88,17 +168,36 @@ class __$$_TokenCopyWithImpl<$Res> extends _$TokenCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Token implements _Token {
-  const _$_Token({required this.token});
+  const _$_Token(
+      {required this.access_token,
+      this.token_type,
+      this.expires_in,
+      this.TenantId,
+      this.LoginId,
+      this.Dantai,
+      this.UserName});
 
   factory _$_Token.fromJson(Map<String, dynamic> json) =>
       _$$_TokenFromJson(json);
 
   @override
-  final String token;
+  final String access_token;
+  @override
+  final String? token_type;
+  @override
+  final int? expires_in;
+  @override
+  final String? TenantId;
+  @override
+  final String? LoginId;
+  @override
+  final String? Dantai;
+  @override
+  final String? UserName;
 
   @override
   String toString() {
-    return 'Token(token: $token)';
+    return 'Token(access_token: $access_token, token_type: $token_type, expires_in: $expires_in, TenantId: $TenantId, LoginId: $LoginId, Dantai: $Dantai, UserName: $UserName)';
   }
 
   @override
@@ -106,13 +205,29 @@ class _$_Token implements _Token {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Token &&
-            const DeepCollectionEquality().equals(other.token, token));
+            const DeepCollectionEquality()
+                .equals(other.access_token, access_token) &&
+            const DeepCollectionEquality()
+                .equals(other.token_type, token_type) &&
+            const DeepCollectionEquality()
+                .equals(other.expires_in, expires_in) &&
+            const DeepCollectionEquality().equals(other.TenantId, TenantId) &&
+            const DeepCollectionEquality().equals(other.LoginId, LoginId) &&
+            const DeepCollectionEquality().equals(other.Dantai, Dantai) &&
+            const DeepCollectionEquality().equals(other.UserName, UserName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(token));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(access_token),
+      const DeepCollectionEquality().hash(token_type),
+      const DeepCollectionEquality().hash(expires_in),
+      const DeepCollectionEquality().hash(TenantId),
+      const DeepCollectionEquality().hash(LoginId),
+      const DeepCollectionEquality().hash(Dantai),
+      const DeepCollectionEquality().hash(UserName));
 
   @JsonKey(ignore: true)
   @override
@@ -128,12 +243,31 @@ class _$_Token implements _Token {
 }
 
 abstract class _Token implements Token {
-  const factory _Token({required final String token}) = _$_Token;
+  const factory _Token(
+      {required final String access_token,
+      final String? token_type,
+      final int? expires_in,
+      final String? TenantId,
+      final String? LoginId,
+      final String? Dantai,
+      final String? UserName}) = _$_Token;
 
   factory _Token.fromJson(Map<String, dynamic> json) = _$_Token.fromJson;
 
   @override
-  String get token;
+  String get access_token;
+  @override
+  String? get token_type;
+  @override
+  int? get expires_in;
+  @override
+  String? get TenantId;
+  @override
+  String? get LoginId;
+  @override
+  String? get Dantai;
+  @override
+  String? get UserName;
   @override
   @JsonKey(ignore: true)
   _$$_TokenCopyWith<_$_Token> get copyWith =>

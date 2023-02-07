@@ -6,8 +6,8 @@ import 'package:shusekibo/shared/route/router.gr.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SignInPage extends ConsumerWidget {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController(text: 'login0001');
+  final _passwordController = TextEditingController(text: 'P@ssw0rd');
 
   SignInPage({Key? key}) : super(key: key);
 
@@ -33,6 +33,7 @@ class SignInPage extends ConsumerWidget {
                       decoration: InputDecoration(
                         labelText: context.l10n.email_hint,
                       ),
+                      textInputAction: TextInputAction.next,
                       controller: _emailController,
                     ),
                     TextFormField(
@@ -40,6 +41,7 @@ class SignInPage extends ConsumerWidget {
                         labelText: context.l10n.password_hint,
                       ),
                       controller: _passwordController,
+                      textInputAction: TextInputAction.next,
                       obscureText: true,
                     ),
                     Column(

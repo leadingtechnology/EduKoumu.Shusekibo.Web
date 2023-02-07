@@ -3,16 +3,18 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
+import 'package:dio/adapter_browser.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
 import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:shusekibo/shared/http/interceptor/dio_connectivity_request_retrier.dart';
 import 'package:shusekibo/shared/http/interceptor/retry_interceptor.dart';
 import 'package:shusekibo/shared/repository/token_repository.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 enum ContentType { urlEncoded, json }
 
@@ -35,13 +37,18 @@ class ApiProvider {
       ),
     );
 
-    _dio.httpClientAdapter = DefaultHttpClientAdapter();
 
-    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (HttpClient client) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-    };
+    HttpClientAdapter client;
+    if (kIsWeb) {
+      client = BrowserHttpClientAdapter();
+    } else {
+      client = DefaultHttpClientAdapter()..onHttpClientCreate = (client) {
+          client..badCertificateCallback =
+                (X509Certificate cert, String host, int port) => true;
+        };
+    }
+
+    _dio.httpClientAdapter = client;
 
     if (kDebugMode) {
       _dio.interceptors.add(PrettyDioLogger(requestBody: true));
@@ -49,6 +56,10 @@ class ApiProvider {
 
     if (dotenv.env['BASE_URL'] != null) {
       _baseUrl = dotenv.env['BASE_URL']!;
+    }
+
+    if (dotenv.env['TENANT_ID'] != null) {
+      _tenantId = dotenv.env['TENANT_ID']!;
     }
   }
 
@@ -60,6 +71,7 @@ class ApiProvider {
       _ref.read(tokenRepositoryProvider);
 
   late String _baseUrl;
+  late String _tenantId;
 
   Future<APIResponse> post(
     String path,
@@ -98,7 +110,7 @@ class ApiProvider {
       final response = await _dio.post(
         url,
         data: body,
-        queryParameters: query,
+        //queryParameters: query,
         options: Options(validateStatus: (status) => true, headers: headers),
       );
 
@@ -155,7 +167,6 @@ class ApiProvider {
   Future<APIResponse> get(
     String path, {
     String? token,
-    
     ContentType contentType = ContentType.json,
   }) async {
     Map<String, dynamic>? query;
@@ -179,7 +190,7 @@ class ApiProvider {
 
     final _appToken = await _tokenRepository.fetchToken();
     if (_appToken != null) {
-      headers['Authorization'] = 'Bearer ${_appToken}';
+      headers['Authorization'] = 'Bearer ${_appToken.access_token}';
     }
 
     try {
@@ -214,6 +225,16 @@ class ApiProvider {
         }
       }
     } on DioError catch (e) {
+      if (e.response != null) {
+        print('data : ${e.response?.data}');
+        print('headers : ${e.response?.headers}');
+        print('requestOptions : ${e.response?.requestOptions}');
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        print('requestOptions : ${e.requestOptions}');
+        print('message : ${e.message}');
+      }
+      
       if (e.error is SocketException) {
         return const APIResponse.error(AppException.connectivity());
       }

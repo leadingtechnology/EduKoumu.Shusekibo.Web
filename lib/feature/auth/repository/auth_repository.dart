@@ -1,19 +1,21 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:shusekibo/feature/auth/model/auth_state.dart';
 import 'package:shusekibo/shared/http/api_provider.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:shusekibo/shared/model/token.dart';
 import 'package:shusekibo/shared/repository/token_repository.dart';
 import 'package:shusekibo/shared/util/validator.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class AuthRepositoryProtocol {
   Future<AuthState> login(String email, String password);
   Future<AuthState> signUp(String name, String email, String password);
 }
 
-final authRepositoryProvider = Provider((ref) => AuthRepository(ref));
+final authRepositoryProvider = Provider(AuthRepository.new);
 
 class AuthRepository implements AuthRepositoryProtocol {
   AuthRepository(this._ref) {}
@@ -23,31 +25,41 @@ class AuthRepository implements AuthRepositoryProtocol {
 
   @override
   Future<AuthState> login(String email, String password) async {
-    if (!Validator.isValidPassWord(password)) {
-      return const AuthState.error(
-          AppException.errorWithMessage('Minimum 8 characters required'));
+    // if (!Validator.isValidPassWord(password)) {
+    //   return const AuthState.error(
+    //       AppException.errorWithMessage('Minimum 8 characters required'));
+    // }
+    // if (!Validator.isValidEmail(email)) {
+    //   return const AuthState.error(
+    //       AppException.errorWithMessage('Please enter a valid email address'));
+    // }
+    // final params = {
+    //   'email': email,
+    //   'password': password,
+    // };
+
+    var tenantId = '';
+    if (dotenv.env['TENANT_ID'] != null) {
+      tenantId = dotenv.env['TENANT_ID']!;
     }
-    if (!Validator.isValidEmail(email)) {
-      return const AuthState.error(
-          AppException.errorWithMessage('Please enter a valid email address'));
-    }
-    final params = {
-      'email': email,
-      'password': password,
-    };
-    final loginResponse = await _api.post('login', jsonEncode(params));
+    final params =
+        'grant_type=password&username=$tenantId,$email&password=$password';
 
-    return loginResponse.when(success: (success) async {
-      final tokenRepository = _ref.read(tokenRepositoryProvider);
+    final loginResponse = await _api.post('token', params);
 
-      final token = Token.fromJson(success as Map<String, dynamic>);
+    return loginResponse.when(
+      success: (success) async {
+        final token = tokenFromJson(json.encode(success));
+     
+        final tokenRepository = _ref.read(tokenRepositoryProvider);
+        await tokenRepository.saveToken(token);
 
-      await tokenRepository.saveToken(token);
-
-      return const AuthState.loggedIn();
-    }, error: (error) {
-      return AuthState.error(error);
-    });
+        return const AuthState.loggedIn();
+      }, 
+      error: (error) {
+        return AuthState.error(error);
+      },
+    );
   }
 
   @override
@@ -79,6 +91,6 @@ class AuthRepository implements AuthRepositoryProtocol {
       return const AuthState.loggedIn();
     }, error: (error) {
       return AuthState.error(error);
-    });
+    },);
   }
 }

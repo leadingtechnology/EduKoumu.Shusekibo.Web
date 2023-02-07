@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shusekibo/feature/auth/provider/auth_provider.dart';
 import 'package:shusekibo/feature/home/provider/books_provider.dart';
-import 'package:shusekibo/feature/home/provider/home_provider.dart';
 import 'package:shusekibo/feature/home/widget/row_book_widget.dart';
 import 'package:shusekibo/l10n/l10n.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
@@ -19,12 +19,13 @@ class HomePage extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.adjust),
             onPressed: () {
-              ref.read(homeProvider.notifier).logout();
+              ref.read(authProvider.notifier).logout();
             },
           ),
         ],
       ),
-      body: _widgetContent(context, ref),
+      //body: _widgetContent(context, ref),
+      body: Container(),
     );
   }
 
