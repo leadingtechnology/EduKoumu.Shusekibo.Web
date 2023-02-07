@@ -25,6 +25,7 @@ class AuthProvider extends StateNotifier<AuthState> {
     await _tokenRepository.remove();
     state = const AuthState.loggedOut();
   }
+  
   Future<void> signUp(String name, String email, String password) async {
     state = await _loginRepository.signUp(name, email, password);
   }

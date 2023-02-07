@@ -18,7 +18,7 @@ abstract class AuthRepositoryProtocol {
 final authRepositoryProvider = Provider(AuthRepository.new);
 
 class AuthRepository implements AuthRepositoryProtocol {
-  AuthRepository(this._ref) {}
+  AuthRepository(this._ref);
 
   late final ApiProvider _api = _ref.read(apiProvider);
   final Ref _ref;

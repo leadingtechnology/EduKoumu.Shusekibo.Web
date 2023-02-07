@@ -23,7 +23,6 @@ dependencies:
   google_fonts: ^3.0.1
   lottie: ^1.4.3
   connectivity_plus: ^2.3.9
-  shared_preferences: ^2.0.15
   flutter_dotenv: ^5.0.2
 
 
