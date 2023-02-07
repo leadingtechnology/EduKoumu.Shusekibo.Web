@@ -9,7 +9,7 @@ final authProvider = StateNotifierProvider<AuthProvider, AuthState>((ref) {
 });
 
 class AuthProvider extends StateNotifier<AuthState> {
-  AuthProvider(this._ref) : super(const AuthState.initial()) {}
+  AuthProvider(this._ref) : super(const AuthState.initial());
 
   final Ref _ref;
   late final AuthRepository _loginRepository =

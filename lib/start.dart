@@ -11,7 +11,6 @@ import 'app/app.dart';
 
 Future<void> start() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   HttpOverrides.global = MyHttpOverrides();
 
   FlutterError.onError = (details) {
