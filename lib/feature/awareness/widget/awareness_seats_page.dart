@@ -12,6 +12,6 @@ class AwarenessSeatsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
+    return const Text('Awareness Seats.');
   }
 }

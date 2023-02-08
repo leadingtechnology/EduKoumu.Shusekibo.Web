@@ -15,6 +15,7 @@ class AppTheme {
 
   // Define theme data - light mode.
   static final ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
     fontFamily: 'NotoSansJP',
     brightness: Brightness.light,
     primaryColor: const Color(0xFF2D6B27),

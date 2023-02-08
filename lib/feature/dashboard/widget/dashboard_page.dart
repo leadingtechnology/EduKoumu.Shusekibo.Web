@@ -22,7 +22,7 @@ class DashboardPage extends ConsumerWidget {
       child: Container(
         padding: Spacing.all(12),
         //decoration: BoxDecoration(color: Colors.red),
-        child: Container(),
+        child: const Text('Dashboard.'),
       ),
     );
   }

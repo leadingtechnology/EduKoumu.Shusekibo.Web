@@ -21,7 +21,7 @@ class SignInPage extends ConsumerWidget {
     return Scaffold(
         body: SingleChildScrollView(
           child: Center(
-            child: Container(
+            child: SizedBox(
               width: 892,
               child: Column(children: <Widget>[
                 const SizedBox(height: 50),
@@ -44,13 +44,8 @@ class SignInPage extends ConsumerWidget {
                     runAlignment: WrapAlignment.end,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      Container(
-                        //padding: EdgeInsets.fromLTRB(25,0,0,0),
-                        //width: double.infinity,
-                        //height: double.infinity,
-                        child: Image.asset(
-                          'assets/images/login_page_picture.png',
-                        ),
+                      Image.asset(
+                        'assets/images/login_page_picture.png',
                       ),
                       Container(
                         //color: Colors.yellow,
@@ -67,21 +62,24 @@ class SignInPage extends ConsumerWidget {
                             ),
                             Form(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('ログインID'),
+                                  const Text('ログインID'),
                                   ConstrainedBox(
                                     constraints:
                                         const BoxConstraints(maxHeight: 30),
                                     child: TextFormField(
-                                      textAlignVertical: TextAlignVertical.top,
                                       decoration: const InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(6),
                                           ),
                                         ),
+                                        contentPadding: EdgeInsets.symmetric(
+                                          vertical: 4,
+                                          horizontal: 4,
+                                        ),
+                                        isDense: true,
                                       ),
                                       textInputAction: TextInputAction.next,
                                       controller: _emailController,
@@ -90,18 +88,22 @@ class SignInPage extends ConsumerWidget {
                                   const SizedBox(
                                     height: 12,
                                   ),
-                                  Text('パスワード'),
+                                  const Text('パスワード'),
                                   ConstrainedBox(
                                     constraints:
                                         const BoxConstraints(maxHeight: 30),
                                     child: TextFormField(
-                                      textAlignVertical: TextAlignVertical.top,
                                       decoration: const InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(6),
                                           ),
                                         ),
+                                        contentPadding: EdgeInsets.symmetric(
+                                          vertical: 4,
+                                          horizontal: 4,
+                                        ),
+                                        isDense: true,
                                       ),
                                       textInputAction: TextInputAction.next,
                                       controller: _passwordController,
@@ -116,7 +118,6 @@ class SignInPage extends ConsumerWidget {
                                         width: 100,
                                         child: InkWell(
                                           child: OutlinedButton(
-                                            child: Text('ログイン'),
                                             style: OutlinedButton.styleFrom(
                                               //primary: Colors.black45,
                                               shape: RoundedRectangleBorder(
@@ -132,6 +133,7 @@ class SignInPage extends ConsumerWidget {
                                                   .login(_emailController.text,
                                                       _passwordController.text,);
                                             },
+                                            child: const Text('ログイン'),
                                           ),
                                         ),
                                       ),
