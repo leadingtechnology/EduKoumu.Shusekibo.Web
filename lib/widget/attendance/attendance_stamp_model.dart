@@ -9,8 +9,6 @@ List<AttendanceStampModel> attendanceStampListFromJson(List<dynamic> data) =>
 
 AttendanceStampModel attendanceStampFromJson(String str) => AttendanceStampModel.fromJson(json.decode(str) as Map<String, dynamic>);
 
-
-
 @freezed
 class AttendanceStampModel with _$AttendanceStampModel {
   const AttendanceStampModel._();

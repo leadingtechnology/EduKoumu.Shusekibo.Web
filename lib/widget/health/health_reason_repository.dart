@@ -2,13 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/shared/http/api_provider.dart';
 import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
+import 'package:shusekibo/widget/common/app_state.dart';
 import 'package:shusekibo/widget/health/health_reason_model.dart';
 import 'package:shusekibo/widget/health/health_reason_provider.dart';
-import 'package:shusekibo/widget/health/health_reason_state.dart';
 import 'package:shusekibo/widget/health/health_stamp_model.dart';
 
 abstract class HealthReasonRepositoryProtocol {
-  Future<HealthReasonState> fetch(HealthStampModel stamp);
+  Future<AppState> fetch(HealthStampModel stamp);
 }
 
 final healthReasonRepositoryProvider = Provider(HealthReasonRepository.new);
@@ -20,13 +20,13 @@ class HealthReasonRepository implements HealthReasonRepositoryProtocol {
   final Ref _ref;
 
   @override
-  Future<HealthReasonState> fetch(HealthStampModel stamp) async {
+  Future<AppState> fetch(HealthStampModel stamp) async {
     final response = await _api.get('api/KenkouKansatsubo/reasons/${stamp.jokyoCd}');
 
     response.when(
         success: (success) {},
         error: (error) {
-          return HealthReasonState.error(error);
+          return AppState.error(error);
         },);
 
     if (response is APISuccess) {
@@ -49,17 +49,20 @@ class HealthReasonRepository implements HealthReasonRepositoryProtocol {
           if (reason2List.isNotEmpty){
             _ref.read(healthReason2Provider.notifier).state = reason2List.first;
           }
+        }else{
+          _ref.read(healthReason2ListProvider.notifier).state = [];
+          _ref.read(healthReason2Provider.notifier).state = const HealthReasonModel();
         }
 
-        return const HealthReasonState.loaded();
+        return const AppState.loaded();
       } catch (e) {
-        return HealthReasonState.error(
+        return AppState.error(
             AppException.errorWithMessage(e.toString()),);
       }
     } else if (response is APIError) {
-      return HealthReasonState.error(response.exception);
+      return AppState.error(response.exception);
     } else {
-      return const HealthReasonState.loading();
+      return const AppState.loading();
     }
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shusekibo/widget/common/app_state.dart';
 import 'package:shusekibo/widget/health/health_reason_model.dart';
 import 'package:shusekibo/widget/health/health_reason_repository.dart';
-import 'package:shusekibo/widget/health/health_reason_state.dart';
 import 'package:shusekibo/widget/health/health_stamp_model.dart';
 import 'package:shusekibo/widget/health/health_stamp_provider.dart';
 
 final healthReasonListProvider =
-    StateNotifierProvider<HealthReasonListProvider, HealthReasonState>((ref) {
+    StateNotifierProvider<HealthReasonListProvider, AppState>((ref) {
   final stamp = ref.watch(healthStampProvider);
 
   return HealthReasonListProvider(ref, stamp);
@@ -22,9 +22,9 @@ final healthReason2Provider =
 final healthReason2ListProvider =
     StateProvider<List<HealthReasonModel>>((ref) => []);    
 
-class HealthReasonListProvider extends StateNotifier<HealthReasonState> {
+class HealthReasonListProvider extends StateNotifier<AppState> {
   HealthReasonListProvider(this._ref, this._stamp)
-      : super(const HealthReasonState.loading()) {
+      : super(const AppState.loading()) {
     _init();
   }
 

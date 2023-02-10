@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'health_stamp_state.dart';
+part of 'app_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$HealthStampState {
+mixin _$AppState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
@@ -63,20 +63,18 @@ mixin _$HealthStampState {
 }
 
 /// @nodoc
-abstract class $HealthStampStateCopyWith<$Res> {
-  factory $HealthStampStateCopyWith(
-          HealthStampState value, $Res Function(HealthStampState) then) =
-      _$HealthStampStateCopyWithImpl<$Res>;
+abstract class $AppStateCopyWith<$Res> {
+  factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
+      _$AppStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HealthStampStateCopyWithImpl<$Res>
-    implements $HealthStampStateCopyWith<$Res> {
-  _$HealthStampStateCopyWithImpl(this._value, this._then);
+class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
+  _$AppStateCopyWithImpl(this._value, this._then);
 
-  final HealthStampState _value;
+  final AppState _value;
   // ignore: unused_field
-  final $Res Function(HealthStampState) _then;
+  final $Res Function(AppState) _then;
 }
 
 /// @nodoc
@@ -87,8 +85,7 @@ abstract class _$$_LoadingCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LoadingCopyWithImpl<$Res>
-    extends _$HealthStampStateCopyWithImpl<$Res>
+class __$$_LoadingCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
     implements _$$_LoadingCopyWith<$Res> {
   __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
       : super(_value, (v) => _then(v as _$_Loading));
@@ -104,7 +101,7 @@ class _$_Loading implements _Loading {
 
   @override
   String toString() {
-    return 'HealthStampState.loading()';
+    return 'AppState.loading()';
   }
 
   @override
@@ -185,7 +182,7 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements HealthStampState {
+abstract class _Loading implements AppState {
   const factory _Loading() = _$_Loading;
 }
 
@@ -196,7 +193,7 @@ abstract class _$$_LoadedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LoadedCopyWithImpl<$Res> extends _$HealthStampStateCopyWithImpl<$Res>
+class __$$_LoadedCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
     implements _$$_LoadedCopyWith<$Res> {
   __$$_LoadedCopyWithImpl(_$_Loaded _value, $Res Function(_$_Loaded) _then)
       : super(_value, (v) => _then(v as _$_Loaded));
@@ -212,7 +209,7 @@ class _$_Loaded implements _Loaded {
 
   @override
   String toString() {
-    return 'HealthStampState.loaded()';
+    return 'AppState.loaded()';
   }
 
   @override
@@ -293,7 +290,7 @@ class _$_Loaded implements _Loaded {
   }
 }
 
-abstract class _Loaded implements HealthStampState {
+abstract class _Loaded implements AppState {
   const factory _Loaded() = _$_Loaded;
 }
 
@@ -307,7 +304,7 @@ abstract class _$$_ErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ErrorCopyWithImpl<$Res> extends _$HealthStampStateCopyWithImpl<$Res>
+class __$$_ErrorCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
     implements _$$_ErrorCopyWith<$Res> {
   __$$_ErrorCopyWithImpl(_$_Error _value, $Res Function(_$_Error) _then)
       : super(_value, (v) => _then(v as _$_Error));
@@ -345,7 +342,7 @@ class _$_Error implements _Error {
 
   @override
   String toString() {
-    return 'HealthStampState.error(error: $error)';
+    return 'AppState.error(error: $error)';
   }
 
   @override
@@ -434,7 +431,7 @@ class _$_Error implements _Error {
   }
 }
 
-abstract class _Error implements HealthStampState {
+abstract class _Error implements AppState {
   const factory _Error(final AppException error) = _$_Error;
 
   AppException get error;

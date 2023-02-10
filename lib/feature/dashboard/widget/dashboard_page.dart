@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/feature/common/widget/base_scaffold_widget.dart';
 import 'package:shusekibo/shared/util/spacing.dart';
+import 'package:shusekibo/widget/attendance/attendance_reason_widget.dart';
+import 'package:shusekibo/widget/attendance/attendance_stamp_widget.dart';
 import 'package:shusekibo/widget/health/health_reason_widget.dart';
 import 'package:shusekibo/widget/health/health_stamp_widget.dart';
+import 'package:shusekibo/widget/shozoku/shozoku_widget.dart';
 
 class DashboardRoute extends PageRouteInfo {
   const DashboardRoute() : super(name, path: '/dashboard');
@@ -29,8 +32,10 @@ class DashboardPage extends ConsumerWidget {
             //DantaiWidget(),
             //GakunenWidget(),
             //ShozokuWidget(),
-            HealthStampWidget(),
-            HealthReasonWidget(),
+            //HealthStampWidget(),
+            //HealthReasonWidget(),
+            AttendanceStampWidget(),
+            AttendanceReasonWidget(),
           ],
         ),
          
