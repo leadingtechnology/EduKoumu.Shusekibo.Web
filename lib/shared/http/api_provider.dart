@@ -19,15 +19,15 @@ import 'package:shusekibo/shared/repository/token_repository.dart';
 enum ContentType { urlEncoded, json }
 
 final apiProvider = Provider<ApiProvider>(
-  (ref) => ApiProvider(ref),
+  ApiProvider.new,
 );
 
 class ApiProvider {
   ApiProvider(this._ref) {
     _dio = Dio();
-    _dio.options.sendTimeout = 30000;
-    _dio.options.connectTimeout = 30000;
-    _dio.options.receiveTimeout = 30000;
+    _dio.options.sendTimeout = 300;
+    _dio.options.connectTimeout = 300;
+    _dio.options.receiveTimeout = 300;
     _dio.interceptors.add(
       RetryOnConnectionChangeInterceptor(
         requestRetrier: DioConnectivityRequestRetrier(
@@ -171,7 +171,7 @@ class ApiProvider {
   }) async {
     Map<String, dynamic>? query;
 
-    final connectivityResult = await (Connectivity().checkConnectivity());
+    final connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       return const APIResponse.error(AppException.connectivity());
     }
@@ -207,7 +207,7 @@ class ApiProvider {
       }
 
       if (response.statusCode! < 300) {
-        return APIResponse.success(response.data['data']);
+        return APIResponse.success(response.data);
       } else {
         if (response.statusCode! == 404) {
           return const APIResponse.error(AppException.connectivity());

@@ -1,13 +1,20 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:shusekibo/feature/auth/provider/auth_provider.dart';
 import 'package:shusekibo/feature/home/provider/books_provider.dart';
 import 'package:shusekibo/feature/home/widget/row_book_widget.dart';
 import 'package:shusekibo/l10n/l10n.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class HomeRoute extends PageRouteInfo {
+  const HomeRoute() : super(name, path: '/home');
+  static const String name = 'HomeRoute';
+}
 
 class HomePage extends ConsumerWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

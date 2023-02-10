@@ -67,12 +67,12 @@ class SignInPage extends ConsumerWidget {
                                   const Text('ログインID'),
                                   ConstrainedBox(
                                     constraints:
-                                        const BoxConstraints(maxHeight: 30),
+                                        const BoxConstraints(maxHeight: 50),
                                     child: TextFormField(
                                       decoration: const InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(6),
+                                            Radius.circular(5),
                                           ),
                                         ),
                                         contentPadding: EdgeInsets.symmetric(
@@ -91,12 +91,12 @@ class SignInPage extends ConsumerWidget {
                                   const Text('パスワード'),
                                   ConstrainedBox(
                                     constraints:
-                                        const BoxConstraints(maxHeight: 30),
+                                        const BoxConstraints(maxHeight: 50),
                                     child: TextFormField(
                                       decoration: const InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(6),
+                                            Radius.circular(5),
                                           ),
                                         ),
                                         contentPadding: EdgeInsets.symmetric(

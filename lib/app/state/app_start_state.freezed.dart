@@ -21,7 +21,7 @@ mixin _$AppStartState {
     required TResult Function() initial,
     required TResult Function() unauthenticated,
     required TResult Function() internetUnAvailable,
-    required TResult Function() authenticated,
+    required TResult Function(int menuId) authenticated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$AppStartState {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function()? authenticated,
+    TResult Function(int menuId)? authenticated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$AppStartState {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function()? authenticated,
+    TResult Function(int menuId)? authenticated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +127,7 @@ class _$_Initial implements _Initial {
     required TResult Function() initial,
     required TResult Function() unauthenticated,
     required TResult Function() internetUnAvailable,
-    required TResult Function() authenticated,
+    required TResult Function(int menuId) authenticated,
   }) {
     return initial();
   }
@@ -138,7 +138,7 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function()? authenticated,
+    TResult Function(int menuId)? authenticated,
   }) {
     return initial?.call();
   }
@@ -149,7 +149,7 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function()? authenticated,
+    TResult Function(int menuId)? authenticated,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -244,7 +244,7 @@ class _$Unauthenticated implements Unauthenticated {
     required TResult Function() initial,
     required TResult Function() unauthenticated,
     required TResult Function() internetUnAvailable,
-    required TResult Function() authenticated,
+    required TResult Function(int menuId) authenticated,
   }) {
     return unauthenticated();
   }
@@ -255,7 +255,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function()? authenticated,
+    TResult Function(int menuId)? authenticated,
   }) {
     return unauthenticated?.call();
   }
@@ -266,7 +266,7 @@ class _$Unauthenticated implements Unauthenticated {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function()? authenticated,
+    TResult Function(int menuId)? authenticated,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -361,7 +361,7 @@ class _$_InternetUnAvailable implements _InternetUnAvailable {
     required TResult Function() initial,
     required TResult Function() unauthenticated,
     required TResult Function() internetUnAvailable,
-    required TResult Function() authenticated,
+    required TResult Function(int menuId) authenticated,
   }) {
     return internetUnAvailable();
   }
@@ -372,7 +372,7 @@ class _$_InternetUnAvailable implements _InternetUnAvailable {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function()? authenticated,
+    TResult Function(int menuId)? authenticated,
   }) {
     return internetUnAvailable?.call();
   }
@@ -383,7 +383,7 @@ class _$_InternetUnAvailable implements _InternetUnAvailable {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function()? authenticated,
+    TResult Function(int menuId)? authenticated,
     required TResult orElse(),
   }) {
     if (internetUnAvailable != null) {
@@ -439,6 +439,7 @@ abstract class _$$AppAuthenticatedCopyWith<$Res> {
   factory _$$AppAuthenticatedCopyWith(
           _$AppAuthenticated value, $Res Function(_$AppAuthenticated) then) =
       __$$AppAuthenticatedCopyWithImpl<$Res>;
+  $Res call({int menuId});
 }
 
 /// @nodoc
@@ -451,26 +452,49 @@ class __$$AppAuthenticatedCopyWithImpl<$Res>
 
   @override
   _$AppAuthenticated get _value => super._value as _$AppAuthenticated;
+
+  @override
+  $Res call({
+    Object? menuId = freezed,
+  }) {
+    return _then(_$AppAuthenticated(
+      menuId == freezed
+          ? _value.menuId
+          : menuId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$AppAuthenticated implements AppAuthenticated {
-  const _$AppAuthenticated();
+  const _$AppAuthenticated(this.menuId);
+
+  @override
+  final int menuId;
 
   @override
   String toString() {
-    return 'AppStartState.authenticated()';
+    return 'AppStartState.authenticated(menuId: $menuId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AppAuthenticated);
+        (other.runtimeType == runtimeType &&
+            other is _$AppAuthenticated &&
+            const DeepCollectionEquality().equals(other.menuId, menuId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(menuId));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$AppAuthenticatedCopyWith<_$AppAuthenticated> get copyWith =>
+      __$$AppAuthenticatedCopyWithImpl<_$AppAuthenticated>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -478,9 +502,9 @@ class _$AppAuthenticated implements AppAuthenticated {
     required TResult Function() initial,
     required TResult Function() unauthenticated,
     required TResult Function() internetUnAvailable,
-    required TResult Function() authenticated,
+    required TResult Function(int menuId) authenticated,
   }) {
-    return authenticated();
+    return authenticated(menuId);
   }
 
   @override
@@ -489,9 +513,9 @@ class _$AppAuthenticated implements AppAuthenticated {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function()? authenticated,
+    TResult Function(int menuId)? authenticated,
   }) {
-    return authenticated?.call();
+    return authenticated?.call(menuId);
   }
 
   @override
@@ -500,11 +524,11 @@ class _$AppAuthenticated implements AppAuthenticated {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function()? authenticated,
+    TResult Function(int menuId)? authenticated,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated();
+      return authenticated(menuId);
     }
     return orElse();
   }
@@ -548,5 +572,10 @@ class _$AppAuthenticated implements AppAuthenticated {
 }
 
 abstract class AppAuthenticated implements AppStartState {
-  const factory AppAuthenticated() = _$AppAuthenticated;
+  const factory AppAuthenticated(final int menuId) = _$AppAuthenticated;
+
+  int get menuId;
+  @JsonKey(ignore: true)
+  _$$AppAuthenticatedCopyWith<_$AppAuthenticated> get copyWith =>
+      throw _privateConstructorUsedError;
 }

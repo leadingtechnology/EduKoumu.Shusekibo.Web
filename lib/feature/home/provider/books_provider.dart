@@ -22,11 +22,11 @@ class BooksProvider extends StateNotifier<BooksState> {
   late final BooksRepository _repository = _ref.read(booksRepositoryProvider);
 
   Future<void> _init() async {
-    _appStartState.maybeWhen(
-        authenticated: () {
-          _fetchBooks();
-        },
-        orElse: () {});
+    // _appStartState.maybeWhen(
+    //     authenticated: () {
+    //       _fetchBooks();
+    //     },
+    //     orElse: () {});
   }
 
   Future<void> _fetchBooks() async {

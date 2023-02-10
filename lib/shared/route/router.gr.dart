@@ -11,187 +11,168 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i15;
-import 'package:flutter/material.dart' as _i16;
+import 'package:auto_route/auto_route.dart' as _i13;
+import 'package:flutter/material.dart' as _i14;
 
 import '../../app/widget/app_start_page.dart' as _i1;
-import '../../feature/attendance/widget/attendance_list_page.dart' as _i7;
-import '../../feature/attendance/widget/attendance_seats_page.dart' as _i8;
-import '../../feature/attendance/widget/attendance_timed_list_page.dart' as _i9;
+import '../../feature/attendance/widget/attendance_list_page.dart' as _i6;
+import '../../feature/attendance/widget/attendance_seats_page.dart' as _i7;
+import '../../feature/attendance/widget/attendance_timed_list_page.dart' as _i8;
 import '../../feature/attendance/widget/attendance_timed_seats_page.dart'
-    as _i10;
-import '../../feature/auth/widget/sign_in_page.dart' as _i3;
+    as _i9;
+import '../../feature/auth/widget/sign_in_page.dart' as _i2;
 import '../../feature/awareness/widget/awareness_list_page.dart' as _i11;
+import '../../feature/awareness/widget/awareness_page.dart' as _i10;
 import '../../feature/awareness/widget/awareness_seats_page.dart' as _i12;
-import '../../feature/dashboard/widget/attendance_page.dart' as _i14;
-import '../../feature/dashboard/widget/dashboard_page.dart' as _i4;
-import '../../feature/dashboard/widget/health_page.dart' as _i13;
-import '../../feature/health/widget/health_list_page.dart' as _i5;
-import '../../feature/health/widget/health_seats_page.dart' as _i6;
-import '../../feature/home/widget/home_page.dart' as _i2;
+import '../../feature/dashboard/widget/dashboard_page.dart' as _i3;
+import '../../feature/health/widget/health_list_page.dart' as _i4;
+import '../../feature/health/widget/health_seats_page.dart' as _i5;
 
-class AppRouter extends _i15.RootStackRouter {
-  AppRouter([_i16.GlobalKey<_i16.NavigatorState>? navigatorKey])
+class AppRouter extends _i13.RootStackRouter {
+  AppRouter([_i14.GlobalKey<_i14.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i15.PageFactory> pagesMap = {
+  final Map<String, _i13.PageFactory> pagesMap = {
     AppStartRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.AppStartPage(),
-      );
-    },
-    HomeRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i2.HomePage(),
       );
     },
     SignInRoute.name: (routeData) {
       final args = routeData.argsAs<SignInRouteArgs>(
           orElse: () => const SignInRouteArgs());
-      return _i15.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i3.SignInPage(key: args.key),
+        child: _i2.SignInPage(key: args.key),
       );
     },
     DashboardRoute.name: (routeData) {
       final args = routeData.argsAs<DashboardRouteArgs>(
           orElse: () => const DashboardRouteArgs());
-      return _i15.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i4.DashboardPage(key: args.key),
+        child: _i3.DashboardPage(key: args.key),
       );
     },
     HealthListRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
+      final args = routeData.argsAs<HealthListRouteArgs>(
+          orElse: () => const HealthListRouteArgs());
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i5.HealthListPage(),
+        child: _i4.HealthListPage(key: args.key),
       );
     },
     HealthSeatsRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
+      final args = routeData.argsAs<HealthSeatsRouteArgs>(
+          orElse: () => const HealthSeatsRouteArgs());
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i6.HealthSeatsPage(),
+        child: _i5.HealthSeatsPage(key: args.key),
       );
     },
     AttendanceListRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
+      final args = routeData.argsAs<AttendanceListRouteArgs>(
+          orElse: () => const AttendanceListRouteArgs());
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.AttendanceListPage(),
+        child: _i6.AttendanceListPage(key: args.key),
       );
     },
     AttendanceSeatsRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
+      final args = routeData.argsAs<AttendanceSeatsRouteArgs>(
+          orElse: () => const AttendanceSeatsRouteArgs());
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i8.AttendanceSeatsPage(),
+        child: _i7.AttendanceSeatsPage(key: args.key),
       );
     },
     AttendanceTimedListRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
+      final args = routeData.argsAs<AttendanceTimedListRouteArgs>(
+          orElse: () => const AttendanceTimedListRouteArgs());
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.AttendanceTimedListPage(),
+        child: _i8.AttendanceTimedListPage(key: args.key),
       );
     },
     AttendanceTimedSeatsRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
+      final args = routeData.argsAs<AttendanceTimedSeatsRouteArgs>(
+          orElse: () => const AttendanceTimedSeatsRouteArgs());
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i10.AttendanceTimedSeatsPage(),
+        child: _i9.AttendanceTimedSeatsPage(key: args.key),
+      );
+    },
+    AwarenessRoute.name: (routeData) {
+      final args = routeData.argsAs<AwarenessRouteArgs>(
+          orElse: () => const AwarenessRouteArgs());
+      return _i13.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i10.AwarenessPage(key: args.key),
       );
     },
     AwarenessListRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i11.AwarenessListPage(),
       );
     },
     AwarenessSeatsRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i12.AwarenessSeatsPage(),
-      );
-    },
-    HealthRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i13.HealthPage(),
-      );
-    },
-    AttendanceRoute.name: (routeData) {
-      return _i15.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i14.AttendancePage(),
       );
     },
   };
 
   @override
-  List<_i15.RouteConfig> get routes => [
-        _i15.RouteConfig(
+  List<_i13.RouteConfig> get routes => [
+        _i13.RouteConfig(
           AppStartRoute.name,
           path: '/',
         ),
-        _i15.RouteConfig(
-          HomeRoute.name,
-          path: '/home',
-        ),
-        _i15.RouteConfig(
+        _i13.RouteConfig(
           SignInRoute.name,
           path: '/signin',
         ),
-        _i15.RouteConfig(
+        _i13.RouteConfig(
           DashboardRoute.name,
           path: '/dashboard',
-          children: [
-            _i15.RouteConfig(
-              '#redirect',
-              path: '',
-              parent: DashboardRoute.name,
-              redirectTo: 'health',
-              fullMatch: true,
-            ),
-            _i15.RouteConfig(
-              HealthRoute.name,
-              path: 'health',
-              parent: DashboardRoute.name,
-            ),
-            _i15.RouteConfig(
-              AttendanceRoute.name,
-              path: 'attendance',
-              parent: DashboardRoute.name,
-            ),
-          ],
         ),
-        _i15.RouteConfig(
+        _i13.RouteConfig(
           HealthListRoute.name,
           path: '/healthlist',
         ),
-        _i15.RouteConfig(
+        _i13.RouteConfig(
           HealthSeatsRoute.name,
           path: '/healthseats',
         ),
-        _i15.RouteConfig(
+        _i13.RouteConfig(
           AttendanceListRoute.name,
           path: '/attendancelist',
         ),
-        _i15.RouteConfig(
+        _i13.RouteConfig(
           AttendanceSeatsRoute.name,
           path: '/attendanceseats',
         ),
-        _i15.RouteConfig(
+        _i13.RouteConfig(
           AttendanceTimedListRoute.name,
           path: '/attendancetimedlist',
         ),
-        _i15.RouteConfig(
+        _i13.RouteConfig(
           AttendanceTimedSeatsRoute.name,
           path: '/attendancetimedseats',
         ),
-        _i15.RouteConfig(
+        _i13.RouteConfig(
+          AwarenessRoute.name,
+          path: '/awareness',
+        ),
+        _i13.RouteConfig(
           AwarenessListRoute.name,
           path: '/awarenesslist',
         ),
-        _i15.RouteConfig(
+        _i13.RouteConfig(
           AwarenessSeatsRoute.name,
           path: '/awarenessseats',
         ),
@@ -200,7 +181,7 @@ class AppRouter extends _i15.RootStackRouter {
 
 /// generated route for
 /// [_i1.AppStartPage]
-class AppStartRoute extends _i15.PageRouteInfo<void> {
+class AppStartRoute extends _i13.PageRouteInfo<void> {
   const AppStartRoute()
       : super(
           AppStartRoute.name,
@@ -211,21 +192,9 @@ class AppStartRoute extends _i15.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.HomePage]
-class HomeRoute extends _i15.PageRouteInfo<void> {
-  const HomeRoute()
-      : super(
-          HomeRoute.name,
-          path: '/home',
-        );
-
-  static const String name = 'HomeRoute';
-}
-
-/// generated route for
-/// [_i3.SignInPage]
-class SignInRoute extends _i15.PageRouteInfo<SignInRouteArgs> {
-  SignInRoute({_i16.Key? key})
+/// [_i2.SignInPage]
+class SignInRoute extends _i13.PageRouteInfo<SignInRouteArgs> {
+  SignInRoute({_i14.Key? key})
       : super(
           SignInRoute.name,
           path: '/signin',
@@ -238,7 +207,7 @@ class SignInRoute extends _i15.PageRouteInfo<SignInRouteArgs> {
 class SignInRouteArgs {
   const SignInRouteArgs({this.key});
 
-  final _i16.Key? key;
+  final _i14.Key? key;
 
   @override
   String toString() {
@@ -247,16 +216,13 @@ class SignInRouteArgs {
 }
 
 /// generated route for
-/// [_i4.DashboardPage]
-class DashboardRoute extends _i15.PageRouteInfo<DashboardRouteArgs> {
-  DashboardRoute({
-    _i16.Key? key,
-    List<_i15.PageRouteInfo>? children,
-  }) : super(
+/// [_i3.DashboardPage]
+class DashboardRoute extends _i13.PageRouteInfo<DashboardRouteArgs> {
+  DashboardRoute({_i14.Key? key})
+      : super(
           DashboardRoute.name,
           path: '/dashboard',
           args: DashboardRouteArgs(key: key),
-          initialChildren: children,
         );
 
   static const String name = 'DashboardRoute';
@@ -265,7 +231,7 @@ class DashboardRoute extends _i15.PageRouteInfo<DashboardRouteArgs> {
 class DashboardRouteArgs {
   const DashboardRouteArgs({this.key});
 
-  final _i16.Key? key;
+  final _i14.Key? key;
 
   @override
   String toString() {
@@ -274,80 +240,179 @@ class DashboardRouteArgs {
 }
 
 /// generated route for
-/// [_i5.HealthListPage]
-class HealthListRoute extends _i15.PageRouteInfo<void> {
-  const HealthListRoute()
+/// [_i4.HealthListPage]
+class HealthListRoute extends _i13.PageRouteInfo<HealthListRouteArgs> {
+  HealthListRoute({_i14.Key? key})
       : super(
           HealthListRoute.name,
           path: '/healthlist',
+          args: HealthListRouteArgs(key: key),
         );
 
   static const String name = 'HealthListRoute';
 }
 
+class HealthListRouteArgs {
+  const HealthListRouteArgs({this.key});
+
+  final _i14.Key? key;
+
+  @override
+  String toString() {
+    return 'HealthListRouteArgs{key: $key}';
+  }
+}
+
 /// generated route for
-/// [_i6.HealthSeatsPage]
-class HealthSeatsRoute extends _i15.PageRouteInfo<void> {
-  const HealthSeatsRoute()
+/// [_i5.HealthSeatsPage]
+class HealthSeatsRoute extends _i13.PageRouteInfo<HealthSeatsRouteArgs> {
+  HealthSeatsRoute({_i14.Key? key})
       : super(
           HealthSeatsRoute.name,
           path: '/healthseats',
+          args: HealthSeatsRouteArgs(key: key),
         );
 
   static const String name = 'HealthSeatsRoute';
 }
 
+class HealthSeatsRouteArgs {
+  const HealthSeatsRouteArgs({this.key});
+
+  final _i14.Key? key;
+
+  @override
+  String toString() {
+    return 'HealthSeatsRouteArgs{key: $key}';
+  }
+}
+
 /// generated route for
-/// [_i7.AttendanceListPage]
-class AttendanceListRoute extends _i15.PageRouteInfo<void> {
-  const AttendanceListRoute()
+/// [_i6.AttendanceListPage]
+class AttendanceListRoute extends _i13.PageRouteInfo<AttendanceListRouteArgs> {
+  AttendanceListRoute({_i14.Key? key})
       : super(
           AttendanceListRoute.name,
           path: '/attendancelist',
+          args: AttendanceListRouteArgs(key: key),
         );
 
   static const String name = 'AttendanceListRoute';
 }
 
+class AttendanceListRouteArgs {
+  const AttendanceListRouteArgs({this.key});
+
+  final _i14.Key? key;
+
+  @override
+  String toString() {
+    return 'AttendanceListRouteArgs{key: $key}';
+  }
+}
+
 /// generated route for
-/// [_i8.AttendanceSeatsPage]
-class AttendanceSeatsRoute extends _i15.PageRouteInfo<void> {
-  const AttendanceSeatsRoute()
+/// [_i7.AttendanceSeatsPage]
+class AttendanceSeatsRoute
+    extends _i13.PageRouteInfo<AttendanceSeatsRouteArgs> {
+  AttendanceSeatsRoute({_i14.Key? key})
       : super(
           AttendanceSeatsRoute.name,
           path: '/attendanceseats',
+          args: AttendanceSeatsRouteArgs(key: key),
         );
 
   static const String name = 'AttendanceSeatsRoute';
 }
 
+class AttendanceSeatsRouteArgs {
+  const AttendanceSeatsRouteArgs({this.key});
+
+  final _i14.Key? key;
+
+  @override
+  String toString() {
+    return 'AttendanceSeatsRouteArgs{key: $key}';
+  }
+}
+
 /// generated route for
-/// [_i9.AttendanceTimedListPage]
-class AttendanceTimedListRoute extends _i15.PageRouteInfo<void> {
-  const AttendanceTimedListRoute()
+/// [_i8.AttendanceTimedListPage]
+class AttendanceTimedListRoute
+    extends _i13.PageRouteInfo<AttendanceTimedListRouteArgs> {
+  AttendanceTimedListRoute({_i14.Key? key})
       : super(
           AttendanceTimedListRoute.name,
           path: '/attendancetimedlist',
+          args: AttendanceTimedListRouteArgs(key: key),
         );
 
   static const String name = 'AttendanceTimedListRoute';
 }
 
+class AttendanceTimedListRouteArgs {
+  const AttendanceTimedListRouteArgs({this.key});
+
+  final _i14.Key? key;
+
+  @override
+  String toString() {
+    return 'AttendanceTimedListRouteArgs{key: $key}';
+  }
+}
+
 /// generated route for
-/// [_i10.AttendanceTimedSeatsPage]
-class AttendanceTimedSeatsRoute extends _i15.PageRouteInfo<void> {
-  const AttendanceTimedSeatsRoute()
+/// [_i9.AttendanceTimedSeatsPage]
+class AttendanceTimedSeatsRoute
+    extends _i13.PageRouteInfo<AttendanceTimedSeatsRouteArgs> {
+  AttendanceTimedSeatsRoute({_i14.Key? key})
       : super(
           AttendanceTimedSeatsRoute.name,
           path: '/attendancetimedseats',
+          args: AttendanceTimedSeatsRouteArgs(key: key),
         );
 
   static const String name = 'AttendanceTimedSeatsRoute';
 }
 
+class AttendanceTimedSeatsRouteArgs {
+  const AttendanceTimedSeatsRouteArgs({this.key});
+
+  final _i14.Key? key;
+
+  @override
+  String toString() {
+    return 'AttendanceTimedSeatsRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i10.AwarenessPage]
+class AwarenessRoute extends _i13.PageRouteInfo<AwarenessRouteArgs> {
+  AwarenessRoute({_i14.Key? key})
+      : super(
+          AwarenessRoute.name,
+          path: '/awareness',
+          args: AwarenessRouteArgs(key: key),
+        );
+
+  static const String name = 'AwarenessRoute';
+}
+
+class AwarenessRouteArgs {
+  const AwarenessRouteArgs({this.key});
+
+  final _i14.Key? key;
+
+  @override
+  String toString() {
+    return 'AwarenessRouteArgs{key: $key}';
+  }
+}
+
 /// generated route for
 /// [_i11.AwarenessListPage]
-class AwarenessListRoute extends _i15.PageRouteInfo<void> {
+class AwarenessListRoute extends _i13.PageRouteInfo<void> {
   const AwarenessListRoute()
       : super(
           AwarenessListRoute.name,
@@ -359,7 +424,7 @@ class AwarenessListRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i12.AwarenessSeatsPage]
-class AwarenessSeatsRoute extends _i15.PageRouteInfo<void> {
+class AwarenessSeatsRoute extends _i13.PageRouteInfo<void> {
   const AwarenessSeatsRoute()
       : super(
           AwarenessSeatsRoute.name,
@@ -367,28 +432,4 @@ class AwarenessSeatsRoute extends _i15.PageRouteInfo<void> {
         );
 
   static const String name = 'AwarenessSeatsRoute';
-}
-
-/// generated route for
-/// [_i13.HealthPage]
-class HealthRoute extends _i15.PageRouteInfo<void> {
-  const HealthRoute()
-      : super(
-          HealthRoute.name,
-          path: 'health',
-        );
-
-  static const String name = 'HealthRoute';
-}
-
-/// generated route for
-/// [_i14.AttendancePage]
-class AttendanceRoute extends _i15.PageRouteInfo<void> {
-  const AttendanceRoute()
-      : super(
-          AttendanceRoute.name,
-          path: 'attendance',
-        );
-
-  static const String name = 'AttendanceRoute';
 }

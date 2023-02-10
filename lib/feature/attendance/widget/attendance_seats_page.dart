@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shusekibo/feature/common/widget/base_scaffold_widget.dart';
+import 'package:shusekibo/shared/util/spacing.dart';
 
 class AttendanceSeatsRoute extends PageRouteInfo {
   const AttendanceSeatsRoute() : super(name, path: '/attendanceseats');
@@ -8,10 +10,20 @@ class AttendanceSeatsRoute extends PageRouteInfo {
 }    
 
 class AttendanceSeatsPage extends ConsumerWidget {
-  const AttendanceSeatsPage({super.key});
+  AttendanceSeatsPage({super.key});
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Text('Attendance Seats.');
+    return BaseScaffoldWidget(
+      scaffoldKey: scaffoldKey,
+      filter: Container(),
+      child: Container(
+        padding: Spacing.all(12),
+        //decoration: BoxDecoration(color: Colors.red),
+        child: const Text('Attendance Seats.'),
+      ),
+    );
   }
 }

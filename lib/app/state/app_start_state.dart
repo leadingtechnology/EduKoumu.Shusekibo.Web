@@ -7,5 +7,5 @@ class AppStartState with _$AppStartState {
   const factory AppStartState.initial() = _Initial;
   const factory AppStartState.unauthenticated() = Unauthenticated;
   const factory AppStartState.internetUnAvailable() = _InternetUnAvailable;
-  const factory AppStartState.authenticated() = AppAuthenticated;
+  const factory AppStartState.authenticated(int menuId) = AppAuthenticated;
 }
