@@ -25,9 +25,9 @@ final apiProvider = Provider<ApiProvider>(
 class ApiProvider {
   ApiProvider(this._ref) {
     _dio = Dio();
-    _dio.options.sendTimeout = 300;
-    _dio.options.connectTimeout = 300;
-    _dio.options.receiveTimeout = 300;
+    _dio.options.sendTimeout = 3000;
+    _dio.options.connectTimeout = 3000;
+    _dio.options.receiveTimeout = 3000;
     _dio.interceptors.add(
       RetryOnConnectionChangeInterceptor(
         requestRetrier: DioConnectivityRequestRetrier(
@@ -141,26 +141,29 @@ class ApiProvider {
           }
         }
       }
-    } on DioError catch (e) {
-      if (e.error is SocketException) {
-        return const APIResponse.error(AppException.connectivity());
-      }
-      if (e.type == DioErrorType.connectTimeout ||
-          e.type == DioErrorType.receiveTimeout ||
-          e.type == DioErrorType.sendTimeout) {
-        return const APIResponse.error(AppException.connectivity());
-      }
-
-      if (e.response != null) {
-        if (e.response!.data['message'] != null) {
-          return APIResponse.error(AppException.errorWithMessage(
-              e.response!.data['message'] as String));
+    } catch (e) {
+      if (e is DioError) {
+        if (e.error is SocketException) {
+          return const APIResponse.error(AppException.connectivity());
         }
+        if (e.type == DioErrorType.connectTimeout ||
+            e.type == DioErrorType.receiveTimeout ||
+            e.type == DioErrorType.sendTimeout) {
+          return const APIResponse.error(AppException.connectivity());
+        }
+
+        if (e.response != null) {
+          if (e.response!.data['message'] != null) {
+            return APIResponse.error(AppException.errorWithMessage(
+                e.response!.data['message'] as String));
+          }
+        }
+        return APIResponse.error(AppException.errorWithMessage(e.message));
+
+      }else{
+        return APIResponse.error(
+            AppException.errorWithMessage(e.toString()));
       }
-      return APIResponse.error(AppException.errorWithMessage(e.message));
-    } on Error catch (e) {
-      return APIResponse.error(
-          AppException.errorWithMessage(e.stackTrace.toString()));
     }
   }
 
@@ -218,32 +221,39 @@ class ApiProvider {
         } else {
           if (response.data['error'] != null) {
             return APIResponse.error(AppException.errorWithMessage(
-                response.data['error'] as String));
+                response.data['error'] as String,),);
           } else {
             return const APIResponse.error(AppException.error());
           }
         }
       }
-    } on DioError catch (e) {
-      if (e.response != null) {
-        print('data : ${e.response?.data}');
-        print('headers : ${e.response?.headers}');
-        print('requestOptions : ${e.response?.requestOptions}');
-      } else {
-        // Something happened in setting up or sending the request that triggered an Error
-        print('requestOptions : ${e.requestOptions}');
-        print('message : ${e.message}');
+    } catch (e) {
+      if (e is DioError) {
+        if (e.response != null) {
+          print('data : ${e.response?.data}');
+          print('headers : ${e.response?.headers}');
+          print('requestOptions : ${e.response?.requestOptions}');
+        } else {
+          // Something happened in setting up or sending the request that triggered an Error
+          print('requestOptions : ${e.requestOptions}');
+          print('message : ${e.message}');
+        }
+        
+        if (e.error is SocketException) {
+          return const APIResponse.error(AppException.connectivity());
+        }
+        if (e.type == DioErrorType.connectTimeout ||
+            e.type == DioErrorType.receiveTimeout ||
+            e.type == DioErrorType.sendTimeout) {
+          return const APIResponse.error(AppException.connectivity());
+        }
+        
+        return const APIResponse.error(AppException.error());
+
+      }else{
+        return APIResponse.error(
+            AppException.errorWithMessage(e.toString()));
       }
-      
-      if (e.error is SocketException) {
-        return const APIResponse.error(AppException.connectivity());
-      }
-      if (e.type == DioErrorType.connectTimeout ||
-          e.type == DioErrorType.receiveTimeout ||
-          e.type == DioErrorType.sendTimeout) {
-        return const APIResponse.error(AppException.connectivity());
-      }
-      return const APIResponse.error(AppException.error());
     }
-  }
+ }
 }

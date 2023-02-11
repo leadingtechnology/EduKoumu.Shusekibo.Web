@@ -17,10 +17,7 @@ class AttendanceReasonWidget extends ConsumerWidget {
       loading:(){
         return Container();
       },
-      loaded: (){
-        final list1 = ref.watch(attendanceReason1ListProvider);
-        final list2 = ref.watch(attendanceReason2ListProvider);
-
+      loaded: (reason1List, reason2List){
         return Column(
           children: [
             DropdownButtonHideUnderline(
@@ -37,7 +34,7 @@ class AttendanceReasonWidget extends ConsumerWidget {
                 onChanged: (AttendanceReasonModel? newValue) {
                   ref.read(attendanceReason1Provider.notifier).state = newValue!;
                 },
-                items: list1.map((value) {
+                items: reason1List.map((value) {
                   return DropdownMenuItem<AttendanceReasonModel>(
                     value: value,
                     child: Text(value.shukketsuJiyuNmRyaku.toString(),
@@ -61,7 +58,7 @@ class AttendanceReasonWidget extends ConsumerWidget {
                 onChanged: (AttendanceReasonModel? newValue) {
                   ref.read(attendanceReason2Provider.notifier).state = newValue!;
                 },
-                items: list2.map((value) {
+                items: reason2List.map((value) {
                   return DropdownMenuItem<AttendanceReasonModel>(
                     value: value,
                     child: Text(

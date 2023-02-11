@@ -2,13 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/shared/http/api_provider.dart';
 import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
-import 'package:shusekibo/widget/common/app_state.dart';
 import 'package:shusekibo/widget/health/health_reason_model.dart';
 import 'package:shusekibo/widget/health/health_reason_provider.dart';
+import 'package:shusekibo/widget/health/health_reason_state.dart';
 import 'package:shusekibo/widget/health/health_stamp_model.dart';
 
 abstract class HealthReasonRepositoryProtocol {
-  Future<AppState> fetch(HealthStampModel stamp);
+  Future<HealthReasonState> fetch(HealthStampModel stamp);
 }
 
 final healthReasonRepositoryProvider = Provider(HealthReasonRepository.new);
@@ -20,13 +20,13 @@ class HealthReasonRepository implements HealthReasonRepositoryProtocol {
   final Ref _ref;
 
   @override
-  Future<AppState> fetch(HealthStampModel stamp) async {
+  Future<HealthReasonState> fetch(HealthStampModel stamp) async {
     final response = await _api.get('api/KenkouKansatsubo/reasons/${stamp.jokyoCd}');
 
     response.when(
         success: (success) {},
         error: (error) {
-          return AppState.error(error);
+          return HealthReasonState.error(error);
         },);
 
     if (response is APISuccess) {
@@ -35,34 +35,30 @@ class HealthReasonRepository implements HealthReasonRepositoryProtocol {
         final reason1List =
             healthReasonListFromJson(
             value['Reason1List'][0]['ReasonList'] as List<dynamic>,);
-        _ref.read(healthReason1ListProvider.notifier).state = reason1List;
         if (reason1List.isNotEmpty){
           _ref.read(healthReason1Provider.notifier).state = reason1List.first;
         }
 
+        var reason2List = <HealthReasonModel>[];
+
         if (stamp.jokyoCd == '430') {
-          final reason2List =
+           reason2List =
               healthReasonListFromJson(
               value['Reason2List'][0]['ReasonList'] as List<dynamic>,);
-              
-          _ref.read(healthReason2ListProvider.notifier).state = reason2List;
-          if (reason2List.isNotEmpty){
-            _ref.read(healthReason2Provider.notifier).state = reason2List.first;
-          }
-        }else{
-          _ref.read(healthReason2ListProvider.notifier).state = [];
-          _ref.read(healthReason2Provider.notifier).state = const HealthReasonModel();
+        }
+        if (reason2List.isNotEmpty) {
+          _ref.read(healthReason2Provider.notifier).state = reason2List.first;
         }
 
-        return const AppState.loaded();
+        return HealthReasonState.loaded(reason1List, reason2List,);
       } catch (e) {
-        return AppState.error(
+        return HealthReasonState.error(
             AppException.errorWithMessage(e.toString()),);
       }
     } else if (response is APIError) {
-      return AppState.error(response.exception);
+      return HealthReasonState.error(response.exception);
     } else {
-      return const AppState.loading();
+      return const HealthReasonState.loading();
     }
   }
 }

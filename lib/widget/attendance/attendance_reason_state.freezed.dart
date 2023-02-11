@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'app_state.dart';
+part of 'attendance_reason_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,25 +15,31 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$AppState {
+mixin _$AttendanceReasonState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)
+        loaded,
     required TResult Function(AppException error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)?
+        loaded,
     TResult Function(AppException error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)?
+        loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) =>
@@ -63,18 +69,20 @@ mixin _$AppState {
 }
 
 /// @nodoc
-abstract class $AppStateCopyWith<$Res> {
-  factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
-      _$AppStateCopyWithImpl<$Res>;
+abstract class $AttendanceReasonStateCopyWith<$Res> {
+  factory $AttendanceReasonStateCopyWith(AttendanceReasonState value,
+          $Res Function(AttendanceReasonState) then) =
+      _$AttendanceReasonStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
-  _$AppStateCopyWithImpl(this._value, this._then);
+class _$AttendanceReasonStateCopyWithImpl<$Res>
+    implements $AttendanceReasonStateCopyWith<$Res> {
+  _$AttendanceReasonStateCopyWithImpl(this._value, this._then);
 
-  final AppState _value;
+  final AttendanceReasonState _value;
   // ignore: unused_field
-  final $Res Function(AppState) _then;
+  final $Res Function(AttendanceReasonState) _then;
 }
 
 /// @nodoc
@@ -85,7 +93,8 @@ abstract class _$$_LoadingCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LoadingCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+class __$$_LoadingCopyWithImpl<$Res>
+    extends _$AttendanceReasonStateCopyWithImpl<$Res>
     implements _$$_LoadingCopyWith<$Res> {
   __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
       : super(_value, (v) => _then(v as _$_Loading));
@@ -101,7 +110,7 @@ class _$_Loading implements _Loading {
 
   @override
   String toString() {
-    return 'AppState.loading()';
+    return 'AttendanceReasonState.loading()';
   }
 
   @override
@@ -117,7 +126,9 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)
+        loaded,
     required TResult Function(AppException error) error,
   }) {
     return loading();
@@ -127,7 +138,9 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)?
+        loaded,
     TResult Function(AppException error)? error,
   }) {
     return loading?.call();
@@ -137,7 +150,9 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)?
+        loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {
@@ -182,7 +197,7 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements AppState {
+abstract class _Loading implements AttendanceReasonState {
   const factory _Loading() = _$_Loading;
 }
 
@@ -190,67 +205,124 @@ abstract class _Loading implements AppState {
 abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
+  $Res call(
+      {List<AttendanceReasonModel> reason1List,
+      List<AttendanceReasonModel> reason2List});
 }
 
 /// @nodoc
-class __$$_LoadedCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+class __$$_LoadedCopyWithImpl<$Res>
+    extends _$AttendanceReasonStateCopyWithImpl<$Res>
     implements _$$_LoadedCopyWith<$Res> {
   __$$_LoadedCopyWithImpl(_$_Loaded _value, $Res Function(_$_Loaded) _then)
       : super(_value, (v) => _then(v as _$_Loaded));
 
   @override
   _$_Loaded get _value => super._value as _$_Loaded;
+
+  @override
+  $Res call({
+    Object? reason1List = freezed,
+    Object? reason2List = freezed,
+  }) {
+    return _then(_$_Loaded(
+      reason1List == freezed
+          ? _value._reason1List
+          : reason1List // ignore: cast_nullable_to_non_nullable
+              as List<AttendanceReasonModel>,
+      reason2List == freezed
+          ? _value._reason2List
+          : reason2List // ignore: cast_nullable_to_non_nullable
+              as List<AttendanceReasonModel>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded();
+  const _$_Loaded(final List<AttendanceReasonModel> reason1List,
+      final List<AttendanceReasonModel> reason2List)
+      : _reason1List = reason1List,
+        _reason2List = reason2List;
+
+  final List<AttendanceReasonModel> _reason1List;
+  @override
+  List<AttendanceReasonModel> get reason1List {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_reason1List);
+  }
+
+  final List<AttendanceReasonModel> _reason2List;
+  @override
+  List<AttendanceReasonModel> get reason2List {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_reason2List);
+  }
 
   @override
   String toString() {
-    return 'AppState.loaded()';
+    return 'AttendanceReasonState.loaded(reason1List: $reason1List, reason2List: $reason2List)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Loaded);
+        (other.runtimeType == runtimeType &&
+            other is _$_Loaded &&
+            const DeepCollectionEquality()
+                .equals(other._reason1List, _reason1List) &&
+            const DeepCollectionEquality()
+                .equals(other._reason2List, _reason2List));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_reason1List),
+      const DeepCollectionEquality().hash(_reason2List));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
+      __$$_LoadedCopyWithImpl<_$_Loaded>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)
+        loaded,
     required TResult Function(AppException error) error,
   }) {
-    return loaded();
+    return loaded(reason1List, reason2List);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)?
+        loaded,
     TResult Function(AppException error)? error,
   }) {
-    return loaded?.call();
+    return loaded?.call(reason1List, reason2List);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)?
+        loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded();
+      return loaded(reason1List, reason2List);
     }
     return orElse();
   }
@@ -290,8 +362,15 @@ class _$_Loaded implements _Loaded {
   }
 }
 
-abstract class _Loaded implements AppState {
-  const factory _Loaded() = _$_Loaded;
+abstract class _Loaded implements AttendanceReasonState {
+  const factory _Loaded(final List<AttendanceReasonModel> reason1List,
+      final List<AttendanceReasonModel> reason2List) = _$_Loaded;
+
+  List<AttendanceReasonModel> get reason1List;
+  List<AttendanceReasonModel> get reason2List;
+  @JsonKey(ignore: true)
+  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -304,7 +383,8 @@ abstract class _$$_ErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ErrorCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+class __$$_ErrorCopyWithImpl<$Res>
+    extends _$AttendanceReasonStateCopyWithImpl<$Res>
     implements _$$_ErrorCopyWith<$Res> {
   __$$_ErrorCopyWithImpl(_$_Error _value, $Res Function(_$_Error) _then)
       : super(_value, (v) => _then(v as _$_Error));
@@ -342,7 +422,7 @@ class _$_Error implements _Error {
 
   @override
   String toString() {
-    return 'AppState.error(error: $error)';
+    return 'AttendanceReasonState.error(error: $error)';
   }
 
   @override
@@ -366,7 +446,9 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)
+        loaded,
     required TResult Function(AppException error) error,
   }) {
     return error(this.error);
@@ -376,7 +458,9 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)?
+        loaded,
     TResult Function(AppException error)? error,
   }) {
     return error?.call(this.error);
@@ -386,7 +470,9 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<AttendanceReasonModel> reason1List,
+            List<AttendanceReasonModel> reason2List)?
+        loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {
@@ -431,7 +517,7 @@ class _$_Error implements _Error {
   }
 }
 
-abstract class _Error implements AppState {
+abstract class _Error implements AttendanceReasonState {
   const factory _Error(final AppException error) = _$_Error;
 
   AppException get error;

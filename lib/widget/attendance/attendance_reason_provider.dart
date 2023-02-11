@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/widget/attendance/attendance_reason_model.dart';
 import 'package:shusekibo/widget/attendance/attendance_reason_repository.dart';
+import 'package:shusekibo/widget/attendance/attendance_reason_state.dart';
 import 'package:shusekibo/widget/attendance/attendance_stamp_model.dart';
 import 'package:shusekibo/widget/attendance/attendance_stamp_provider.dart';
-import 'package:shusekibo/widget/common/app_state.dart';
 
 final attendanceReasonListProvider =
-    StateNotifierProvider<AttendanceReasonListProvider, AppState>(
+    StateNotifierProvider<AttendanceReasonListProvider, AttendanceReasonState>(
         (ref) {
   final stamp = ref.watch(attendanceStampProvider);
 
@@ -14,21 +14,17 @@ final attendanceReasonListProvider =
 });
 
 
-final attendanceReason1Provider =
-    StateProvider<AttendanceReasonModel>((ref) => const AttendanceReasonModel());
-final attendanceReason1ListProvider =
-    StateProvider<List<AttendanceReasonModel>>((ref) => []);    
-
+final attendanceReason1Provider = StateProvider<AttendanceReasonModel>(
+  (ref) => const AttendanceReasonModel(),
+);
 final attendanceReason2Provider = StateProvider<AttendanceReasonModel>(
-    (ref) => const AttendanceReasonModel());
-final attendanceReason2ListProvider =
-    StateProvider<List<AttendanceReasonModel>>((ref) => []);    
-
+  (ref) => const AttendanceReasonModel(),
+);
 
 class AttendanceReasonListProvider
-    extends StateNotifier<AppState> {
+    extends StateNotifier<AttendanceReasonState> {
   AttendanceReasonListProvider(this._ref, this._stamp)
-      : super(const AppState.loading()) {
+      : super(const AttendanceReasonState.loading()) {
     _init();
   }
 
@@ -40,7 +36,7 @@ class AttendanceReasonListProvider
 
   Future<void> _init() async {
     if (_stamp.shukketsuJokyoCd == null){
-      state = const AppState.loading();
+      state = const AttendanceReasonState.loading();
     }else{
       await _fetchAttendanceReasonList();
     }

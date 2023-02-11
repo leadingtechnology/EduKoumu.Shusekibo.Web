@@ -1,13 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/provider/app_start_provider.dart';
 import 'package:shusekibo/app/state/app_start_state.dart';
-import 'package:shusekibo/widget/common/app_state.dart';
 import 'package:shusekibo/widget/health/health_stamp_model.dart';
 import 'package:shusekibo/widget/health/health_stamp_repository.dart';
+import 'package:shusekibo/widget/health/health_stamp_state.dart';
 
 
 final healthStampListProvider =
-    StateNotifierProvider<HealthStampListProvider, AppState>((ref) {
+    StateNotifierProvider<HealthStampListProvider, HealthStampState>((ref) {
   final appStartState = ref.watch(appStartProvider);
 
   return HealthStampListProvider(ref, appStartState);
@@ -17,14 +17,9 @@ final healthStampProvider =
     StateProvider<HealthStampModel>((ref) => HealthStampModel());
 final healthUnregistShowProvider = StateProvider<bool>((ref) => false);
 
-final healthRegistStampProvider =
-    StateProvider<List<HealthStampModel>>((ref) => []);
-final healthUnregistStampProvider =
-    StateProvider<List<HealthStampModel>>((ref) => []);
-
-class HealthStampListProvider extends StateNotifier<AppState> {
+class HealthStampListProvider extends StateNotifier<HealthStampState> {
   HealthStampListProvider(this._ref, this._appStartState)
-      : super(const AppState.loading()) {
+      : super(const HealthStampState.loading()) {
     _init();
   }
 

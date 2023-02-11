@@ -2,12 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/shared/http/api_provider.dart';
 import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
-import 'package:shusekibo/widget/common/app_state.dart';
 import 'package:shusekibo/widget/health/health_stamp_model.dart';
 import 'package:shusekibo/widget/health/health_stamp_provider.dart';
+import 'package:shusekibo/widget/health/health_stamp_state.dart';
 
 abstract class HealthStampRepositoryProtocol {
-  Future<AppState> fetch(); 
+  Future<HealthStampState> fetch(); 
 }
 
 final healthStampRepositoryProvider = Provider(HealthStampRepository.new);
@@ -19,12 +19,12 @@ class HealthStampRepository implements HealthStampRepositoryProtocol {
   final Ref _ref;
 
   @override
-  Future<AppState> fetch() async {
+  Future<HealthStampState> fetch() async {
     final response = await _api.get('api/KenkouKansatsubo/stamps');
 
     response.when(
         success: (success) {},
-        error: (error) {return AppState.error(error);},
+        error: (error) {return HealthStampState.error(error);},
     );
 
     if (response is APISuccess) {
@@ -42,24 +42,22 @@ class HealthStampRepository implements HealthStampRepositoryProtocol {
         
         registStampList..insert(0, handStamp)
         ..add(delStamp);
-        _ref.read(healthRegistStampProvider.notifier).state = registStampList;
 
         // Unregist Stamp
         final unregistStampList =
             healthStampListFromJson(value['RegistStampList'] as List<dynamic>);
-        _ref.read(healthUnregistStampProvider.notifier).state = unregistStampList;
        
         _ref.read(healthStampProvider.notifier).state = registStampList.first;
 
-        return const AppState.loaded();
+        return HealthStampState.loaded(registStampList, unregistStampList);
       } catch (e) {
-        return AppState.error(AppException.errorWithMessage(e.toString()));
+        return HealthStampState.error(AppException.errorWithMessage(e.toString()));
       }
   
     } else if (response is APIError) {
-      return AppState.error(response.exception);
+      return HealthStampState.error(response.exception);
     } else {
-      return const AppState.loading();
+      return const HealthStampState.loading();
     }
   }
 }

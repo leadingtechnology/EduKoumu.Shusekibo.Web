@@ -3,11 +3,12 @@ import 'package:shusekibo/app/provider/app_start_provider.dart';
 import 'package:shusekibo/app/state/app_start_state.dart';
 import 'package:shusekibo/widget/attendance/attendance_stamp_model.dart';
 import 'package:shusekibo/widget/attendance/attendance_stamp_repository.dart';
-import 'package:shusekibo/widget/common/app_state.dart';
+import 'package:shusekibo/widget/attendance/attendance_stamp_state.dart';
 
 final attendanceStampListProvider =
-    StateNotifierProvider<AttendanceStampListProvider, AppState>(
+    StateNotifierProvider<AttendanceStampListProvider, AttendanceStampState>(
         (ref) {
+  
   final appStartState = ref.watch(appStartProvider);
 
   return AttendanceStampListProvider(ref, appStartState);
@@ -16,15 +17,9 @@ final attendanceStampListProvider =
 final attendanceStampProvider =
     StateProvider<AttendanceStampModel>((ref) => const AttendanceStampModel());
 
-final attendanceRegistStampProvider =
-    StateProvider<List<AttendanceStampModel>>((ref) => []);
-final attendanceUnregistStampProvider =
-    StateProvider<List<AttendanceStampModel>>((ref) => []);
-
-
-class AttendanceStampListProvider extends StateNotifier<AppState> {
+class AttendanceStampListProvider extends StateNotifier<AttendanceStampState> {
   AttendanceStampListProvider(this._ref, this._appStartState)
-      : super(const AppState.loading()) {
+      : super(const AttendanceStampState.loading()) {
     _init();
   }
 
@@ -35,10 +30,14 @@ class AttendanceStampListProvider extends StateNotifier<AppState> {
       _ref.read(attendanceStampRepositoryProvider);
 
   Future<void> _init() async {
-    await _fetchAttendanceStampList();
+    _appStartState.maybeWhen(
+        authenticated: (menuId) {
+          _fetch();
+        },
+        orElse: () {},);
   }
 
-  Future<void> _fetchAttendanceStampList() async {
+  Future<void> _fetch() async {
     final response = await _repository.fetch();
     if (mounted) {
       state = response;

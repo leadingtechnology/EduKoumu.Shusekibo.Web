@@ -4,11 +4,11 @@ import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:shusekibo/widget/attendance/attendance_reason_model.dart';
 import 'package:shusekibo/widget/attendance/attendance_reason_provider.dart';
+import 'package:shusekibo/widget/attendance/attendance_reason_state.dart';
 import 'package:shusekibo/widget/attendance/attendance_stamp_model.dart';
-import 'package:shusekibo/widget/common/app_state.dart';
 
 abstract class AttendanceReasonRepositoryProtocol {
-  Future<AppState> fetch(AttendanceStampModel stamp);
+  Future<AttendanceReasonState> fetch(AttendanceStampModel stamp);
 }
 
 final attendanceReasonRepositoryProvider =
@@ -21,13 +21,13 @@ class AttendanceReasonRepository implements AttendanceReasonRepositoryProtocol {
   final Ref _ref;
 
   @override
-  Future<AppState> fetch(AttendanceStampModel stamp) async {
+  Future<AttendanceReasonState> fetch(AttendanceStampModel stamp) async {
     final response = await _api.get('api/ShukketsuShussekibo/reasons/${stamp.shukketsuJokyoCd}');
 
     response.when(
         success: (success) {},
         error: (error) {
-          return AppState.error(error);
+          return AttendanceReasonState.error(error);
         });
 
     if (response is APISuccess) {
@@ -37,29 +37,27 @@ class AttendanceReasonRepository implements AttendanceReasonRepositoryProtocol {
         // Reason1
         final reason1List =
             attendanceReasonListFromJson(value['JiyuList'] as List<dynamic>);
-        _ref.read(attendanceReason1ListProvider.notifier).state = reason1List;
-        if(reason1List.isNotEmpty){
-          _ref.read(attendanceReason1Provider.notifier).state = reason1List.first;
+        if (reason1List.isNotEmpty) {
+          _ref.read(attendanceReason1Provider.notifier).state =
+              reason1List.first;
         }
 
+        var reason2List = <AttendanceReasonModel>[];
         if (stamp.shukketsuJokyoCd == '430' && reason1List.isNotEmpty) {
-          _ref.read(attendanceReason2ListProvider.notifier).state = reason1List;
+          reason2List = reason1List;
           _ref.read(attendanceReason2Provider.notifier).state =
               reason1List.first;
-        }else{
-          _ref.read(attendanceReason2ListProvider.notifier).state = [];
-          _ref.read(attendanceReason2Provider.notifier).state = const AttendanceReasonModel();
         }
 
-        return const AppState.loaded();
+        return AttendanceReasonState.loaded(reason1List, reason2List);
       } catch (e) {
-        return AppState.error(
+        return AttendanceReasonState.error(
             AppException.errorWithMessage(e.toString()));
       }
     } else if (response is APIError) {
-      return AppState.error(response.exception);
+      return AttendanceReasonState.error(response.exception);
     } else {
-      return const AppState.loading();
+      return const AttendanceReasonState.loading();
     }
   }
 }

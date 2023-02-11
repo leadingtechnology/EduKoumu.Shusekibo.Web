@@ -14,11 +14,9 @@ class AttendanceStampWidget extends ConsumerWidget {
 
     return state.when(
       loading:(){
-        return Container();
+        return const Text('');
       },
-      loaded: (){
-        final list = ref.watch(attendanceRegistStampProvider);
-        
+      loaded: (registList, unregistlist){
         return DropdownButtonHideUnderline(
           child: DropdownButton<AttendanceStampModel>(
             value: ref.watch(attendanceStampProvider),
@@ -33,7 +31,7 @@ class AttendanceStampWidget extends ConsumerWidget {
             onChanged: (AttendanceStampModel? newValue) {
               ref.read(attendanceStampProvider.notifier).state = newValue!;
             },
-            items: list.map((value) {
+            items: registList.map((value) {
               return DropdownMenuItem<AttendanceStampModel>(
                 value: value,
                 child: Text(value.shukketsuJokyoNmRyaku.toString(),
@@ -44,7 +42,7 @@ class AttendanceStampWidget extends ConsumerWidget {
         );      
       },
       error: (AppException error){
-        return Container();
+        return const Text('attendance stamp error');
       },
     );
   }

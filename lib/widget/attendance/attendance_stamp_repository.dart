@@ -4,10 +4,10 @@ import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:shusekibo/widget/attendance/attendance_stamp_model.dart';
 import 'package:shusekibo/widget/attendance/attendance_stamp_provider.dart';
-import 'package:shusekibo/widget/common/app_state.dart';
+import 'package:shusekibo/widget/attendance/attendance_stamp_state.dart';
 
 abstract class AttendanceStampRepositoryProtocol {
-  Future<AppState> fetch(); 
+  Future<AttendanceStampState> fetch(); 
 }
 
 final attendanceStampRepositoryProvider = Provider(AttendanceStampRepository.new);
@@ -19,13 +19,8 @@ class AttendanceStampRepository implements AttendanceStampRepositoryProtocol {
   final Ref _ref;
 
   @override
-  Future<AppState> fetch() async {
+  Future<AttendanceStampState> fetch() async {
     final response = await _api.get('api/ShukketsuShussekibo/stamps');
-
-    response.when(
-        success: (success) {},
-        error: (error) {return AppState.error(error);},
-    );
 
     if (response is APISuccess) {
       final value = response.value;
@@ -49,8 +44,6 @@ class AttendanceStampRepository implements AttendanceStampRepositoryProtocol {
           ..insert(0, handStamp)
           ..add(delStamp);
         
-        _ref.read(attendanceRegistStampProvider.notifier).state =
-            registStampList;
         if (registStampList.isNotEmpty){
           _ref.read(attendanceStampProvider.notifier).state =
               registStampList.first;
@@ -60,18 +53,16 @@ class AttendanceStampRepository implements AttendanceStampRepositoryProtocol {
         final unregistStampList = attendanceStampListFromJson(
             value['UnregistStampList'] as List<dynamic>,);
 
-        _ref.read(attendanceUnregistStampProvider.notifier).state =
-            unregistStampList;
 
-        return const AppState.loaded();
+        return AttendanceStampState.loaded(registStampList, unregistStampList);
       } catch (e) {
-        return AppState.error(
+        return AttendanceStampState.error(
             AppException.errorWithMessage(e.toString()));
       }
     } else if (response is APIError) {
-      return AppState.error(response.exception);
+      return AttendanceStampState.error(response.exception);
     } else {
-      return const AppState.loading();
+      return const AttendanceStampState.loading();
     }
   }
 }

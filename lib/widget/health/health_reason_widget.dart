@@ -17,9 +17,7 @@ class HealthReasonWidget extends ConsumerWidget {
       loading:(){
         return Container();
       },
-      loaded: (){
-        final list1 = ref.watch(healthReason1ListProvider);
-        final list2 = ref.watch(healthReason2ListProvider);
+      loaded: (list1, list2){
 
         return Column(
           children: [

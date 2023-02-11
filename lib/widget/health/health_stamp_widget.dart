@@ -16,9 +16,7 @@ class HealthStampWidget extends ConsumerWidget {
       loading:(){
         return Container();
       },
-      loaded: (){
-        final list = ref.watch(healthRegistStampProvider);
-        
+      loaded: (list, list2){
         return DropdownButtonHideUnderline(
           child: DropdownButton<HealthStampModel>(
             value: ref.watch(healthStampProvider),
