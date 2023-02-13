@@ -20,7 +20,7 @@ Token _$TokenFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Token {
-  String get access_token => throw _privateConstructorUsedError;
+  String? get access_token => throw _privateConstructorUsedError;
   String? get token_type => throw _privateConstructorUsedError;
   int? get expires_in => throw _privateConstructorUsedError;
   String? get TenantId => throw _privateConstructorUsedError;
@@ -38,7 +38,7 @@ abstract class $TokenCopyWith<$Res> {
   factory $TokenCopyWith(Token value, $Res Function(Token) then) =
       _$TokenCopyWithImpl<$Res>;
   $Res call(
-      {String access_token,
+      {String? access_token,
       String? token_type,
       int? expires_in,
       String? TenantId,
@@ -69,7 +69,7 @@ class _$TokenCopyWithImpl<$Res> implements $TokenCopyWith<$Res> {
       access_token: access_token == freezed
           ? _value.access_token
           : access_token // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       token_type: token_type == freezed
           ? _value.token_type
           : token_type // ignore: cast_nullable_to_non_nullable
@@ -104,7 +104,7 @@ abstract class _$$_TokenCopyWith<$Res> implements $TokenCopyWith<$Res> {
       __$$_TokenCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String access_token,
+      {String? access_token,
       String? token_type,
       int? expires_in,
       String? TenantId,
@@ -136,7 +136,7 @@ class __$$_TokenCopyWithImpl<$Res> extends _$TokenCopyWithImpl<$Res>
       access_token: access_token == freezed
           ? _value.access_token
           : access_token // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       token_type: token_type == freezed
           ? _value.token_type
           : token_type // ignore: cast_nullable_to_non_nullable
@@ -169,7 +169,7 @@ class __$$_TokenCopyWithImpl<$Res> extends _$TokenCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Token implements _Token {
   const _$_Token(
-      {required this.access_token,
+      {this.access_token,
       this.token_type,
       this.expires_in,
       this.TenantId,
@@ -181,7 +181,7 @@ class _$_Token implements _Token {
       _$$_TokenFromJson(json);
 
   @override
-  final String access_token;
+  final String? access_token;
   @override
   final String? token_type;
   @override
@@ -244,7 +244,7 @@ class _$_Token implements _Token {
 
 abstract class _Token implements Token {
   const factory _Token(
-      {required final String access_token,
+      {final String? access_token,
       final String? token_type,
       final int? expires_in,
       final String? TenantId,
@@ -255,7 +255,7 @@ abstract class _Token implements Token {
   factory _Token.fromJson(Map<String, dynamic> json) = _$_Token.fromJson;
 
   @override
-  String get access_token;
+  String? get access_token;
   @override
   String? get token_type;
   @override

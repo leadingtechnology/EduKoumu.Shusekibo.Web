@@ -16,7 +16,7 @@ String tokenToJson(Token data) => json.encode(data.toJson());
 @freezed
 class Token with _$Token {
   const factory Token({
-    required String access_token,
+    String? access_token,
     String? token_type,
     int? expires_in,
     String? TenantId,
