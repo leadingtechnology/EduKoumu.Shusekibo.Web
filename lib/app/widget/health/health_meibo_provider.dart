@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_provider.dart';
 import 'package:shusekibo/app/widget/dashboard/home_health_repository.dart';
-import 'package:shusekibo/app/widget/filter/extra_filter_model.dart';
 import 'package:shusekibo/app/widget/filter/filter_model.dart';
 import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/app/widget/health/health_meibo_model.dart';
@@ -117,9 +116,11 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
         genderCode: meibo.genderCode,
         photoUrl: meibo.photoUrl,
         jokyoList: [status]);
+    
+    final meibos = _ref.read(healthMeibosCache);
+    meibos['${newMeibo.studentKihonId}'] = newMeibo;
 
-    _ref.read(healthMeibosCache.notifier).state['${newMeibo.studentKihonId}'] =
-        newMeibo;
+    _ref.read(healthMeibosCache.notifier).state = meibos;
   }
 
   // set stamp by Id

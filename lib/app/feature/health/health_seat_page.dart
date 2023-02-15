@@ -2,13 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/feature/common/widget/base_scaffold_widget.dart';
-import 'package:shusekibo/app/feature/common/widget/header_bar.dart';
 import 'package:shusekibo/app/feature/health/widget/health_filter_widget.dart';
 import 'package:shusekibo/app/feature/health/widget/health_footer_bar.dart';
 import 'package:shusekibo/app/feature/health/widget/health_search_widget.dart';
 import 'package:shusekibo/app/feature/health/widget/health_seat_widget.dart';
 import 'package:shusekibo/app/feature/health/widget/health_stamp_reason_widget.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
+import 'package:shusekibo/app/widget/common/header_bar.dart';
 import 'package:shusekibo/app/widget/health/health_meibo_provider.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:shusekibo/shared/util/spacing.dart';
@@ -19,7 +19,7 @@ class HealthSeatsRoute extends PageRouteInfo {
 }       
 
 class HealthSeatsPage extends ConsumerWidget {
-  HealthSeatsPage({Key? key, this.screenTitle = ''}) : super(key: key);
+  HealthSeatsPage({super.key, this.screenTitle = ''});
 
   final String screenTitle;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -33,11 +33,10 @@ class HealthSeatsPage extends ConsumerWidget {
         padding: Spacing.all(12),
         //decoration: BoxDecoration(color: Colors.red),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // header
-            HeaderBar(),
+            const HeaderBar(),
 
             Spacing.height(8),
             // search bar
@@ -88,7 +87,7 @@ class HealthSeatsGridView extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()), //Center(child: CircularProgressIndicator());
       error: (AppException e){ return Text(e.toString());},
       loaded: (){
-        final meibos = ref.watch(healthMeibosCache).values.toList();
+        final meibosmap = ref.watch(healthMeibosCache);
         
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -97,11 +96,11 @@ class HealthSeatsGridView extends ConsumerWidget {
             mainAxisSpacing: 15,
             childAspectRatio: 2,
           ),
-          itemCount: meibos.length,
+          itemCount: meibosmap.length,
           itemBuilder: (BuildContext context, int index) {
             return HealthSeatWidget(
               index: index,
-              healthMeibo: meibos[index],
+              meibo: meibosmap.values.elementAt(index),
             );
           },
         );

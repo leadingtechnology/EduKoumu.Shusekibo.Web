@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shusekibo/app/feature/attendance/widget/attendance_list_page.dart';
-import 'package:shusekibo/app/feature/attendance/widget/attendance_seats_page.dart';
-import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_list_page.dart';
-import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_seats_page.dart';
+import 'package:shusekibo/app/feature/attendance/attendance_list_page.dart';
+import 'package:shusekibo/app/feature/attendance/attendance_seats_page.dart';
+import 'package:shusekibo/app/feature/attendance/attendance_timed_list_page.dart';
+import 'package:shusekibo/app/feature/attendance/attendance_timed_seats_page.dart';
 import 'package:shusekibo/app/feature/auth/widget/sign_in_page.dart';
 import 'package:shusekibo/app/feature/awareness/widget/awareness_page.dart';
 import 'package:shusekibo/app/feature/dashboard/widget/dashboard_page.dart';

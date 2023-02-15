@@ -19,21 +19,21 @@ mixin _$TimedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<TimedModel> dantaiList) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<TimedModel> dantaiList)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<TimedModel> dantaiList)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) =>
@@ -118,7 +118,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<TimedModel> dantaiList) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) {
     return loading();
@@ -128,7 +128,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<TimedModel> dantaiList)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) {
     return loading?.call();
@@ -138,7 +138,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<TimedModel> dantaiList)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {
@@ -191,7 +191,6 @@ abstract class _Loading implements TimedState {
 abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
-  $Res call({List<TimedModel> dantaiList});
 }
 
 /// @nodoc
@@ -202,85 +201,57 @@ class __$$_LoadedCopyWithImpl<$Res> extends _$TimedStateCopyWithImpl<$Res>
 
   @override
   _$_Loaded get _value => super._value as _$_Loaded;
-
-  @override
-  $Res call({
-    Object? dantaiList = freezed,
-  }) {
-    return _then(_$_Loaded(
-      dantaiList == freezed
-          ? _value._dantaiList
-          : dantaiList // ignore: cast_nullable_to_non_nullable
-              as List<TimedModel>,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded(final List<TimedModel> dantaiList) : _dantaiList = dantaiList;
-
-  final List<TimedModel> _dantaiList;
-  @override
-  List<TimedModel> get dantaiList {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_dantaiList);
-  }
+  const _$_Loaded();
 
   @override
   String toString() {
-    return 'TimedState.loaded(dantaiList: $dantaiList)';
+    return 'TimedState.loaded()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Loaded &&
-            const DeepCollectionEquality()
-                .equals(other._dantaiList, _dantaiList));
+        (other.runtimeType == runtimeType && other is _$_Loaded);
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_dantaiList));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
-      __$$_LoadedCopyWithImpl<_$_Loaded>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<TimedModel> dantaiList) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) {
-    return loaded(dantaiList);
+    return loaded();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<TimedModel> dantaiList)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) {
-    return loaded?.call(dantaiList);
+    return loaded?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<TimedModel> dantaiList)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(dantaiList);
+      return loaded();
     }
     return orElse();
   }
@@ -321,12 +292,7 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements TimedState {
-  const factory _Loaded(final List<TimedModel> dantaiList) = _$_Loaded;
-
-  List<TimedModel> get dantaiList;
-  @JsonKey(ignore: true)
-  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _Loaded() = _$_Loaded;
 }
 
 /// @nodoc
@@ -401,7 +367,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<TimedModel> dantaiList) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) {
     return error(this.error);
@@ -411,7 +377,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<TimedModel> dantaiList)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) {
     return error?.call(this.error);
@@ -421,7 +387,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<TimedModel> dantaiList)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {

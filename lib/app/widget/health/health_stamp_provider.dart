@@ -10,7 +10,6 @@ final healthStampProvider =
     StateProvider<HealthStampModel>((ref) => const HealthStampModel());
 final healthUnregistShowProvider = StateProvider<bool>((ref) => false);
 
-
 final healthStampInitProvider =
     StateNotifierProvider<HealthStampInitNotifier, HealthStampState>((ref) {
       final appStartState = ref.watch(appStartProvider);
@@ -43,7 +42,6 @@ class HealthStampInitNotifier extends StateNotifier<HealthStampState> {
       // ignore: no-empty-block
       orElse: () {},
     );
-
   }
 
   Future<void> _fetch() async {

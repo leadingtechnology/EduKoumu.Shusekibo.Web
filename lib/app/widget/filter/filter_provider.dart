@@ -4,7 +4,6 @@ import 'package:shusekibo/app/widget/attendance/timed_provider.dart';
 import 'package:shusekibo/app/widget/common/app_state.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_model.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_provider.dart';
-import 'package:shusekibo/app/widget/filter/extra_filter_model.dart';
 import 'package:shusekibo/app/widget/filter/filter_model.dart';
 import 'package:shusekibo/app/widget/gakunen/gakunen_model.dart';
 import 'package:shusekibo/app/widget/gakunen/gakunen_provider.dart';
@@ -13,11 +12,12 @@ import 'package:shusekibo/app/widget/shozoku/shozoku_provider.dart';
 import 'package:shusekibo/shared/util/date_util.dart';
 
 final filterProvider = StateProvider<FilterModel>((ref) => const FilterModel());
+final attendanceFilterProvider =
+    StateProvider<FilterModel>((ref) => const FilterModel());
+final attendanceTimedFilterProvider =
+    StateProvider<FilterModel>((ref) => const FilterModel());
 
-final attendanceFilterProvider = StateProvider<ExtraFilterModel>((ref) => const ExtraFilterModel());
-final attendanceTimedFilterProvider = StateProvider<ExtraFilterModel>((ref) => const ExtraFilterModel());
-final healthFilterProvider = StateProvider<ExtraFilterModel>((ref) => const ExtraFilterModel());
-final awarenessFilterProvider = StateProvider<ExtraFilterModel>((ref) => const ExtraFilterModel());
+final kouryuProvider = StateProvider<bool>((ref) => false);
 
 final healthFilterDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
 final attendanceFilterDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
@@ -68,11 +68,6 @@ class FilterInitNotifier extends StateNotifier<AppState> {
   void clear() {
     _ref.read(filterProvider.notifier).state = const FilterModel();
     
-    _ref.read(attendanceFilterProvider.notifier).state = const ExtraFilterModel();
-    _ref.read(attendanceTimedFilterProvider.notifier).state = const ExtraFilterModel();
-    _ref.read(healthFilterProvider.notifier).state = const ExtraFilterModel();
-    _ref.read(awarenessFilterProvider.notifier).state = const ExtraFilterModel();
-
     _ref.read(healthFilterDateProvider.notifier).state = DateTime.now();
     _ref.read(attendanceFilterDateProvider.notifier).state = DateTime.now();
     _ref.read(attendanceTimedFilterDateProvider.notifier).state = DateTime.now();
@@ -81,35 +76,44 @@ class FilterInitNotifier extends StateNotifier<AppState> {
   }
 
   void updateHealthFilter({required DateTime targetDate}) {
-    update();
-    _ref.read(healthFilterProvider.notifier).state = ExtraFilterModel(
+    update(targetDate: targetDate);
+  }
+
+  void updateAttendanceTimedFilter({
+    required DateTime targetDate,
+    required TimedModel timed,
+  }) {
+    update(
       targetDate: targetDate,
-      japanDate: DateUtil.getJapaneseDate(targetDate),
+      timed : timed
     );
   }
 
+  // ignore: long-parameter-list
   void update({
     DateTime? targetDate,
     String? japanDate,
     DateTime? beginDate,
     DateTime? endDate,
+    TimedModel? timed,
   }) {
+    
     _ref.read(filterProvider.notifier).state = FilterModel(
-        dantaiId: _dantai.id,
-        organizationKbn: _dantai.organizationKbn,
-        dantaiName: _dantai.name,
-        gakunenCode: _gakunen.gakunenCode,
-        gakunenRyakusho: _gakunen.gakunenRyakusho,
-        classId: _shozoku.id,
-        classCode: _shozoku.classCode,
-        className: _shozoku.className,
-        //
-        jigenIdx: _timed.jigenIdx,
-        jigenRyaku: _timed.ryaku,
-        targetDate: targetDate,
-        japanDate: japanDate,
-        beginDate: beginDate,
-        endDate: endDate
+      dantaiId: _dantai.id,
+      organizationKbn: _dantai.organizationKbn,
+      dantaiName: _dantai.name,
+      gakunenCode: _gakunen.gakunenCode,
+      gakunenRyakusho: _gakunen.gakunenRyakusho,
+      classId: _shozoku.id,
+      classCode: _shozoku.classCode,
+      className: _shozoku.className,
+      //
+      jigenIdx: timed != null ? timed.jigenIdx : _timed.jigenIdx,
+      jigenRyaku: timed != null ? timed.ryaku : _timed.ryaku,
+      targetDate: targetDate,
+      japanDate: japanDate,
+      beginDate: beginDate,
+      endDate: endDate,
     );
   }  
 }

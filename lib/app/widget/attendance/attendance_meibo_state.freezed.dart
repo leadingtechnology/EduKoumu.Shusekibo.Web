@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'extra_filter_state.dart';
+part of 'attendance_meibo_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,31 +15,35 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$ExtraFilterState {
+mixin _$AttendanceMeiboState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() blank,
     required TResult Function() loading,
-    required TResult Function(ExtraFilterModel exterFilter) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? blank,
     TResult Function()? loading,
-    TResult Function(ExtraFilterModel exterFilter)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? blank,
     TResult Function()? loading,
-    TResult Function(ExtraFilterModel exterFilter)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Blank value) blank,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -47,6 +51,7 @@ mixin _$ExtraFilterState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Blank value)? blank,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -54,6 +59,7 @@ mixin _$ExtraFilterState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Blank value)? blank,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -63,20 +69,135 @@ mixin _$ExtraFilterState {
 }
 
 /// @nodoc
-abstract class $ExtraFilterStateCopyWith<$Res> {
-  factory $ExtraFilterStateCopyWith(
-          ExtraFilterState value, $Res Function(ExtraFilterState) then) =
-      _$ExtraFilterStateCopyWithImpl<$Res>;
+abstract class $AttendanceMeiboStateCopyWith<$Res> {
+  factory $AttendanceMeiboStateCopyWith(AttendanceMeiboState value,
+          $Res Function(AttendanceMeiboState) then) =
+      _$AttendanceMeiboStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ExtraFilterStateCopyWithImpl<$Res>
-    implements $ExtraFilterStateCopyWith<$Res> {
-  _$ExtraFilterStateCopyWithImpl(this._value, this._then);
+class _$AttendanceMeiboStateCopyWithImpl<$Res>
+    implements $AttendanceMeiboStateCopyWith<$Res> {
+  _$AttendanceMeiboStateCopyWithImpl(this._value, this._then);
 
-  final ExtraFilterState _value;
+  final AttendanceMeiboState _value;
   // ignore: unused_field
-  final $Res Function(ExtraFilterState) _then;
+  final $Res Function(AttendanceMeiboState) _then;
+}
+
+/// @nodoc
+abstract class _$$_BlankCopyWith<$Res> {
+  factory _$$_BlankCopyWith(_$_Blank value, $Res Function(_$_Blank) then) =
+      __$$_BlankCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_BlankCopyWithImpl<$Res>
+    extends _$AttendanceMeiboStateCopyWithImpl<$Res>
+    implements _$$_BlankCopyWith<$Res> {
+  __$$_BlankCopyWithImpl(_$_Blank _value, $Res Function(_$_Blank) _then)
+      : super(_value, (v) => _then(v as _$_Blank));
+
+  @override
+  _$_Blank get _value => super._value as _$_Blank;
+}
+
+/// @nodoc
+
+class _$_Blank implements _Blank {
+  const _$_Blank();
+
+  @override
+  String toString() {
+    return 'AttendanceMeiboState.blank()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_Blank);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() blank,
+    required TResult Function() loading,
+    required TResult Function() loaded,
+    required TResult Function(AppException error) error,
+  }) {
+    return blank();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? blank,
+    TResult Function()? loading,
+    TResult Function()? loaded,
+    TResult Function(AppException error)? error,
+  }) {
+    return blank?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? blank,
+    TResult Function()? loading,
+    TResult Function()? loaded,
+    TResult Function(AppException error)? error,
+    required TResult orElse(),
+  }) {
+    if (blank != null) {
+      return blank();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Blank value) blank,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Error value) error,
+  }) {
+    return blank(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Blank value)? blank,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Error value)? error,
+  }) {
+    return blank?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Blank value)? blank,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (blank != null) {
+      return blank(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Blank implements AttendanceMeiboState {
+  const factory _Blank() = _$_Blank;
 }
 
 /// @nodoc
@@ -88,7 +209,7 @@ abstract class _$$_LoadingCopyWith<$Res> {
 
 /// @nodoc
 class __$$_LoadingCopyWithImpl<$Res>
-    extends _$ExtraFilterStateCopyWithImpl<$Res>
+    extends _$AttendanceMeiboStateCopyWithImpl<$Res>
     implements _$$_LoadingCopyWith<$Res> {
   __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
       : super(_value, (v) => _then(v as _$_Loading));
@@ -104,7 +225,7 @@ class _$_Loading implements _Loading {
 
   @override
   String toString() {
-    return 'ExtraFilterState.loading()';
+    return 'AttendanceMeiboState.loading()';
   }
 
   @override
@@ -119,8 +240,9 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() blank,
     required TResult Function() loading,
-    required TResult Function(ExtraFilterModel exterFilter) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) {
     return loading();
@@ -129,8 +251,9 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? blank,
     TResult Function()? loading,
-    TResult Function(ExtraFilterModel exterFilter)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) {
     return loading?.call();
@@ -139,8 +262,9 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? blank,
     TResult Function()? loading,
-    TResult Function(ExtraFilterModel exterFilter)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {
@@ -153,6 +277,7 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Blank value) blank,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -163,6 +288,7 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Blank value)? blank,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -173,6 +299,7 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Blank value)? blank,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -185,7 +312,7 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements ExtraFilterState {
+abstract class _Loading implements AttendanceMeiboState {
   const factory _Loading() = _$_Loading;
 }
 
@@ -193,101 +320,71 @@ abstract class _Loading implements ExtraFilterState {
 abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
-  $Res call({ExtraFilterModel exterFilter});
-
-  $ExtraFilterModelCopyWith<$Res> get exterFilter;
 }
 
 /// @nodoc
-class __$$_LoadedCopyWithImpl<$Res> extends _$ExtraFilterStateCopyWithImpl<$Res>
+class __$$_LoadedCopyWithImpl<$Res>
+    extends _$AttendanceMeiboStateCopyWithImpl<$Res>
     implements _$$_LoadedCopyWith<$Res> {
   __$$_LoadedCopyWithImpl(_$_Loaded _value, $Res Function(_$_Loaded) _then)
       : super(_value, (v) => _then(v as _$_Loaded));
 
   @override
   _$_Loaded get _value => super._value as _$_Loaded;
-
-  @override
-  $Res call({
-    Object? exterFilter = freezed,
-  }) {
-    return _then(_$_Loaded(
-      exterFilter == freezed
-          ? _value.exterFilter
-          : exterFilter // ignore: cast_nullable_to_non_nullable
-              as ExtraFilterModel,
-    ));
-  }
-
-  @override
-  $ExtraFilterModelCopyWith<$Res> get exterFilter {
-    return $ExtraFilterModelCopyWith<$Res>(_value.exterFilter, (value) {
-      return _then(_value.copyWith(exterFilter: value));
-    });
-  }
 }
 
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded(this.exterFilter);
-
-  @override
-  final ExtraFilterModel exterFilter;
+  const _$_Loaded();
 
   @override
   String toString() {
-    return 'ExtraFilterState.loaded(exterFilter: $exterFilter)';
+    return 'AttendanceMeiboState.loaded()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Loaded &&
-            const DeepCollectionEquality()
-                .equals(other.exterFilter, exterFilter));
+        (other.runtimeType == runtimeType && other is _$_Loaded);
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(exterFilter));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
-      __$$_LoadedCopyWithImpl<_$_Loaded>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() blank,
     required TResult Function() loading,
-    required TResult Function(ExtraFilterModel exterFilter) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) {
-    return loaded(exterFilter);
+    return loaded();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? blank,
     TResult Function()? loading,
-    TResult Function(ExtraFilterModel exterFilter)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) {
-    return loaded?.call(exterFilter);
+    return loaded?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? blank,
     TResult Function()? loading,
-    TResult Function(ExtraFilterModel exterFilter)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(exterFilter);
+      return loaded();
     }
     return orElse();
   }
@@ -295,6 +392,7 @@ class _$_Loaded implements _Loaded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Blank value) blank,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -305,6 +403,7 @@ class _$_Loaded implements _Loaded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Blank value)? blank,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -315,6 +414,7 @@ class _$_Loaded implements _Loaded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Blank value)? blank,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -327,13 +427,8 @@ class _$_Loaded implements _Loaded {
   }
 }
 
-abstract class _Loaded implements ExtraFilterState {
-  const factory _Loaded(final ExtraFilterModel exterFilter) = _$_Loaded;
-
-  ExtraFilterModel get exterFilter;
-  @JsonKey(ignore: true)
-  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _Loaded implements AttendanceMeiboState {
+  const factory _Loaded() = _$_Loaded;
 }
 
 /// @nodoc
@@ -346,7 +441,8 @@ abstract class _$$_ErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ErrorCopyWithImpl<$Res> extends _$ExtraFilterStateCopyWithImpl<$Res>
+class __$$_ErrorCopyWithImpl<$Res>
+    extends _$AttendanceMeiboStateCopyWithImpl<$Res>
     implements _$$_ErrorCopyWith<$Res> {
   __$$_ErrorCopyWithImpl(_$_Error _value, $Res Function(_$_Error) _then)
       : super(_value, (v) => _then(v as _$_Error));
@@ -384,7 +480,7 @@ class _$_Error implements _Error {
 
   @override
   String toString() {
-    return 'ExtraFilterState.error(error: $error)';
+    return 'AttendanceMeiboState.error(error: $error)';
   }
 
   @override
@@ -407,8 +503,9 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() blank,
     required TResult Function() loading,
-    required TResult Function(ExtraFilterModel exterFilter) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) {
     return error(this.error);
@@ -417,8 +514,9 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? blank,
     TResult Function()? loading,
-    TResult Function(ExtraFilterModel exterFilter)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) {
     return error?.call(this.error);
@@ -427,8 +525,9 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? blank,
     TResult Function()? loading,
-    TResult Function(ExtraFilterModel exterFilter)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {
@@ -441,6 +540,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Blank value) blank,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -451,6 +551,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Blank value)? blank,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -461,6 +562,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Blank value)? blank,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -473,7 +575,7 @@ class _$_Error implements _Error {
   }
 }
 
-abstract class _Error implements ExtraFilterState {
+abstract class _Error implements AttendanceMeiboState {
   const factory _Error(final AppException error) = _$_Error;
 
   AppException get error;

@@ -1,16 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:shusekibo/shared/http/api_provider.dart';
-import 'package:shusekibo/shared/http/api_response.dart';
-import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:shusekibo/app/widget/attendance/timed_model.dart';
 import 'package:shusekibo/app/widget/attendance/timed_provider.dart';
 import 'package:shusekibo/app/widget/attendance/timed_state.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
+import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/app/widget/shozoku/shozoku_model.dart';
+import 'package:shusekibo/shared/http/api_provider.dart';
+import 'package:shusekibo/shared/http/api_response.dart';
+import 'package:shusekibo/shared/http/app_exception.dart';
 
 abstract class TimedRepositoryProtocol {
-  Future<TimedState> fetch(ShozokuModel shozoku, DateTime targetDate); 
+  Future<TimedState> fetch(ShozokuModel shozoku); 
 }
 
 final timedRepositoryProvider = Provider(TimedRepository.new);
@@ -22,16 +23,17 @@ class TimedRepository implements TimedRepositoryProtocol {
   final Ref _ref;
 
   @override
-  Future<TimedState> fetch(ShozokuModel shozoku, DateTime targetDate) async {
-    
-    final strDate = DateFormat('yyyy-MM-dd').format(targetDate);
-    final url = 'api/shozoku/${shozoku.shozokuId}/JigenList?date=$strDate';
+  Future<TimedState> fetch(ShozokuModel shozoku) async {
 
+    final targetDate = _ref.read(attendanceTimedFilterDateProvider);
+    final strDate = DateFormat('yyyy-MM-dd').format(targetDate);
+
+    final url = 'api/shozoku/${shozoku.shozokuId}/JigenList?date=$strDate';
     final response = await _api.get(url);
 
     response.when(
         success: (success) {},
-        error: (error) {return TimedState.error(error);}
+        error: (error) {return TimedState.error(error);},
     );
 
     if (response is APISuccess) {
@@ -42,9 +44,10 @@ class TimedRepository implements TimedRepositoryProtocol {
         final timedList = timedListFromJson(value as List<dynamic>);
 
         _ref.read(timedProvider.notifier).state = timedList.first;
-        _ref.read(timedCache.notifier).state['${shozoku.id}'] = timedList;
+        _ref.read(timedCache.notifier).state['${shozoku.id}-$strDate'] =
+            timedList;
 
-        return TimedState.loaded(timedList);
+        return const TimedState.loaded();
       } catch (e) {
         return TimedState.error(
             AppException.errorWithMessage(e.toString()),);

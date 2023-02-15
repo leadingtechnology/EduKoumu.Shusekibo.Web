@@ -8,8 +8,6 @@ part 'attendance_stamp_state.freezed.dart';
 @freezed
 class AttendanceStampState with _$AttendanceStampState {
   const factory AttendanceStampState.loading() = _Loading;
-  const factory AttendanceStampState.loaded(
-      List<AttendanceStampModel> registList,
-      List<AttendanceStampModel> unregistList) = _Loaded;
+  const factory AttendanceStampState.loaded() = _Loaded;
   const factory AttendanceStampState.error(AppException error) = _Error;
 }

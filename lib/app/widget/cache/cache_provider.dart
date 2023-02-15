@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_reason_model.dart';
+import 'package:shusekibo/app/widget/attendance/attendance_stamp_model.dart';
 import 'package:shusekibo/app/widget/attendance/timed_model.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_model.dart';
 import 'package:shusekibo/app/widget/gakunen/gakunen_model.dart';
@@ -37,13 +38,21 @@ final healthUnegistStampCache = StateProvider<Map<String, HealthStampModel>>(
   (ref) => {},
 );
 
-// Health Stamp -> Reason1 List
+// Health Stamp -> Reason List +
 final healthReason1Cache = StateProvider<Map<String, List<HealthReasonModel>>>(
   (ref) => {},
 );
 
 // Health Stamp -> Reason2 List
 final healthReason2Cache = StateProvider<Map<String, List<HealthReasonModel>>>(
+  (ref) => {},
+);
+
+// Health Stamp -> Reason1 List +
+final attendanceRegistStampCache = StateProvider<Map<String, AttendanceStampModel>>(
+  (ref) => {},
+);
+final attendanceUnegistStampCache = StateProvider<Map<String, AttendanceStampModel>>(
   (ref) => {},
 );
 

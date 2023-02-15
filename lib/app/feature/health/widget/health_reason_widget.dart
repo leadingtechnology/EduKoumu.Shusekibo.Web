@@ -49,6 +49,7 @@ class HealthReasonWidget extends ConsumerWidget {
       // 3) return dropdown widget
       return Row(
         children: [
+          Spacing.width(10),
           SizedBox(
             width: 140,
             child: DropdownButtonHideUnderline(
@@ -67,11 +68,11 @@ class HealthReasonWidget extends ConsumerWidget {
             ),
           ),
           Spacing.width(4),
-          if (!reason2Items.isNotEmpty) SizedBox(
+          if (reason2Items.isEmpty) Container() else SizedBox(
             width: 140,
             child: DropdownButtonHideUnderline(
               child: DropdownButton<HealthReasonModel>(
-                value: ref.watch(healthReason1Provider),
+                value: ref.watch(healthReason2Provider),
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
@@ -79,7 +80,7 @@ class HealthReasonWidget extends ConsumerWidget {
                 ),
                 dropdownColor: Colors.white,
                 onChanged: (HealthReasonModel? newValue) {
-                  ref.read(healthReason1Provider.notifier).state = newValue!;
+                  ref.read(healthReason2Provider.notifier).state = newValue!;
                 },
                 items: reason1Items.toSet().toList(),
               ),

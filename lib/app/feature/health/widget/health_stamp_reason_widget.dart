@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shusekibo/app/feature/health/widget/health_reason_widget.dart';
 import 'package:shusekibo/app/feature/health/widget/health_stamp_regist_widget.dart';
-import 'package:shusekibo/app/feature/health/widget/health_stamp_unregist_widget.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/health/health_stamp_provider.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
@@ -89,7 +88,7 @@ class HealthStampReasonWidget extends ConsumerWidget {
                     const SizedBox(
                       width: 132,
                     ),
-                    HealthStampUnregistWidget(
+                    HealthStampRegistWidget(
                       stamps: unregistStamps,
                     )
                   ],

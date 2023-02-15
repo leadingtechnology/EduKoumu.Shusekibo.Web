@@ -15,10 +15,10 @@ import 'package:auto_route/auto_route.dart' as _i13;
 import 'package:flutter/material.dart' as _i14;
 
 import '../../widget/app_start_page.dart' as _i1;
-import '../attendance/widget/attendance_list_page.dart' as _i6;
-import '../attendance/widget/attendance_seats_page.dart' as _i7;
-import '../attendance/widget/attendance_timed_list_page.dart' as _i8;
-import '../attendance/widget/attendance_timed_seats_page.dart' as _i9;
+import '../attendance/attendance_list_page.dart' as _i6;
+import '../attendance/attendance_seats_page.dart' as _i7;
+import '../attendance/attendance_timed_list_page.dart' as _i8;
+import '../attendance/attendance_timed_seats_page.dart' as _i9;
 import '../auth/widget/sign_in_page.dart' as _i2;
 import '../awareness/widget/awareness_list_page.dart' as _i11;
 import '../awareness/widget/awareness_page.dart' as _i10;
@@ -60,7 +60,10 @@ class AppRouter extends _i13.RootStackRouter {
           orElse: () => const HealthListRouteArgs());
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i4.HealthListPage(key: args.key),
+        child: _i4.HealthListPage(
+          key: args.key,
+          screenTitle: args.screenTitle,
+        ),
       );
     },
     HealthSeatsRoute.name: (routeData) {
@@ -103,7 +106,10 @@ class AppRouter extends _i13.RootStackRouter {
           orElse: () => const AttendanceTimedSeatsRouteArgs());
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i9.AttendanceTimedSeatsPage(key: args.key),
+        child: _i9.AttendanceTimedSeatsPage(
+          key: args.key,
+          screenTitle: args.screenTitle,
+        ),
       );
     },
     AwarenessRoute.name: (routeData) {
@@ -244,24 +250,34 @@ class DashboardRouteArgs {
 /// generated route for
 /// [_i4.HealthListPage]
 class HealthListRoute extends _i13.PageRouteInfo<HealthListRouteArgs> {
-  HealthListRoute({_i14.Key? key})
-      : super(
+  HealthListRoute({
+    _i14.Key? key,
+    String screenTitle = '無題',
+  }) : super(
           HealthListRoute.name,
           path: '/healthlist',
-          args: HealthListRouteArgs(key: key),
+          args: HealthListRouteArgs(
+            key: key,
+            screenTitle: screenTitle,
+          ),
         );
 
   static const String name = 'HealthListRoute';
 }
 
 class HealthListRouteArgs {
-  const HealthListRouteArgs({this.key});
+  const HealthListRouteArgs({
+    this.key,
+    this.screenTitle = '無題',
+  });
 
   final _i14.Key? key;
 
+  final String screenTitle;
+
   @override
   String toString() {
-    return 'HealthListRouteArgs{key: $key}';
+    return 'HealthListRouteArgs{key: $key, screenTitle: $screenTitle}';
   }
 }
 
@@ -377,24 +393,34 @@ class AttendanceTimedListRouteArgs {
 /// [_i9.AttendanceTimedSeatsPage]
 class AttendanceTimedSeatsRoute
     extends _i13.PageRouteInfo<AttendanceTimedSeatsRouteArgs> {
-  AttendanceTimedSeatsRoute({_i14.Key? key})
-      : super(
+  AttendanceTimedSeatsRoute({
+    _i14.Key? key,
+    String screenTitle = '',
+  }) : super(
           AttendanceTimedSeatsRoute.name,
           path: '/attendancetimedseats',
-          args: AttendanceTimedSeatsRouteArgs(key: key),
+          args: AttendanceTimedSeatsRouteArgs(
+            key: key,
+            screenTitle: screenTitle,
+          ),
         );
 
   static const String name = 'AttendanceTimedSeatsRoute';
 }
 
 class AttendanceTimedSeatsRouteArgs {
-  const AttendanceTimedSeatsRouteArgs({this.key});
+  const AttendanceTimedSeatsRouteArgs({
+    this.key,
+    this.screenTitle = '',
+  });
 
   final _i14.Key? key;
 
+  final String screenTitle;
+
   @override
   String toString() {
-    return 'AttendanceTimedSeatsRouteArgs{key: $key}';
+    return 'AttendanceTimedSeatsRouteArgs{key: $key, screenTitle: $screenTitle}';
   }
 }
 

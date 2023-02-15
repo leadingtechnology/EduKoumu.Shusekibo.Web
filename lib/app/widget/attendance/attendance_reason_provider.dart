@@ -4,13 +4,14 @@ import 'package:shusekibo/app/widget/attendance/attendance_reason_repository.dar
 import 'package:shusekibo/app/widget/attendance/attendance_reason_state.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_provider.dart';
+import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 
-final attendanceReasonListProvider =
-    StateNotifierProvider<AttendanceReasonListProvider, AttendanceReasonState>(
+final attendanceReasonInitProvider =
+    StateNotifierProvider<AttendanceReasonNotifier, AttendanceReasonState>(
         (ref) {
   final stamp = ref.watch(attendanceStampProvider);
 
-  return AttendanceReasonListProvider(ref, stamp);
+  return AttendanceReasonNotifier(ref, stamp);
 });
 
 
@@ -20,10 +21,16 @@ final attendanceReason1Provider = StateProvider<AttendanceReasonModel>(
 final attendanceReason2Provider = StateProvider<AttendanceReasonModel>(
   (ref) => const AttendanceReasonModel(),
 );
+final attendanceTimedReason1Provider = StateProvider<AttendanceReasonModel>(
+  (ref) => const AttendanceReasonModel(),
+);
+final attendanceTimedReason2Provider = StateProvider<AttendanceReasonModel>(
+  (ref) => const AttendanceReasonModel(),
+);
 
-class AttendanceReasonListProvider
+class AttendanceReasonNotifier
     extends StateNotifier<AttendanceReasonState> {
-  AttendanceReasonListProvider(this._ref, this._stamp)
+  AttendanceReasonNotifier(this._ref, this._stamp)
       : super(const AttendanceReasonState.loading()) {
     _init();
   }
@@ -35,14 +42,20 @@ class AttendanceReasonListProvider
       _ref.read(attendanceReasonRepositoryProvider);
 
   Future<void> _init() async {
-    if (_stamp.shukketsuJokyoCd == null){
-      state = const AttendanceReasonState.loading();
-    }else{
-      await _fetchAttendanceReasonList();
+    if (_stamp.shukketsuJokyoCd == null) return;
+    
+    final reason1Map = _ref.read(attendanceReason1Cache);
+
+    if (reason1Map.isEmpty) {
+      await _fetch();
+    } else if (reason1Map.containsKey('${_stamp.shukketsuJokyoCd}')) {
+      state = const AttendanceReasonState.loaded();
+    } else {
+      await _fetch();
     }
   }
 
-  Future<void> _fetchAttendanceReasonList() async {
+  Future<void> _fetch() async {
     final response = await _repository.fetch(_stamp);
     if (mounted) {
       state = response;

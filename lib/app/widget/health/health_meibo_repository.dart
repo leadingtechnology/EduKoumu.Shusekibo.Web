@@ -65,10 +65,9 @@ class HealthMeiboRepository implements HealthMeiboRepositoryProtocol {
   @override
   Future<HealthMeiboState> save() async {
     final filter = _ref.read(filterProvider);
-    final extraFilter = _ref.read(healthFilterProvider);
     
     final strDate = DateFormat('yyyy-MM-dd')
-        .format(extraFilter.targetDate ?? DateTime.now());
+        .format(filter.targetDate ?? DateTime.now());
 
     final meibos = _ref.read(healthMeibosCache).values.toList();
     final json = jsonEncode(meibos

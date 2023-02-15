@@ -1,11 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shusekibo/shared/http/api_provider.dart';
-import 'package:shusekibo/shared/http/api_response.dart';
-import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_reason_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_reason_provider.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_reason_state.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_model.dart';
+import 'package:shusekibo/app/widget/cache/cache_provider.dart';
+import 'package:shusekibo/shared/http/api_provider.dart';
+import 'package:shusekibo/shared/http/api_response.dart';
+import 'package:shusekibo/shared/http/app_exception.dart';
 
 abstract class AttendanceReasonRepositoryProtocol {
   Future<AttendanceReasonState> fetch(AttendanceStampModel stamp);
@@ -28,7 +29,7 @@ class AttendanceReasonRepository implements AttendanceReasonRepositoryProtocol {
         success: (success) {},
         error: (error) {
           return AttendanceReasonState.error(error);
-        });
+        },);
 
     if (response is APISuccess) {
       final value = response.value;
@@ -49,10 +50,17 @@ class AttendanceReasonRepository implements AttendanceReasonRepositoryProtocol {
               reason1List.first;
         }
 
-        return AttendanceReasonState.loaded(reason1List, reason2List);
+        _ref
+            .read(attendanceReason1Cache.notifier)
+            .state['${stamp.shukketsuJokyoCd}'] = reason1List;
+        _ref
+            .read(attendanceReason2Cache.notifier)
+            .state['${stamp.shukketsuJokyoCd}'] = reason2List;
+
+        return const AttendanceReasonState.loaded();
       } catch (e) {
         return AttendanceReasonState.error(
-            AppException.errorWithMessage(e.toString()));
+            AppException.errorWithMessage(e.toString()),);
       }
     } else if (response is APIError) {
       return AttendanceReasonState.error(response.exception);

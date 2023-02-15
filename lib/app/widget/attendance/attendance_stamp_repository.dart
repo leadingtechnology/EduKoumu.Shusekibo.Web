@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shusekibo/shared/http/api_provider.dart';
-import 'package:shusekibo/shared/http/api_response.dart';
-import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_provider.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_state.dart';
+import 'package:shusekibo/app/widget/cache/cache_provider.dart';
+import 'package:shusekibo/shared/http/api_provider.dart';
+import 'package:shusekibo/shared/http/api_response.dart';
+import 'package:shusekibo/shared/http/app_exception.dart';
 
 abstract class AttendanceStampRepositoryProtocol {
   Future<AttendanceStampState> fetch(); 
@@ -21,6 +22,11 @@ class AttendanceStampRepository implements AttendanceStampRepositoryProtocol {
   @override
   Future<AttendanceStampState> fetch() async {
     final response = await _api.get('api/ShukketsuShussekibo/stamps');
+
+    response.when(
+      success: (success) {},
+      error: (error) {return AttendanceStampState.error(error);},
+    );
 
     if (response is APISuccess) {
       final value = response.value;
@@ -44,17 +50,28 @@ class AttendanceStampRepository implements AttendanceStampRepositoryProtocol {
           ..insert(0, handStamp)
           ..add(delStamp);
         
-        if (registStampList.isNotEmpty){
-          _ref.read(attendanceStampProvider.notifier).state =
-              registStampList.first;
-        }
-
         // 2) Unregist Stamp
         final unregistStampList = attendanceStampListFromJson(
             value['UnregistStampList'] as List<dynamic>,);
 
+        _ref.read(attendanceStampProvider.notifier).state =
+            registStampList.first;
 
-        return AttendanceStampState.loaded(registStampList, unregistStampList);
+        // Cacheの作成
+        final registStampMap = Map.fromIterables(
+          registStampList.map((e) => '${e.shukketsuJokyoCd}').toList(),
+          registStampList.map((e) => e).toList(),
+        );
+        final unregistStampMap = Map.fromIterables(
+          unregistStampList.map((e) => '${e.shukketsuJokyoCd}').toList(),
+          unregistStampList.map((e) => e).toList(),
+        );
+
+        _ref.read(attendanceRegistStampCache.notifier).state = registStampMap;
+        _ref.read(attendanceUnegistStampCache.notifier).state = unregistStampMap;
+
+
+        return AttendanceStampState.loaded();
       } catch (e) {
         return AttendanceStampState.error(
             AppException.errorWithMessage(e.toString()));

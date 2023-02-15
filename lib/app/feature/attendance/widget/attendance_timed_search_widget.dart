@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shusekibo/app/widget/filter/filter_model.dart';
 import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/shared/util/spacing.dart';
 
-class HealthSearchWidget extends ConsumerWidget {
-  const HealthSearchWidget({super.key, required this.scaffoldKey});
-
+class AttendanceTimedSearchWidget extends ConsumerWidget {
+  const AttendanceTimedSearchWidget({super.key, required this.scaffoldKey, this.isTimed = true});
   final GlobalKey<ScaffoldState> scaffoldKey;
+
+  final bool isTimed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(filterProvider);
-
+    final FilterModel filter = ref.watch(filterProvider);
+    
     return Container(
         padding: Spacing.all(4),
         //color: Colors.green[100],
@@ -19,7 +21,7 @@ class HealthSearchWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Expanded(
-                flex: 3,
+                flex: 2,
                 child: Row(
                   children: [
                     Container(
@@ -29,16 +31,14 @@ class HealthSearchWidget extends ConsumerWidget {
                     ),
                     Expanded(
                       child: InkWell(
-                        onTap: () {
-                          scaffoldKey.currentState?.openEndDrawer();
-                        },
+                        onTap: (){scaffoldKey.currentState?.openEndDrawer();},
                         child: Container(
                             padding: Spacing.x(4),
                             decoration: BoxDecoration(
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(3),
                             ),
-                            child: Text(filter.gakunenRyakusho ?? ''),),
+                            child: Text(filter.gakunenCode == '0' ? '' : filter.gakunenRyakusho ?? ''),),
                       ),
                     )
                   ],
@@ -48,30 +48,47 @@ class HealthSearchWidget extends ConsumerWidget {
               child: Container(),
             ),
             Expanded(
-                flex: 4,
+                flex: 3,
                 child: Row(
                   children: [
                     Container(
                       padding: Spacing.right(8),
-                      alignment: Alignment.centerRight,
                       child: const Text('クラス'),
                     ),
                     Expanded(
                       child: InkWell(
-                        onTap: () {
-                          scaffoldKey.currentState?.openEndDrawer();
-                        },
+                        onTap: (){scaffoldKey.currentState?.openEndDrawer();},
                         child: Container(
                             padding: Spacing.x(4),
                             decoration: BoxDecoration(
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(3),
                             ),
-                            child: Text(filter.className ?? ''),),
+                            child: Text('${filter.className ?? ''}')),
                       ),
                     )
                   ],
                 )),
+            Expanded(
+              flex: 3,
+              child: InkWell(
+                onTap: () {
+                  scaffoldKey.currentState?.openEndDrawer();
+                },
+                child: Container(
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        activeColor: const Color(0xFF2D4E27),
+                        value: filter.kouryuGakkyu ?? false,
+                        onChanged: (v) {},
+                      ),
+                      const Text('交流学級で表示')
+                    ],
+                  ),
+                ),
+              ),
+            ),
             Expanded(
               flex: 1,
               child: Container(),
@@ -87,9 +104,7 @@ class HealthSearchWidget extends ConsumerWidget {
                     ),
                     Expanded(
                       child: InkWell(
-                        onTap: () {
-                          scaffoldKey.currentState?.openEndDrawer();
-                        },
+                        onTap: (){scaffoldKey.currentState?.openEndDrawer();},
                         child: Container(
                             padding: Spacing.x(4),
                             decoration: BoxDecoration(
@@ -100,10 +115,34 @@ class HealthSearchWidget extends ConsumerWidget {
                       ),
                     )
                   ],
-                ),),
+                )),
             Expanded(
               flex: 1,
               child: Container(),
+            ),
+            Expanded(
+                flex: 4,
+                child: isTimed ?  Row(
+                      children: [
+                        Container(
+                          padding: Spacing.right(8),
+                          alignment: Alignment.centerRight,
+                          child: const Text('時限'),
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            onTap: (){scaffoldKey.currentState?.openEndDrawer();},
+                            child: Container(
+                                padding: Spacing.x(4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1),
+                                  borderRadius: BorderRadius.circular(3),
+                                ),
+                                child: Text(filter.jigenRyaku ?? ''),),
+                          ),
+                        )
+                      ],
+                    ) : Container() ,
             ),
             Expanded(
               flex: 1,
@@ -113,19 +152,19 @@ class HealthSearchWidget extends ConsumerWidget {
                     onPressed: () {
                       ref.read(filterInitProvider.notifier).update();
                     },
-                    icon: const Icon(Icons.refresh),),
+                    icon: Icon(Icons.refresh)),
               ),
             ),
             Expanded(
+                flex: 1,
                 child: Container(
                   alignment: Alignment.center,
                   child: IconButton(
                       onPressed: () {
                         scaffoldKey.currentState?.openEndDrawer();
-                      },
-                      icon: const Icon(Icons.tune),),
-                ),),
+                      }, icon: Icon(Icons.tune)),
+                )),
           ],
-        ),);
+        ));
   }
 }

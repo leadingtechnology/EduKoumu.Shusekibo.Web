@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
-import 'package:shusekibo/shared/http/api_provider.dart';
-import 'package:shusekibo/shared/http/api_response.dart';
-import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:shusekibo/app/widget/health/health_reason_model.dart';
 import 'package:shusekibo/app/widget/health/health_reason_provider.dart';
 import 'package:shusekibo/app/widget/health/health_reason_state.dart';
 import 'package:shusekibo/app/widget/health/health_stamp_model.dart';
+import 'package:shusekibo/shared/http/api_provider.dart';
+import 'package:shusekibo/shared/http/api_response.dart';
+import 'package:shusekibo/shared/http/app_exception.dart';
 
 abstract class HealthReasonRepositoryProtocol {
   Future<HealthReasonState> fetch(HealthStampModel stamp);
@@ -56,7 +56,7 @@ class HealthReasonRepository implements HealthReasonRepositoryProtocol {
         _ref.read(healthReason2Cache.notifier).state['${stamp.jokyoCd}'] =
             reason2List;
 
-        return HealthReasonState.loaded();
+        return const HealthReasonState.loaded();
       } catch (e) {
         return HealthReasonState.error(
             AppException.errorWithMessage(e.toString()),);
