@@ -55,11 +55,11 @@ class HealthSeatsPage extends ConsumerWidget {
                 child: Container(
                   color: Colors.grey[100],
                   padding: Spacing.all(16),
-                  child: HealthSeatsGridView()
+                  child: const HealthSeatsGridView(),
                 ),
               ),
               // tools bar
-            ])),
+            ],),),
 
             // footer
             Spacing.height(8),
@@ -76,7 +76,7 @@ class HealthSeatsPage extends ConsumerWidget {
 }
 
 class HealthSeatsGridView extends ConsumerWidget {
-  const HealthSeatsGridView({Key? key}) : super(key: key);
+  const HealthSeatsGridView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -84,7 +84,7 @@ class HealthSeatsGridView extends ConsumerWidget {
 
     return state.when(
       blank:  Container.new,
-      loading: () => const Center(child: CircularProgressIndicator()), //Center(child: CircularProgressIndicator());
+      loading: () => const Center(child: CircularProgressIndicator(),), 
       error: (AppException e){ return Text(e.toString());},
       loaded: (){
         final meibosmap = ref.watch(healthMeibosCache);

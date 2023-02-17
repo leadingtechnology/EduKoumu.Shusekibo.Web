@@ -34,7 +34,7 @@ class DantaiListProvider extends StateNotifier<DantaiState> {
         final dantaiMap = _ref.read(dantaiCache);
         if (dantaiMap.isEmpty) {
           _fetch();
-        }else if(!dantaiMap.containsKey(token.LoginId)){
+        }else if(!dantaiMap.containsKey('${token.LoginId}')){
           _fetch();
         } else {
           state = const DantaiState.loaded();

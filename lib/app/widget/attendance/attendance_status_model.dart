@@ -33,3 +33,12 @@ class AttendanceStatusModel with _$AttendanceStatusModel {
   factory AttendanceStatusModel.fromJson(Map<String, dynamic> json) =>
       _$AttendanceStatusModelFromJson(json);
 }
+
+extension NewJson on AttendanceStatusModel {
+  Map<String, dynamic> toNewJson() => {
+        'ShukketsuBunrui': shukketsuBunrui,
+        'ShukketsuKbn': shukketsuKbn,
+        'Jiyu1': jiyu1,
+        'Jiyu2': jiyu2,
+      };
+}

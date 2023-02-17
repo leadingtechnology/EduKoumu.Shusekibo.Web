@@ -35,3 +35,14 @@ class AttendanceMeiboModel with _$AttendanceMeiboModel {
   factory AttendanceMeiboModel.fromJson(Map<String, dynamic> json) =>
       _$AttendanceMeiboModelFromJson(json);
 }
+
+extension NewJson on AttendanceMeiboModel {
+  Map<String, dynamic> toNewJson() => {
+        'SeitoSeq': studentSeq,
+        'StudentKihonId': studentKihonId,
+        'ShozokuNameTsusho': name,
+        'ShukketsuModelList': jokyoList == null
+            ? '[]'
+            : jokyoList?.map((v) => v.toNewJson()).toList(),
+      };
+}

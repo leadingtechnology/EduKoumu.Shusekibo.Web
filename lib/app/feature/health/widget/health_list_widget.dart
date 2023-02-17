@@ -24,8 +24,9 @@ class HealthListWidget extends ConsumerStatefulWidget {
 
 class _HealthListWidgetState extends ConsumerState<HealthListWidget> {
   final List<PlutoColumn> columns = [];
-  late FilterModel filter;
   final List<PlutoRow> rows = [];
+
+  late FilterModel filter;
   late final PlutoGridStateManager stateManager;
   
   final _baseUrl = dotenv.env['BASE_URL']!;

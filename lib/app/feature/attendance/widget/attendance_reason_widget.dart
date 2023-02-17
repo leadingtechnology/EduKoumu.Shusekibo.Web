@@ -47,11 +47,15 @@ class AttendanceReasonWidget extends ConsumerWidget {
         }
 
         // 3) return dropdown widget
-        return Row(
+        return Wrap(
           children: [
             Spacing.width(10),
-            SizedBox(
-              width: 140,
+            Container(
+              padding: const EdgeInsets.fromLTRB(5,0,0,0),
+              decoration: BoxDecoration(
+                border: Border.all(width: 1),
+                borderRadius: BorderRadius.circular(4),
+              ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<AttendanceReasonModel>(
                   value: ref.watch(attendanceReason1Provider),
@@ -70,11 +74,13 @@ class AttendanceReasonWidget extends ConsumerWidget {
               ),
             ),
             Spacing.width(4),
-            if (reason2Items.isEmpty)
-              Container()
-            else
-              SizedBox(
-                width: 140,
+            if (reason2Items.isNotEmpty)
+              Container(
+                padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1),
+                  borderRadius: BorderRadius.circular(4),
+                ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<AttendanceReasonModel>(
                     value: ref.watch(attendanceReason2Provider),

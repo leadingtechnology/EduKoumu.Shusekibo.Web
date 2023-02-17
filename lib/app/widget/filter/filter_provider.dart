@@ -75,7 +75,7 @@ class FilterInitNotifier extends StateNotifier<AppState> {
     _ref.read(awarenessFilterEndDateProvider.notifier).state = DateTime.now();
   }
 
-  void updateHealthFilter({required DateTime targetDate}) {
+  void updateFilter({required DateTime targetDate}) {
     update(targetDate: targetDate);
   }
 
@@ -83,10 +83,25 @@ class FilterInitNotifier extends StateNotifier<AppState> {
     required DateTime targetDate,
     required TimedModel timed,
   }) {
-    update(
+
+    _ref.read(attendanceTimedFilterProvider.notifier).state = FilterModel(
+      dantaiId: _dantai.id,
+      organizationKbn: _dantai.organizationKbn,
+      dantaiName: _dantai.name,
+      gakunenCode: _gakunen.gakunenCode,
+      gakunenRyakusho: _gakunen.gakunenRyakusho,
+      kouryuGakkyu: _ref.read(kouryuProvider),
+      classId: _shozoku.id,
+      classCode: _shozoku.classCode,
+      className: _shozoku.className,
+      //
+      jigenIdx: timed != null ? timed.jigenIdx : _timed.jigenIdx,
+      jigenRyaku: timed != null ? timed.ryaku : _timed.ryaku,
       targetDate: targetDate,
-      timed : timed
+      japanDate: targetDate != null ? DateUtil.getJapaneseDate(targetDate) : '',
     );
+
+    print('attendanceTimedFilterProvider : ${_ref.read(attendanceTimedFilterProvider).toString()}');
   }
 
   // ignore: long-parameter-list
@@ -97,6 +112,8 @@ class FilterInitNotifier extends StateNotifier<AppState> {
     DateTime? endDate,
     TimedModel? timed,
   }) {
+
+    final filter = _ref.read(filterProvider);
     
     _ref.read(filterProvider.notifier).state = FilterModel(
       dantaiId: _dantai.id,
@@ -104,16 +121,17 @@ class FilterInitNotifier extends StateNotifier<AppState> {
       dantaiName: _dantai.name,
       gakunenCode: _gakunen.gakunenCode,
       gakunenRyakusho: _gakunen.gakunenRyakusho,
+      kouryuGakkyu: _ref.read(kouryuProvider),
       classId: _shozoku.id,
       classCode: _shozoku.classCode,
       className: _shozoku.className,
       //
       jigenIdx: timed != null ? timed.jigenIdx : _timed.jigenIdx,
       jigenRyaku: timed != null ? timed.ryaku : _timed.ryaku,
-      targetDate: targetDate,
-      japanDate: japanDate,
-      beginDate: beginDate,
-      endDate: endDate,
+      targetDate: targetDate ?? filter.targetDate,
+      japanDate: targetDate != null ? DateUtil.getJapaneseDate(targetDate) : '',
+      beginDate: beginDate ?? filter.beginDate,
+      endDate: endDate ?? filter.endDate,
     );
   }  
 }

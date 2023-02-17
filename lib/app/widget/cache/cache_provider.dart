@@ -1,8 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shusekibo/app/widget/attendance/attendance_meibo_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_reason_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_model.dart';
+import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_model.dart';
 import 'package:shusekibo/app/widget/attendance/timed_model.dart';
+import 'package:shusekibo/app/widget/awareness/awareness_bunrui_model.dart';
+import 'package:shusekibo/app/widget/awareness/awareness_kizuki_model.dart';
+import 'package:shusekibo/app/widget/awareness/awareness_meibo_model.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_model.dart';
+import 'package:shusekibo/app/widget/dashboard/tokobi_model.dart';
 import 'package:shusekibo/app/widget/gakunen/gakunen_model.dart';
 import 'package:shusekibo/app/widget/health/health_meibo_model.dart';
 import 'package:shusekibo/app/widget/health/health_reason_model.dart';
@@ -25,8 +31,18 @@ final shozokuCache = StateProvider<Map<String, List<ShozokuModel>>>(
   (ref) => {},
 );
 
-// dantaiId-GakunenCode-Shozoku -> Time List -
+// shozokuId - -> Time List -
 final timedCache = StateProvider<Map<String, List<TimedModel>>>(
+  (ref) => {},
+);
+
+// shozokuId - -> Time List -
+final tokobiCache = StateProvider<Map<String, List<TokobiModel>>>(
+  (ref) => {},
+);
+
+// bunruiId -> Bunrui List +
+final bunruiCache = StateProvider<Map<String, List<AwarenessBunruiModel>>>(
   (ref) => {},
 );
 
@@ -48,11 +64,18 @@ final healthReason2Cache = StateProvider<Map<String, List<HealthReasonModel>>>(
   (ref) => {},
 );
 
-// Health Stamp -> Reason1 List +
-final attendanceRegistStampCache = StateProvider<Map<String, AttendanceStampModel>>(
+//
+final healthMeibosCache = StateProvider<Map<String, HealthMeiboModel>>(
   (ref) => {},
 );
-final attendanceUnegistStampCache = StateProvider<Map<String, AttendanceStampModel>>(
+
+// Health Stamp -> Reason1 List +
+final attendanceRegistStampCache =
+    StateProvider<Map<String, AttendanceStampModel>>(
+  (ref) => {},
+);
+final attendanceUnegistStampCache =
+    StateProvider<Map<String, AttendanceStampModel>>(
   (ref) => {},
 );
 
@@ -69,6 +92,21 @@ final attendanceReason2Cache =
 );
 
 //
-final healthMeibosCache = StateProvider<Map<String, HealthMeiboModel>>(
+final attendanceMeibosCache =
+    StateProvider<Map<String, AttendanceMeiboModel>>(
+  (ref) => {},
+);
+final attendanceTimedMeibosCache =
+    StateProvider<Map<String, AttendanceTimedMeiboModel>>(
+  (ref) => {},
+);
+
+// Awareness
+final awarenessMeibosCache =
+    StateProvider<Map<String, AwarenessMeiboModel>>(
+  (ref) => {},
+);
+final awarenessKizukiCache =
+    StateProvider<Map<String, AwarenessKizukiModel>>(
   (ref) => {},
 );

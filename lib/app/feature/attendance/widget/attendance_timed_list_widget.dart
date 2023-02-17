@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pluto_grid/pluto_grid.dart';
+import 'package:shusekibo/app/feature/auth/provider/auth_provider.dart';
+import 'package:shusekibo/app/widget/attendance/attendance_reason_provider.dart';
+import 'package:shusekibo/app/widget/attendance/attendance_stamp_provider.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_status_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_model.dart';
+import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_provider.dart';
+import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/filter/filter_model.dart';
+import 'package:shusekibo/app/widget/filter/filter_provider.dart';
+import 'package:shusekibo/shared/util/date_util.dart';
 
 GlobalKey<_AttendanceTimedListWidgetState> attendanceTimedGlobalKey =
     GlobalKey();
@@ -14,47 +21,27 @@ class AttendanceTimedListWidget extends ConsumerStatefulWidget {
   const AttendanceTimedListWidget({super.key});
 
   @override
-  ConsumerState<AttendanceTimedListWidget> createState() => _AttendanceTimedListWidgetState();
+  ConsumerState<AttendanceTimedListWidget> createState() =>
+      _AttendanceTimedListWidgetState();
 }
 
-class _AttendanceTimedListWidgetState extends ConsumerState<AttendanceTimedListWidget> {
+class _AttendanceTimedListWidgetState
+    extends ConsumerState<AttendanceTimedListWidget> {
+
   final List<PlutoColumn> columns = [];
   final List<PlutoRow> rows = [];
 
-  late final PlutoGridStateManager stateManager;
   late FilterModel filter;
-  late String _baseUrl;
+  late final PlutoGridStateManager stateManager;
+
+  final _baseUrl = dotenv.env['BASE_URL']!;
  
-
-  PlutoRow setPlutRow(AttendanceTimedMeiboModel e, int jigenIdx) {
-    AttendanceStatusModel jokyo;
-    if (e.jokyoList != null) {
-      try {
-        jokyo = e.jokyoList!.where((e) => e.jigenIdx == jigenIdx).toList().first;
-      } catch (ex) {
-        jokyo = const AttendanceStatusModel();
-      }
-    } else {
-      jokyo = const AttendanceStatusModel();
-    }
-
-    return PlutoRow(cells: {
-      'gakunen': PlutoCell(value: e.gakunen),
-      'classNo': PlutoCell(value: e.className),
-      'shusekiNo': PlutoCell(value: e.studentNumber ?? ''),
-      'photoPath': PlutoCell(value: e.photoUrl),
-      'fullName': PlutoCell(value: e.name),
-      'sex': PlutoCell(value: e.genderCode == '1' ? '男' : '女'),
-      'mark': PlutoCell(value: jokyo.ryaku ?? ''),
-      'reason1': PlutoCell(value: jokyo.jiyu1 ?? ''),
-      'reason2': PlutoCell(value: jokyo.jiyu2 ?? ''),
-    },);
-  }
 
   @override
   void initState() {
     super.initState();
-    // "ref" can be used in all life-cycles of a StatefulWidget.
+
+    final accessToken = ref.read(tokenProvider).access_token.toString();
     filter = ref.read(attendanceTimedFilterProvider);
 
     columns.addAll([
@@ -66,8 +53,8 @@ class _AttendanceTimedListWidgetState extends ConsumerState<AttendanceTimedListW
         textAlign: PlutoColumnTextAlign.center,
         titleTextAlign: PlutoColumnTextAlign.center,
         renderer: (rendererContext) {
-          var photoUrl = '${rendererContext.row.cells['photoPath']!.value.toString()}'.trim();
-          String url = '${_baseUrl}$photoUrl';
+          final photoUrl = rendererContext.row.cells['photoPath']!.value.toString();
+          final url = '$_baseUrl$photoUrl';
 
           return ClipOval(child: Image.network(
             url,
@@ -78,28 +65,55 @@ class _AttendanceTimedListWidgetState extends ConsumerState<AttendanceTimedListW
       ),
       PlutoColumn(title: '氏名',    field: 'fullName',  readOnly: true, type: PlutoColumnType.text(),               width: 160, enableContextMenu:false , textAlign: PlutoColumnTextAlign.left, titleTextAlign: PlutoColumnTextAlign.center),
       PlutoColumn(title: '性別',    field: 'sex',       readOnly: true, type: PlutoColumnType.text(),               width: 70,  enableContextMenu: false, textAlign: PlutoColumnTextAlign.left, titleTextAlign: PlutoColumnTextAlign.center),
-      PlutoColumn(title: '${DateUtil.getWeekDate(filter.targetDate ?? DateTime.now())}',    field: 'mark', readOnly: true, type: PlutoColumnType.text(),               width: 130, enableContextMenu: false, textAlign: PlutoColumnTextAlign.left, titleTextAlign: PlutoColumnTextAlign.center),
+      PlutoColumn(title: DateUtil.getWeekDate(filter.targetDate ?? DateTime.now()),    field: 'mark', readOnly: true, type: PlutoColumnType.text(),               width: 130, enableContextMenu: false, textAlign: PlutoColumnTextAlign.left, titleTextAlign: PlutoColumnTextAlign.center),
       PlutoColumn(title: '理由1',   field: 'reason1',   readOnly: true, type: PlutoColumnType.text(),               width: 216, enableContextMenu: false, textAlign: PlutoColumnTextAlign.left, titleTextAlign: PlutoColumnTextAlign.center),
       PlutoColumn(title: '理由2',   field: 'reason2',   readOnly: true, type: PlutoColumnType.text(),               width: 216, enableContextMenu: false, textAlign: PlutoColumnTextAlign.left, titleTextAlign: PlutoColumnTextAlign.center),
     ]);
 
-    final List<AttendanceTimedMeiboModel> meibos = Boxes.getAttendanceTimedMeiboModelBox().values.toList();
+    final meibos = ref.read(attendanceTimedMeibosCache).values.toList();
+    rows.addAll(
+        meibos.map((e) => setPlutRow(e, filter.jigenIdx ?? 0)).toList(),); 
+  }
 
-    rows.addAll(meibos.map((e) => setPlutRow(e, filter.jigenIdx??0)).toList()); 
+  PlutoRow setPlutRow(AttendanceTimedMeiboModel e, int jigenIdx) {
+    AttendanceStatusModel jokyo;
+    if (e.jokyoList != null) {
+      try {
+        jokyo =
+            e.jokyoList!.where((e) => e.jigenIdx == jigenIdx).toList().first;
+      } catch (ex) {
+        jokyo = const AttendanceStatusModel();
+      }
+    } else {
+      jokyo = const AttendanceStatusModel();
+    }
+
+    return PlutoRow(
+      cells: {
+        'gakunen': PlutoCell(value: e.gakunen),
+        'classNo': PlutoCell(value: e.className),
+        'shusekiNo': PlutoCell(value: e.studentNumber ?? ''),
+        'photoPath': PlutoCell(value: e.photoUrl),
+        'fullName': PlutoCell(value: e.name),
+        'sex': PlutoCell(value: e.genderCode == '1' ? '男' : '女'),
+        'mark': PlutoCell(value: jokyo.ryaku ?? ''),
+        'reason1': PlutoCell(value: jokyo.jiyu1 ?? ''),
+        'reason2': PlutoCell(value: jokyo.jiyu2 ?? ''),
+      },
+    );
   }
 
   void setReason(PlutoRow row, WidgetRef ref) async {
-    AttendanceTimedStampModel stamp = ref.read(attendanceTimedStampProvider);
+    final stamp = ref.read(attendanceTimedStampProvider);
     if (stamp.shukketsuJokyoCd == '001') return;
 
-    AttendanceTimedReasonModel reason1 = ref.watch(attendanceTimedReason1Provider);
-    AttendanceTimedReasonModel reason2 = ref.watch(attendanceTimedReason2Provider);
+    final reason1 = ref.watch(attendanceTimedReason1Provider);
+    final reason2 = ref.watch(attendanceTimedReason2Provider);
 
-    String studentNumber = row.cells['shusekiNo']!.value.toString();
+    final studentNumber = row.cells['shusekiNo']!.value.toString();
     if (studentNumber.isEmpty) return;
 
-    final List<AttendanceTimedMeiboModel> meibos =
-        Boxes.getAttendanceTimedMeiboModelBox().values.toList();
+    final meibos = ref.read(attendanceTimedMeibosCache).values.toList();
     AttendanceTimedMeiboModel meibo;
     try {
       meibo =
@@ -108,28 +122,28 @@ class _AttendanceTimedListWidgetState extends ConsumerState<AttendanceTimedListW
       return;
     }
 
-    ref.read(attendanceTimedMeiboListProvider.notifier).updateById(
+    ref.read(attendanceTimedMeiboInitProvider.notifier).updateById(
           meibo,
           stamp,
-          filter,
           reason1,
           reason2,
         );
     
     // set all.
     if (stamp.shukketsuBunrui == '50' || stamp.shukketsuBunrui == '60') {
-      stateManager.rows.forEach((r) {
+      for (final r in stateManager.rows) {
         r.cells['mark']!.value = stamp.shukketsuJokyoNmRyaku;
         r.cells['reason1']!.value = reason1.shukketsuJiyuNmSeishiki ?? '';
         r.cells['reason2']!.value = reason2.shukketsuJiyuNmSeishiki ?? '';
-      });
+      }
       stateManager.notifyListeners();
+      
       return;
     }
 
     //clear all and set one
     if(row.cells['mark']!.value == '臨１' || row.cells['mark']!.value == '臨２') {
-      stateManager.rows.forEach((r) {
+      for (final r in stateManager.rows) {
         if (r.sortIdx == row.sortIdx) {
           r.cells['mark']!.value = stamp.shukketsuJokyoCd=='999'?'':stamp.shukketsuJokyoNmRyaku;;
           r.cells['reason1']!.value = reason1.shukketsuJiyuNmSeishiki ?? '';
@@ -139,8 +153,9 @@ class _AttendanceTimedListWidgetState extends ConsumerState<AttendanceTimedListW
           r.cells['reason1']!.value = '';
           r.cells['reason2']!.value = '';
         }
-      });
+      }
       stateManager.notifyListeners();
+      
       return;
     }
 
@@ -151,22 +166,22 @@ class _AttendanceTimedListWidgetState extends ConsumerState<AttendanceTimedListW
   }
 
   void setBlank() {
-    stateManager.rows.forEach((row) { 
+    for (final row in stateManager.rows) { 
       if (row.cells['mark']!.value.toString().isEmpty) {
         row.cells['mark']!.value = '・';
         row.cells['reason1']!.value = '';
         row.cells['reason2']!.value = '';
       }
-    });
+    }
     stateManager.notifyListeners();
   } 
 
   void setAll(String mark, String reason1, String reason2){
-    stateManager.rows.forEach((row) {
+    for (final row in stateManager.rows) {
       row.cells['mark']!.value = mark;
       row.cells['reason1']!.value = reason1;
       row.cells['reason2']!.value = reason2;
-    });
+    }
   }
 
   @override

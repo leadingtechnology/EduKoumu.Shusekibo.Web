@@ -20,9 +20,9 @@ import '../attendance/attendance_seats_page.dart' as _i7;
 import '../attendance/attendance_timed_list_page.dart' as _i8;
 import '../attendance/attendance_timed_seats_page.dart' as _i9;
 import '../auth/widget/sign_in_page.dart' as _i2;
-import '../awareness/widget/awareness_list_page.dart' as _i11;
-import '../awareness/widget/awareness_page.dart' as _i10;
-import '../awareness/widget/awareness_seats_page.dart' as _i12;
+import '../awareness/awareness_list_page.dart' as _i11;
+import '../awareness/awareness_page.dart' as _i10;
+import '../awareness/awareness_seats_page.dart' as _i12;
 import '../dashboard/widget/dashboard_page.dart' as _i3;
 import '../health/health_list_page.dart' as _i4;
 import '../health/health_seat_page.dart' as _i5;
@@ -82,7 +82,10 @@ class AppRouter extends _i13.RootStackRouter {
           orElse: () => const AttendanceListRouteArgs());
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i6.AttendanceListPage(key: args.key),
+        child: _i6.AttendanceListPage(
+          key: args.key,
+          screenTitle: args.screenTitle,
+        ),
       );
     },
     AttendanceSeatsRoute.name: (routeData) {
@@ -90,7 +93,10 @@ class AppRouter extends _i13.RootStackRouter {
           orElse: () => const AttendanceSeatsRouteArgs());
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i7.AttendanceSeatsPage(key: args.key),
+        child: _i7.AttendanceSeatsPage(
+          key: args.key,
+          screenTitle: args.screenTitle,
+        ),
       );
     },
     AttendanceTimedListRoute.name: (routeData) {
@@ -121,15 +127,24 @@ class AppRouter extends _i13.RootStackRouter {
       );
     },
     AwarenessListRoute.name: (routeData) {
+      final args = routeData.argsAs<AwarenessListRouteArgs>();
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i11.AwarenessListPage(),
+        child: _i11.AwarenessListPage(
+          key: args.key,
+          screenTitle: args.screenTitle,
+          scaffoldKey: args.scaffoldKey,
+        ),
       );
     },
-    AwarenessSeatsRoute.name: (routeData) {
+    AwarenessSeatRoute.name: (routeData) {
+      final args = routeData.argsAs<AwarenessSeatRouteArgs>();
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i12.AwarenessSeatsPage(),
+        child: _i12.AwarenessSeatPage(
+          key: args.key,
+          scaffoldKey: args.scaffoldKey,
+        ),
       );
     },
   };
@@ -181,7 +196,7 @@ class AppRouter extends _i13.RootStackRouter {
           path: '/awarenesslist',
         ),
         _i13.RouteConfig(
-          AwarenessSeatsRoute.name,
+          AwarenessSeatRoute.name,
           path: '/awarenessseats',
         ),
       ];
@@ -318,24 +333,34 @@ class HealthSeatsRouteArgs {
 /// generated route for
 /// [_i6.AttendanceListPage]
 class AttendanceListRoute extends _i13.PageRouteInfo<AttendanceListRouteArgs> {
-  AttendanceListRoute({_i14.Key? key})
-      : super(
+  AttendanceListRoute({
+    _i14.Key? key,
+    String screenTitle = '',
+  }) : super(
           AttendanceListRoute.name,
           path: '/attendancelist',
-          args: AttendanceListRouteArgs(key: key),
+          args: AttendanceListRouteArgs(
+            key: key,
+            screenTitle: screenTitle,
+          ),
         );
 
   static const String name = 'AttendanceListRoute';
 }
 
 class AttendanceListRouteArgs {
-  const AttendanceListRouteArgs({this.key});
+  const AttendanceListRouteArgs({
+    this.key,
+    this.screenTitle = '',
+  });
 
   final _i14.Key? key;
 
+  final String screenTitle;
+
   @override
   String toString() {
-    return 'AttendanceListRouteArgs{key: $key}';
+    return 'AttendanceListRouteArgs{key: $key, screenTitle: $screenTitle}';
   }
 }
 
@@ -343,24 +368,34 @@ class AttendanceListRouteArgs {
 /// [_i7.AttendanceSeatsPage]
 class AttendanceSeatsRoute
     extends _i13.PageRouteInfo<AttendanceSeatsRouteArgs> {
-  AttendanceSeatsRoute({_i14.Key? key})
-      : super(
+  AttendanceSeatsRoute({
+    _i14.Key? key,
+    String screenTitle = '',
+  }) : super(
           AttendanceSeatsRoute.name,
           path: '/attendanceseats',
-          args: AttendanceSeatsRouteArgs(key: key),
+          args: AttendanceSeatsRouteArgs(
+            key: key,
+            screenTitle: screenTitle,
+          ),
         );
 
   static const String name = 'AttendanceSeatsRoute';
 }
 
 class AttendanceSeatsRouteArgs {
-  const AttendanceSeatsRouteArgs({this.key});
+  const AttendanceSeatsRouteArgs({
+    this.key,
+    this.screenTitle = '',
+  });
 
   final _i14.Key? key;
 
+  final String screenTitle;
+
   @override
   String toString() {
-    return 'AttendanceSeatsRouteArgs{key: $key}';
+    return 'AttendanceSeatsRouteArgs{key: $key, screenTitle: $screenTitle}';
   }
 }
 
@@ -450,24 +485,73 @@ class AwarenessRouteArgs {
 
 /// generated route for
 /// [_i11.AwarenessListPage]
-class AwarenessListRoute extends _i13.PageRouteInfo<void> {
-  const AwarenessListRoute()
-      : super(
+class AwarenessListRoute extends _i13.PageRouteInfo<AwarenessListRouteArgs> {
+  AwarenessListRoute({
+    _i14.Key? key,
+    String screenTitle = '',
+    required _i14.GlobalKey<_i14.ScaffoldState> scaffoldKey,
+  }) : super(
           AwarenessListRoute.name,
           path: '/awarenesslist',
+          args: AwarenessListRouteArgs(
+            key: key,
+            screenTitle: screenTitle,
+            scaffoldKey: scaffoldKey,
+          ),
         );
 
   static const String name = 'AwarenessListRoute';
 }
 
+class AwarenessListRouteArgs {
+  const AwarenessListRouteArgs({
+    this.key,
+    this.screenTitle = '',
+    required this.scaffoldKey,
+  });
+
+  final _i14.Key? key;
+
+  final String screenTitle;
+
+  final _i14.GlobalKey<_i14.ScaffoldState> scaffoldKey;
+
+  @override
+  String toString() {
+    return 'AwarenessListRouteArgs{key: $key, screenTitle: $screenTitle, scaffoldKey: $scaffoldKey}';
+  }
+}
+
 /// generated route for
-/// [_i12.AwarenessSeatsPage]
-class AwarenessSeatsRoute extends _i13.PageRouteInfo<void> {
-  const AwarenessSeatsRoute()
-      : super(
-          AwarenessSeatsRoute.name,
+/// [_i12.AwarenessSeatPage]
+class AwarenessSeatRoute extends _i13.PageRouteInfo<AwarenessSeatRouteArgs> {
+  AwarenessSeatRoute({
+    _i14.Key? key,
+    required _i14.GlobalKey<_i14.ScaffoldState> scaffoldKey,
+  }) : super(
+          AwarenessSeatRoute.name,
           path: '/awarenessseats',
+          args: AwarenessSeatRouteArgs(
+            key: key,
+            scaffoldKey: scaffoldKey,
+          ),
         );
 
-  static const String name = 'AwarenessSeatsRoute';
+  static const String name = 'AwarenessSeatRoute';
+}
+
+class AwarenessSeatRouteArgs {
+  const AwarenessSeatRouteArgs({
+    this.key,
+    required this.scaffoldKey,
+  });
+
+  final _i14.Key? key;
+
+  final _i14.GlobalKey<_i14.ScaffoldState> scaffoldKey;
+
+  @override
+  String toString() {
+    return 'AwarenessSeatRouteArgs{key: $key, scaffoldKey: $scaffoldKey}';
+  }
 }

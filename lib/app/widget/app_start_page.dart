@@ -6,7 +6,7 @@ import 'package:shusekibo/app/feature/attendance/attendance_seats_page.dart';
 import 'package:shusekibo/app/feature/attendance/attendance_timed_list_page.dart';
 import 'package:shusekibo/app/feature/attendance/attendance_timed_seats_page.dart';
 import 'package:shusekibo/app/feature/auth/widget/sign_in_page.dart';
-import 'package:shusekibo/app/feature/awareness/widget/awareness_page.dart';
+import 'package:shusekibo/app/feature/awareness/awareness_page.dart';
 import 'package:shusekibo/app/feature/dashboard/widget/dashboard_page.dart';
 import 'package:shusekibo/app/feature/health/health_list_page.dart';
 import 'package:shusekibo/app/feature/health/health_seat_page.dart';

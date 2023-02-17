@@ -28,17 +28,17 @@ class GakunenRepository implements GakunenRepositoryProtocol {
         success: (success) {},
         error: (error) {
           return GakunenState.error(error);
-        });
+        },);
 
     if (response is APISuccess) {
       final value = response.value;
       try {
-        final _gakunen = gakunenListFromJson(value as List<dynamic>);
+        final gakunen = gakunenListFromJson(value as List<dynamic>);
 
-        _ref.read(gakunenProvider.notifier).state = _gakunen.first;
-        _ref.read(gakunenCache.notifier).state['${dantai.id}'] = _gakunen;
+        _ref.read(gakunenProvider.notifier).state = gakunen.first;
+        _ref.read(gakunenCache.notifier).state['${dantai.id}'] = gakunen;
 
-        return GakunenState.loaded();
+        return const GakunenState.loaded();
       } catch (e) {
         return GakunenState.error(AppException.errorWithMessage(e.toString()));
       }

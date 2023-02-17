@@ -17,24 +17,19 @@ class TimedClipWidget extends ConsumerWidget {
 
     return state.when(
       loading: () {return Container(); }, 
-      error: (AppException error) {return Container(child: Text('$error')); },
+      error: (AppException error) {return Text('$error'); },
       loaded: () {
 
         final targetDate = ref.watch(attendanceTimedFilterDateProvider);
         final strDate = DateFormat('yyyy-MM-dd').format(targetDate);
         final shozoku = ref.watch(shozokuProvider);
         
-        final timedList = ref.read(timedCache)['${shozoku.id}-$strDate'];
-        
-        if (timedList!.isEmpty){
-          return const Text('(無し)');
-        }
+        final timedList = ref.watch(timedCache)['${shozoku.id}-$strDate'];
 
         return Wrap(
-          direction: Axis.horizontal,
-          spacing: 10.0,
-          runSpacing: 10.0,
-          children: timedList.map((timed) {
+          spacing: 10,
+          runSpacing: 10,
+          children: timedList!.map((timed) {
             return ChoiceChip(
               label: Text(
                 '${timed.ryaku}',

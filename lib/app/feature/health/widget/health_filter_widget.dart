@@ -66,7 +66,7 @@ class HealthFilterWidget extends ConsumerWidget {
                       onPressed: (){
                       ref
                           .read(filterInitProvider.notifier)
-                          .updateHealthFilter(targetDate: targetDate);
+                          .updateFilter(targetDate: targetDate);
                         Navigator.pop(context);
                       },
                     ),

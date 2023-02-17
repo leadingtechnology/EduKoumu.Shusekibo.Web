@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_list_widget.dart';
 import 'package:shusekibo/app/feature/common/widget/toast_helper.dart';
 import 'package:shusekibo/app/feature/navigation/nav_bar.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_provider.dart';
@@ -42,12 +43,12 @@ class AttendanceTimedFooterBar extends ConsumerWidget {
           },
           style: OutlinedButton.styleFrom(
             backgroundColor: Colors.white,
-            fixedSize: Size(150, 40),
-            side: BorderSide(
-                width: 1, color: Colors.black87, style: BorderStyle.solid),
+            fixedSize: const Size(150, 40),
+            side: const BorderSide(
+                width: 1, color: Colors.black87, style: BorderStyle.solid,),
           ),
-          child: Text(
-            " 空白のみ全出 ",
+          child: const Text(
+            ' 空白のみ全出 ',
             style: TextStyle(color: Colors.black, fontSize: 16),
           ),
         ),
@@ -58,11 +59,11 @@ class AttendanceTimedFooterBar extends ConsumerWidget {
             await ref.read(attendanceTimedMeiboInitProvider.notifier).save();
             ToastHelper.showToast(context, '　保存しました　');
           },
-          child: const Text('保存', style: TextStyle(fontSize: 16),),
           style: ElevatedButton.styleFrom(
-            primary: Color(0xFF0056d2),
+            backgroundColor : const Color(0xFF0056d2),
             fixedSize: const Size(150, 40),
           ),
+          child: const Text('保存', style: TextStyle(fontSize: 16),),
         ),
       ],
     );

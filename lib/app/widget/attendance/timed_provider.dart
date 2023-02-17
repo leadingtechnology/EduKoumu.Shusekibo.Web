@@ -9,17 +9,17 @@ import 'package:shusekibo/app/widget/shozoku/shozoku_model.dart';
 import 'package:shusekibo/app/widget/shozoku/shozoku_provider.dart';
 
 final timedInitProvider =
-    StateNotifierProvider<TimedInitProvider, TimedState>((ref) {
+    StateNotifierProvider<TimedInitNotifier, TimedState>((ref) {
       final shozoku = ref.watch(shozokuProvider);
       final targetDate = ref.watch(attendanceTimedFilterDateProvider);
 
-  return TimedInitProvider(ref, shozoku, targetDate);
+  return TimedInitNotifier(ref, shozoku, targetDate);
 });
 
 final timedProvider = StateProvider<TimedModel>((ref) => const TimedModel());
 
-class TimedInitProvider extends StateNotifier<TimedState> {
-  TimedInitProvider(
+class TimedInitNotifier extends StateNotifier<TimedState> {
+  TimedInitNotifier(
     this._ref,
     this._shozoku,
     this._targetDate,
@@ -49,7 +49,7 @@ class TimedInitProvider extends StateNotifier<TimedState> {
   }
 
   Future<void> _fetch() async {
-    final response = await _repository.fetch(_shozoku);
+    final response = await _repository.fetch(_shozoku, _targetDate);
     if (mounted) {
       state = response;
     }

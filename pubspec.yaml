@@ -28,6 +28,10 @@ dependencies:
   #
   pluto_grid: ^5.1.0
   auto_size_text: ^3.0.0
+  speech_to_text: ^6.1.1
+  google_ml_kit: ^0.13.0
+  camera: ^0.10.3
+  dropdown_search: ^4.0.1
 
   # 
   font_awesome_flutter: ^10.3.0

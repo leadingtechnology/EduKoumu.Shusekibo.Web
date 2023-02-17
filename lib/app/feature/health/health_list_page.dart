@@ -77,7 +77,7 @@ class HealthListPage extends ConsumerWidget {
 }
 
 class HealthListView extends ConsumerWidget {
-  const HealthListView({Key? key}) : super(key: key);
+  const HealthListView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -85,15 +85,8 @@ class HealthListView extends ConsumerWidget {
 
     return state.when(
       blank: Container.new,
-      loading: () => const Center(
-          child:
-              CircularProgressIndicator()), //Center(child: CircularProgressIndicator());
-
-      error: (AppException e) {
-        return Container(
-          child: Text('${e.toString()}'),
-        );
-      },
+      loading: () => const Center(child: CircularProgressIndicator()), 
+      error: (AppException e) => Text(e.toString()),
       loaded: () {
         return HealthListWidget(
           key: helthGlobalKey,

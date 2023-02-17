@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shusekibo/app/widget/filter/filter_model.dart';
 import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/shared/util/spacing.dart';
 
 class AttendanceTimedSearchWidget extends ConsumerWidget {
-  const AttendanceTimedSearchWidget({super.key, required this.scaffoldKey, this.isTimed = true});
+  const AttendanceTimedSearchWidget(
+      {super.key, required this.scaffoldKey, this.isTimed = true,});
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   final bool isTimed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final FilterModel filter = ref.watch(filterProvider);
+    final filter = ref.watch(attendanceTimedFilterProvider);
     
     return Container(
         padding: Spacing.all(4),
@@ -35,16 +35,18 @@ class AttendanceTimedSearchWidget extends ConsumerWidget {
                         child: Container(
                             padding: Spacing.x(4),
                             decoration: BoxDecoration(
-                              border: Border.all(width: 1),
+                              border: Border.all(),
                               borderRadius: BorderRadius.circular(3),
                             ),
-                            child: Text(filter.gakunenCode == '0' ? '' : filter.gakunenRyakusho ?? ''),),
+                      child: Text(filter.gakunenCode == '0'
+                          ? ''
+                          : filter.gakunenRyakusho ?? '',),
+                    ),
                       ),
                     )
                   ],
-                )),
+                ),),
             Expanded(
-              flex: 1,
               child: Container(),
             ),
             Expanded(
@@ -61,36 +63,33 @@ class AttendanceTimedSearchWidget extends ConsumerWidget {
                         child: Container(
                             padding: Spacing.x(4),
                             decoration: BoxDecoration(
-                              border: Border.all(width: 1),
+                              border: Border.all(),
                               borderRadius: BorderRadius.circular(3),
                             ),
-                            child: Text('${filter.className ?? ''}')),
+                            child: Text(filter.className ?? ''),),
                       ),
                     )
                   ],
-                )),
+                ),),
             Expanded(
               flex: 3,
               child: InkWell(
                 onTap: () {
                   scaffoldKey.currentState?.openEndDrawer();
                 },
-                child: Container(
-                  child: Row(
-                    children: [
-                      Checkbox(
-                        activeColor: const Color(0xFF2D4E27),
-                        value: filter.kouryuGakkyu ?? false,
-                        onChanged: (v) {},
-                      ),
-                      const Text('交流学級で表示')
-                    ],
-                  ),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      activeColor: const Color(0xFF2D4E27),
+                      value: filter.kouryuGakkyu ?? false,
+                      onChanged: (v) {},
+                    ),
+                    const Text('交流学級で表示')
+                  ],
                 ),
               ),
             ),
             Expanded(
-              flex: 1,
               child: Container(),
             ),
             Expanded(
@@ -108,16 +107,15 @@ class AttendanceTimedSearchWidget extends ConsumerWidget {
                         child: Container(
                             padding: Spacing.x(4),
                             decoration: BoxDecoration(
-                              border: Border.all(width: 1),
+                              border: Border.all(),
                               borderRadius: BorderRadius.circular(3),
                             ),
                             child: Text(filter.japanDate ?? ''),),
                       ),
                     )
                   ],
-                )),
+                ),),
             Expanded(
-              flex: 1,
               child: Container(),
             ),
             Expanded(
@@ -131,11 +129,13 @@ class AttendanceTimedSearchWidget extends ConsumerWidget {
                         ),
                         Expanded(
                           child: InkWell(
-                            onTap: (){scaffoldKey.currentState?.openEndDrawer();},
+                          onTap: () {
+                            scaffoldKey.currentState?.openEndDrawer();
+                          },
                             child: Container(
                                 padding: Spacing.x(4),
                                 decoration: BoxDecoration(
-                                  border: Border.all(width: 1),
+                                  border: Border.all(),
                                   borderRadius: BorderRadius.circular(3),
                                 ),
                                 child: Text(filter.jigenRyaku ?? ''),),
@@ -145,26 +145,24 @@ class AttendanceTimedSearchWidget extends ConsumerWidget {
                     ) : Container() ,
             ),
             Expanded(
-              flex: 1,
               child: Container(
                 alignment: Alignment.center,
                 child: IconButton(
                     onPressed: () {
                       ref.read(filterInitProvider.notifier).update();
                     },
-                    icon: Icon(Icons.refresh)),
+                    icon: const Icon(Icons.refresh),),
               ),
             ),
             Expanded(
-                flex: 1,
                 child: Container(
                   alignment: Alignment.center,
                   child: IconButton(
                       onPressed: () {
                         scaffoldKey.currentState?.openEndDrawer();
-                      }, icon: Icon(Icons.tune)),
-                )),
+                      }, icon: const Icon(Icons.tune),),
+                ),),
           ],
-        ));
+        ),);
   }
 }

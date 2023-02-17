@@ -5,8 +5,12 @@ import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_filter_
 import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_footer_bar.dart';
 import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_search_widget.dart';
 import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_stamp_reason_widget.dart';
+import 'package:shusekibo/app/feature/attendance/widget/seat_widget.dart';
 import 'package:shusekibo/app/feature/common/widget/base_scaffold_widget.dart';
+import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_provider.dart';
+import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/common/header_bar.dart';
+import 'package:shusekibo/shared/http/app_exception.dart';
 
 import 'package:shusekibo/shared/util/spacing.dart';
 
@@ -53,10 +57,10 @@ class AttendanceTimedSeatsPage extends ConsumerWidget {
                 child: Container(
                     color: Colors.grey[100],
                     padding: Spacing.all(16),
-                    child: AttendanceTimedSeatsGridView()),
+                    child: const AttendanceTimedSeatsGridView(),),
               ),
               // tools bar
-            ])),
+            ],),),
 
             // footer
             Spacing.height(8),
@@ -73,46 +77,35 @@ class AttendanceTimedSeatsPage extends ConsumerWidget {
 
 // ShuketuSeat
 class AttendanceTimedSeatsGridView extends ConsumerWidget {
-  const AttendanceTimedSeatsGridView({super.key});
+  const AttendanceTimedSeatsGridView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(attendanceTimedMeiboInitProvider);
 
     return state.when(
-      loading: () {
-        return Container();
-      },
-      error: (AppException e) {
-        return Container(
-          child: Text('${e.toString()}'),
-        );
-      },
+      blank: Container.new,
+      loading: () => const Center(child: CircularProgressIndicator(),), 
+      error: (AppException e){ return Text(e.toString());},
       loaded: () {
-        // Boxes.getHealthMeiboModelBox()
-        return ValueListenableBuilder(
-            valueListenable:
-                Boxes.getAttendanceTimedMeiboModelBox().listenable(),
-            builder: (context, Box<AttendanceTimedMeiboModel> box, _) {
-              final List<AttendanceTimedMeiboModel> meibos =
-                  box.values.toList();
 
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 6,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
-                  childAspectRatio: 2,
-                ),
-                itemCount: meibos.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return AttendanceTimedSeatWidget(
-                    index: index,
-                    meibo: meibos[index],
-                  );
-                },
-              );
-            });
+        final meibosmap = ref.watch(attendanceTimedMeibosCache);
+
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 6,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 15,
+            childAspectRatio: 2,
+          ),
+          itemCount: meibosmap.length,
+          itemBuilder: (BuildContext context, int index) {
+            return SeatWidget(
+              index: index,
+              meibo:  meibosmap.values.elementAt(index),
+            );
+          },
+        );
       },
     );
   }

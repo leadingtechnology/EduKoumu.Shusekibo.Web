@@ -75,7 +75,6 @@ class AttendanceTimedStampReasonWidget extends ConsumerWidget {
                     style: TextStyle(fontSize: 16),
                   ),),
               const AttendanceReasonWidget(),
-              Spacing.width(24),
            
             ],
           ),

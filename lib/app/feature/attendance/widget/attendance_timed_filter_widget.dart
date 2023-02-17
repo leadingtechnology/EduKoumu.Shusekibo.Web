@@ -11,128 +11,142 @@ import 'package:shusekibo/app/widget/shozoku/shozoku_clip_widget.dart';
 import 'package:shusekibo/shared/util/spacing.dart';
 
 class AttendanceTimedFilterWidget extends ConsumerWidget {
+  AttendanceTimedFilterWidget({super.key});
+
   int selectedLocation = 0, selectedDate = 2, selectedTOD = 1;
 
   _pickDate(BuildContext context, WidgetRef ref) async {
+
     final DateTime? selected = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2022, 4, 1),
-        lastDate: DateTime(2024, 3, 31),
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2022, 4, 1),
+      lastDate: DateTime(2026, 3, 31),
     );
+    
     if (selected != null) {
       ref.read(attendanceTimedFilterDateProvider.notifier).state = selected;
     }
   }
 
+  @override
   Widget build(BuildContext context, WidgetRef ref) {
     final targetDate = ref.watch(attendanceTimedFilterDateProvider);
     final timed = ref.watch(timedProvider);
 
-    ThemeData themeData = Theme.of(context);
+    final themeData = Theme.of(context);
 
     return Container(
-        width: 300,
-        margin: Spacing.y(16),
-        padding: Spacing.xy(24, 16),
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16), bottomLeft: Radius.circular(16),),),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('フィルター'),
-                  Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: themeData.colorScheme.primary.withAlpha(24),
-                    ),
-                    child: IconButton(
-                      icon: FaIcon(
-                        FontAwesomeIcons.circleCheck,
-                        color: themeData.colorScheme.primary,
-                      ),
-                      onPressed: () {
-                        ref.read(filterInitProvider.notifier).updateAttendanceTimedFilter(
-                          targetDate: targetDate, 
-                          timed: timed
-                        );
-                        Navigator.pop(context);
-                      },
-                    ),
+      width: 300,
+      margin: Spacing.y(16),
+      padding: Spacing.xy(24, 16),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          bottomLeft: Radius.circular(16),
+        ),
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('フィルター'),
+                Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    color: themeData.colorScheme.primary.withAlpha(24),
                   ),
-                ],
-              ),
-              //  -- 1 --
-              Spacing.height(24),
-              const Text('学年'),
-              Spacing.height(8),
-              Container(
-                padding: Spacing.left(12),
-                child: const GakunenClipWidget(),
-              ),
-              Spacing.height(16),
-              //  -- 2 --
-              Row(
-                children: [
-                  const Text('クラス'),
-                  Checkbox(
-                    activeColor: const Color(0xFF2D4E27),
-                    value: ref.watch(kouryuProvider),
-                    onChanged: (v) {ref.read(kouryuProvider.notifier).state = v??false;},
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.circleCheck,
+                      color: themeData.colorScheme.primary,
+                    ),
+                    onPressed: () {
+                      ref
+                          .read(filterInitProvider.notifier)
+                          .updateAttendanceTimedFilter(
+                            targetDate: targetDate,
+                            timed: timed,
+                          );
+                      Navigator.pop(context);
+                    },
                   ),
-                  const Text('交流学級で表示')
-                ],
-              ),
-              Spacing.height(8),
-              Container(
-                padding: Spacing.left(32),
-                child: const ShozokuClipWidget(),
-              ),
-              Spacing.height(16),
-              // -- 3 --
-              const Text('対象日'),
-              Spacing.height(8),
-              Container(
-                padding: Spacing.left(32),
-                child: InkWell(
-                  onTap: () {
-                    _pickDate(context, ref);
+                ),
+              ],
+            ),
+            //  -- 1 --
+            Spacing.height(24),
+            const Text('学年'),
+            Spacing.height(8),
+            Container(
+              padding: Spacing.left(12),
+              child: const GakunenClipWidget(),
+            ),
+            Spacing.height(16),
+            //  -- 2 --
+            Row(
+              children: [
+                const Text('クラス'),
+                Checkbox(
+                  activeColor: const Color(0xFF2D4E27),
+                  value: ref.watch(kouryuProvider),
+                  onChanged: (v) {
+                    ref.read(kouryuProvider.notifier).state = v ?? false;
                   },
-                  child: SingleIconChip(
-                      isSelected: false,
-                      text: DateFormat.yMd().format(targetDate),
-                      iconData: MdiIcons.calendarOutline),
+                ),
+                const Text('交流学級で表示')
+              ],
+            ),
+            Spacing.height(8),
+            Container(
+              padding: Spacing.left(32),
+              child: const ShozokuClipWidget(),
+            ),
+            Spacing.height(16),
+            // -- 3 --
+            const Text('対象日'),
+            Spacing.height(8),
+            Container(
+              padding: Spacing.left(32),
+              child: InkWell(
+                onTap: () {
+                  _pickDate(context, ref);
+                },
+                child: SingleIconChip(
+                  isSelected: false,
+                  text: DateFormat.yMd().format(targetDate),
+                  iconData: MdiIcons.calendarOutline,
                 ),
               ),
-              Spacing.height(16),
-              // -- 3 時限 begin--
-              const Text('時限'),
-              Spacing.height(8),
-               Container(
-                padding: Spacing.left(32),
-                child: const TimedClipWidget(),
-              ),
-
-            ],
-          ),
-        ));
+            ),
+            Spacing.height(16),
+            // -- 3 時限 begin--
+            const Text('時限'),
+            Spacing.height(8),
+            Container(
+              padding: Spacing.left(32),
+              child: const TimedClipWidget(),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
 class SingleIconChip extends StatelessWidget {
-  const SingleIconChip(
-      {super.key,
-      required this.iconData,
-      required this.text,
-      required this.isSelected});
+  const SingleIconChip({
+    super.key,
+    required this.iconData,
+    required this.text,
+    required this.isSelected,
+  });
 
   final IconData iconData;
   final String text;
@@ -141,20 +155,23 @@ class SingleIconChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    
+
     return Chip(
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       backgroundColor: themeData.colorScheme.primary,
-      avatar: Icon(iconData,
-          size: 16,
-          color: Colors.white,
+      avatar: Icon(
+        iconData,
+        size: 16,
+        color: Colors.white,
       ),
-      label: Text(text,
-          style: const TextStyle(
-            color: Colors.white,
-            letterSpacing: 0,
-            wordSpacing: 0,
-          ),),
+      label: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          letterSpacing: 0,
+          wordSpacing: 0,
+        ),
+      ),
       padding: Spacing.fromLTRB(12, 6, 12, 6),
     );
   }

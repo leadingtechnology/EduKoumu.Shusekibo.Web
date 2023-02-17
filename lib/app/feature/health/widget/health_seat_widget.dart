@@ -51,7 +51,6 @@ class HealthSeatWidget extends ConsumerWidget {
               reason1,
               reason2,
             );
-        print('------ ${meibo.name} ------');
       },
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),

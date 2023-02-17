@@ -7,17 +7,17 @@ import 'package:shusekibo/app/widget/shozoku/shozoku_repository.dart';
 import 'package:shusekibo/app/widget/shozoku/shozoku_state.dart';
 
 final shozokuInitProvider =
-    StateNotifierProvider<ShozokuInitProvider, ShozokuState>((ref) {
+    StateNotifierProvider<ShozokuInitNotifier, ShozokuState>((ref) {
   final dantai = ref.watch(dantaiProvider);
 
-  return ShozokuInitProvider(ref, dantai);
+  return ShozokuInitNotifier(ref, dantai);
 });
 
 final shozokuProvider =
     StateProvider<ShozokuModel>((ref) => const ShozokuModel());
 
-class ShozokuInitProvider extends StateNotifier<ShozokuState> {
-  ShozokuInitProvider(this._ref, this._dantai)
+class ShozokuInitNotifier extends StateNotifier<ShozokuState> {
+  ShozokuInitNotifier(this._ref, this._dantai)
       : super(const ShozokuState.loading()) {
     _init();
   }
@@ -25,7 +25,8 @@ class ShozokuInitProvider extends StateNotifier<ShozokuState> {
   final Ref _ref;
   final DantaiModel _dantai;
 
-  late final ShozokuRepository _repository = _ref.read(shozokuRepositoryProvider);
+  late final ShozokuRepository _repository =
+      _ref.read(shozokuRepositoryProvider);
 
   Future<void> _init() async {
     if (_dantai.id == null) return;

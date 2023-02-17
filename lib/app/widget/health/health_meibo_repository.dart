@@ -12,8 +12,8 @@ import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 
 abstract class HealthMeiboRepositoryProtocol {
-  Future<HealthMeiboState> fetch(
-      FilterModel filter); 
+  Future<HealthMeiboState> fetch(FilterModel filter); 
+  Future<HealthMeiboState> save() ;
 }
 
 final healthMeiboRepositoryProvider = Provider(HealthMeiboRepository.new);
@@ -31,8 +31,6 @@ class HealthMeiboRepository implements HealthMeiboRepositoryProtocol {
     final url = 'api/shozoku/${filter.classId}/KenkouKansatsubo?date=$strDate&kouryuGakkyu=true';
     final response = await _api.get(url);
 
-    print('------ meibo ------ $url');
-
     response.when(
         success: (success) {},
         error: (error) {return HealthMeiboState.error(error);},
@@ -44,11 +42,9 @@ class HealthMeiboRepository implements HealthMeiboRepositoryProtocol {
         final healthMeiboList = healthMeiboListFromJson(value as List<dynamic>);
 
         // save to cache
-        _ref.read(healthMeibosCache.notifier).state = {};
         _ref.read(healthMeibosCache.notifier).state = Map.fromIterables(
             healthMeiboList.map((e) => '${e.studentKihonId}').toList(),
             healthMeiboList.map((e) => e).toList(),);
-        
 
         return const HealthMeiboState.loaded();
       } catch (e) {
@@ -72,7 +68,7 @@ class HealthMeiboRepository implements HealthMeiboRepositoryProtocol {
     final meibos = _ref.read(healthMeibosCache).values.toList();
     final json = jsonEncode(meibos
         .map((v) => v.toNewJson())
-        .toList(),); //jsonEncode(meibos.map((i) => i.toJson()).toList()).toString();
+        .toList(),); 
 
     final response = await _api.post2(
         'api/shozoku/${filter.classId}/KenkouKansatsubo?date=$strDate', json,);

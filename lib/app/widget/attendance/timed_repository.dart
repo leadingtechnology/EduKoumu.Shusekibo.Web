@@ -4,14 +4,13 @@ import 'package:shusekibo/app/widget/attendance/timed_model.dart';
 import 'package:shusekibo/app/widget/attendance/timed_provider.dart';
 import 'package:shusekibo/app/widget/attendance/timed_state.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
-import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/app/widget/shozoku/shozoku_model.dart';
 import 'package:shusekibo/shared/http/api_provider.dart';
 import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 
 abstract class TimedRepositoryProtocol {
-  Future<TimedState> fetch(ShozokuModel shozoku); 
+  Future<TimedState> fetch(ShozokuModel shozoku, DateTime _targetDate); 
 }
 
 final timedRepositoryProvider = Provider(TimedRepository.new);
@@ -23,9 +22,8 @@ class TimedRepository implements TimedRepositoryProtocol {
   final Ref _ref;
 
   @override
-  Future<TimedState> fetch(ShozokuModel shozoku) async {
+  Future<TimedState> fetch(ShozokuModel shozoku, DateTime targetDate) async {
 
-    final targetDate = _ref.read(attendanceTimedFilterDateProvider);
     final strDate = DateFormat('yyyy-MM-dd').format(targetDate);
 
     final url = 'api/shozoku/${shozoku.shozokuId}/JigenList?date=$strDate';
@@ -43,7 +41,9 @@ class TimedRepository implements TimedRepositoryProtocol {
         // 1) get the list
         final timedList = timedListFromJson(value as List<dynamic>);
 
-        _ref.read(timedProvider.notifier).state = timedList.first;
+        if (timedList.isNotEmpty){
+          _ref.read(timedProvider.notifier).state = timedList.first;
+        }
         _ref.read(timedCache.notifier).state['${shozoku.id}-$strDate'] =
             timedList;
 

@@ -30,7 +30,6 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
 
   final Ref _ref;
   final FilterModel _filter;
-  final reason = const HealthReasonModel();
 
   late final HealthMeiboRepository _repository =
       _ref.read(healthMeiboRepositoryProvider);

@@ -1,11 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_meibo_state.dart';
+import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_model.dart';
+import 'package:shusekibo/app/widget/cache/cache_provider.dart';
+import 'package:shusekibo/app/widget/filter/filter_model.dart';
 import 'package:shusekibo/shared/http/api_provider.dart';
 import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 
 abstract class AttendanceTimedMeiboRepositoryProtocol {
-  Future<AttendanceMeiboState> fetch(); 
+  Future<AttendanceMeiboState> fetch(FilterModel filter); 
+  Future<AttendanceMeiboState> save(FilterModel filter); 
 }
 
 final attendanceTimedMeiboRepositoryProvider =
@@ -20,8 +27,15 @@ class AttendanceTimedMeiboRepository
   final Ref _ref;
 
   @override
-  Future<AttendanceMeiboState> fetch() async {
-    final response = await _api.get(' ');
+  Future<AttendanceMeiboState> fetch(FilterModel filter) async {
+    final strDate = DateFormat('yyyy-MM-dd')
+        .format(filter.targetDate ?? DateTime.now());
+    
+    var url = 'api/shozoku/${filter.classId}/JigenbetsuShussekibo';
+    url = '$url?date=$strDate&kouryuGakkyu=${filter.kouryuGakkyu}';
+    final response = await _api.get(url);
+
+    print('jigen timed url : $url');
 
     response.when(
         success: (success) {},
@@ -31,6 +45,17 @@ class AttendanceTimedMeiboRepository
     if (response is APISuccess) {
       final value = response.value;
       try {
+
+        print('jigen timed value : $value');
+        // get list
+        final meibos =
+            attendanceTimedMeiboListFromJson(value as List<dynamic>);
+
+        // save to cache
+        _ref.read(attendanceTimedMeibosCache.notifier).state = Map.fromIterables(
+          meibos.map((e) => '${e.studentKihonId}').toList(),
+          meibos.map((e) => e).toList(),
+        );
 
         return const AttendanceMeiboState.loaded();
       } catch (e) {
@@ -43,4 +68,31 @@ class AttendanceTimedMeiboRepository
       return const AttendanceMeiboState.loading();
     }
   }
+
+  @override
+  Future<AttendanceMeiboState> save(FilterModel filter) async {
+
+    final strDate =
+        DateFormat('yyyy-MM-dd').format(filter.targetDate ?? DateTime.now());
+
+    final meibos = _ref.read(attendanceTimedMeibosCache).values.toList();
+    final json = jsonEncode(
+      meibos.map((v) => v.toNewJson()).toList(),
+    ); 
+
+    final response = await _api.post2(
+      'api/shozoku/${filter.classId}/JigenbetsuShussekibo?date=$strDate',
+      json,
+    );
+
+    return response.when(
+      success: (success) async {
+        return const AttendanceMeiboState.loaded();
+      },
+      error: (error) {
+        return AttendanceMeiboState.error(error);
+      },
+    );
+  }
+
 }
