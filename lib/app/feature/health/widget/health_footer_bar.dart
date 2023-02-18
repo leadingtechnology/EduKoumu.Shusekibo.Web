@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shusekibo/app/feature/common/widget/toast_helper.dart';
+import 'package:shusekibo/app/feature/health/widget/health_list_widget.dart';
 import 'package:shusekibo/app/feature/navigation/nav_bar.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/health/health_meibo_provider.dart';
@@ -28,30 +29,27 @@ class HealthFooterBar extends ConsumerWidget {
             },
             style: OutlinedButton.styleFrom(
               backgroundColor: Colors.white,
-              fixedSize: Size(140, 36),
-              side: BorderSide(
-                width: 1, 
+              fixedSize: const Size(140, 36),
+              side: const BorderSide(
                 color: Colors.black87,
-                style: BorderStyle.solid
               ),
             ),
-            icon: Icon(FontAwesomeIcons.grip, size: 16,color: Colors.black),
+            icon: const Icon(FontAwesomeIcons.grip, size: 16,color: Colors.black),
             label: Text(buttnoName,
-              style: TextStyle(color: Colors.black, fontSize: 16),
+              style: const TextStyle(color: Colors.black, fontSize: 16),
             ),
           ),
           Spacing.width(12),
           OutlinedButton(
             onPressed: () async{
-              await ref.read(healthMeiboInitProvider.notifier).updateByBlank();
+              ref.read(healthMeiboInitProvider.notifier).updateByBlank();
+              helthGlobalKey.currentState?.setBlank();
             },
             style: OutlinedButton.styleFrom(
               backgroundColor: Colors.white,
-              fixedSize: Size(140, 36),
-              side: BorderSide(
-                width: 1, 
+              fixedSize: const Size(140, 36),
+              side: const BorderSide(
                 color: Colors.black87,
-                style: BorderStyle.solid
               ),
             ),
             

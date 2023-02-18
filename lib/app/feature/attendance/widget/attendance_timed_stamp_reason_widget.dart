@@ -78,10 +78,17 @@ class AttendanceTimedStampReasonWidget extends ConsumerWidget {
            
             ],
           ),
-        if(unregistFlag) Row(children: [const SizedBox(width: 106,), AttendanceStampRegistWidget(
+              if (unregistFlag)
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 104,
+                    ),
+                    AttendanceStampRegistWidget(
                       stamps: unregistStamps,
                     )
-                  ],) ,
+                  ],
+                ),
           // tools bar
         ],),
       );

@@ -12,10 +12,6 @@ import 'package:shusekibo/app/widget/shozoku/shozoku_provider.dart';
 import 'package:shusekibo/shared/util/date_util.dart';
 
 final filterProvider = StateProvider<FilterModel>((ref) => const FilterModel());
-final attendanceFilterProvider =
-    StateProvider<FilterModel>((ref) => const FilterModel());
-final attendanceTimedFilterProvider =
-    StateProvider<FilterModel>((ref) => const FilterModel());
 
 final kouryuProvider = StateProvider<bool>((ref) => false);
 
@@ -77,31 +73,6 @@ class FilterInitNotifier extends StateNotifier<AppState> {
 
   void updateFilter({required DateTime targetDate}) {
     update(targetDate: targetDate);
-  }
-
-  void updateAttendanceTimedFilter({
-    required DateTime targetDate,
-    required TimedModel timed,
-  }) {
-
-    _ref.read(attendanceTimedFilterProvider.notifier).state = FilterModel(
-      dantaiId: _dantai.id,
-      organizationKbn: _dantai.organizationKbn,
-      dantaiName: _dantai.name,
-      gakunenCode: _gakunen.gakunenCode,
-      gakunenRyakusho: _gakunen.gakunenRyakusho,
-      kouryuGakkyu: _ref.read(kouryuProvider),
-      classId: _shozoku.id,
-      classCode: _shozoku.classCode,
-      className: _shozoku.className,
-      //
-      jigenIdx: timed != null ? timed.jigenIdx : _timed.jigenIdx,
-      jigenRyaku: timed != null ? timed.ryaku : _timed.ryaku,
-      targetDate: targetDate,
-      japanDate: targetDate != null ? DateUtil.getJapaneseDate(targetDate) : '',
-    );
-
-    print('attendanceTimedFilterProvider : ${_ref.read(attendanceTimedFilterProvider).toString()}');
   }
 
   // ignore: long-parameter-list

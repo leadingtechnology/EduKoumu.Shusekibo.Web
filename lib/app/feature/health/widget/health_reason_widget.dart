@@ -51,6 +51,7 @@ class HealthReasonWidget extends ConsumerWidget {
         children: [
           Spacing.width(10),
           Container(
+            height: 35,
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
               decoration: BoxDecoration(
                 border: Border.all(width: 1),
@@ -73,6 +74,7 @@ class HealthReasonWidget extends ConsumerWidget {
           ),
           Spacing.width(4),
           if (reason2Items.isEmpty) Container() else Container(
+            height: 35,
             padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 decoration: BoxDecoration(
                   border: Border.all(width: 1),

@@ -28,7 +28,7 @@ class AttendanceTimedFooterBar extends ConsumerWidget {
             backgroundColor: Colors.white,
             fixedSize: const Size(150, 40),
             side: const BorderSide(
-                width: 1, color: Colors.black87, style: BorderStyle.solid,),
+                color: Colors.black87,),
           ),
           icon: const Icon(FontAwesomeIcons.grip,size: 16,color: Colors.black),
           label: Text(buttnoName,
@@ -37,7 +37,7 @@ class AttendanceTimedFooterBar extends ConsumerWidget {
         ),
         Spacing.width(12),
         OutlinedButton(
-          onPressed: () async{
+          onPressed: () {
             ref.read(attendanceTimedMeiboInitProvider.notifier).updateByBlank();
             attendanceTimedGlobalKey.currentState?.setBlank();
           },
@@ -45,7 +45,7 @@ class AttendanceTimedFooterBar extends ConsumerWidget {
             backgroundColor: Colors.white,
             fixedSize: const Size(150, 40),
             side: const BorderSide(
-                width: 1, color: Colors.black87, style: BorderStyle.solid,),
+                color: Colors.black87,),
           ),
           child: const Text(
             ' 空白のみ全出 ',

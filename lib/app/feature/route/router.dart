@@ -10,6 +10,7 @@ import 'package:shusekibo/app/feature/awareness/awareness_page.dart';
 import 'package:shusekibo/app/feature/dashboard/widget/dashboard_page.dart';
 import 'package:shusekibo/app/feature/health/health_list_page.dart';
 import 'package:shusekibo/app/feature/health/health_seat_page.dart';
+import 'package:shusekibo/app/feature/system/setting_page.dart';
 
 import 'package:shusekibo/app/widget/app_start_page.dart';
 import 'package:shusekibo/app/feature/awareness/awareness_seats_page.dart';
@@ -36,6 +37,8 @@ class AppRouteObserver extends AutoRouterObserver {
     AutoRoute(path: '/awareness', page: AwarenessPage),
     AutoRoute(path: '/awarenesslist', page: AwarenessListPage),
     AutoRoute(path: '/awarenessseats', page: AwarenessSeatPage),
+
+    AutoRoute(path: '/setting', page: SettingPage),
   ],
 )
 class $AppRouter {}

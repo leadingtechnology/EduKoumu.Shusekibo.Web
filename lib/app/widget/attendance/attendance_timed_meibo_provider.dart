@@ -11,8 +11,7 @@ import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 
 final attendanceTimedMeiboInitProvider = StateNotifierProvider<
     AttendanceTimedMeiboInitNotifier, AttendanceMeiboState>((ref) {
-  final filter = ref.watch(attendanceTimedFilterProvider);
-  print('--------------------------------------------------');
+  final filter = ref.watch(filterProvider);
 
   return AttendanceTimedMeiboInitNotifier(ref, filter);
 });
@@ -37,9 +36,10 @@ class AttendanceTimedMeiboInitNotifier
 
   Future<void> _init() async { 
     print('attendance search filter: $_filter');
-    if (_filter.classId != null) {
+    
+    if (_filter.classId != null && _filter.jigenIdx != null) {
       await _fetch();
-    } else if (_filter.classId == null) {
+    } else if (_filter.classId == null || _filter.jigenIdx == null) {
       state = const AttendanceMeiboState.blank();
     }
    }
@@ -52,7 +52,7 @@ class AttendanceTimedMeiboInitNotifier
   }
 
   Future<void> save() async {
-    state = await _repository.save(_filter);
+    state = await _repository.save();
   }
 
   // set stamp by Id
@@ -103,8 +103,7 @@ class AttendanceTimedMeiboInitNotifier
 
     if (meibos.isEmpty) return;
 
-    final stamp =
-        _ref.read(attendanceRegistStampCache)['100'];
+    final stamp = _ref.read(attendanceRegistStampCache)['100'];
 
     for (final m in meibos) {
       if (m.jokyoList![0].shukketsuBunrui!.isEmpty) {
@@ -120,7 +119,7 @@ class AttendanceTimedMeiboInitNotifier
     AttendanceReasonModel reason1,
     AttendanceReasonModel reason2,
   ) {
-    final filter = _ref.read(attendanceTimedFilterProvider);
+    final filter = _ref.read(filterProvider);
     
     final status = stamp.shukketsuJokyoCd == '999'
         ? AttendanceStatusModel(
@@ -165,7 +164,7 @@ class AttendanceTimedMeiboInitNotifier
     AttendanceReasonModel reason2, 
   ) async {
 
-    final filter = _ref.read(attendanceTimedFilterProvider);
+    final filter = _ref.read(filterProvider);
 
     final status = stamp.shukketsuJokyoCd == '999'
         ? AttendanceStatusModel(

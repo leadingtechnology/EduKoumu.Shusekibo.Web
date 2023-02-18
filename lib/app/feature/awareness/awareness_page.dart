@@ -64,8 +64,7 @@ class AwarenessPage extends ConsumerWidget {
                   ),),
                   Spacing.height(8),
                   //AwarenessFooterBar(),
-                  tabIndex == 0
-                      ? Row(
+                  if (tabIndex == 0) Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(child: Container()),
@@ -78,24 +77,21 @@ class AwarenessPage extends ConsumerWidget {
                               icon: const FaIcon(FontAwesomeIcons.plus),
                               label: const Text(' 気づきの登録 '),
                               style: OutlinedButton.styleFrom(
-                                  primary: Colors.black,
+                                  foregroundColor : Colors.black,
                                   backgroundColor: Colors.white,
                                   fixedSize: const Size(180, 36),
                                   side: const BorderSide(
-                                      width: 1,
-                                      color: Colors.black87,
-                                      style: BorderStyle.solid),
+                                      color: Colors.black87,),
                                   shape: const StadiumBorder(),
-                                  elevation: 8),
+                                  elevation: 8,),
                             ),
                           ],
-                        )
-                      : Spacing.height(2),
+                        ) else Spacing.height(2),
                 ],
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 8,
           ),
         ],
@@ -108,9 +104,9 @@ class AwarenessPage extends ConsumerWidget {
       context: context,
       builder: (BuildContext context) {
         return AwarenessRegistDialog(
-            kizuki: AwarenessKizukiModel(
+            kizuki: const AwarenessKizukiModel(
           id: 0,
-        ));
+        ),);
       },
     );
   }

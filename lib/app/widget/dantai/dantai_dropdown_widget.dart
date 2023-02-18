@@ -14,8 +14,7 @@ class DantaiDropdownWidget extends ConsumerWidget{
   Widget build(BuildContext context, WidgetRef ref) {
     final token = ref.watch(tokenProvider);
     final state = ref.watch(dantaiInitProvider);
-    final dantaiList =
-        ref.watch(dantaiCache.notifier).state['${token.LoginId}'] ?? [];
+    final dantaiList = ref.watch(dantaiCache.notifier).state['${token.LoginId}'] ?? [];
 
     return DropdownButtonHideUnderline(
       child: DropdownButton<DantaiModel>(

@@ -37,15 +37,13 @@ class AttendanceFooterBar extends ConsumerWidget {
         ),
         Spacing.width(12),
         OutlinedButton(
-          onPressed: () async {
-            await ref
-                .read(attendanceMeiboInitProvider.notifier)
-                .updateByBlank();
+          onPressed: () {
+            ref.read(attendanceMeiboInitProvider.notifier).updateByBlank();
             attendanceGlobalKey.currentState?.setBlank();
           },
           style: OutlinedButton.styleFrom(
             backgroundColor: Colors.white,
-            fixedSize: Size(150, 40),
+            fixedSize: const Size(150, 40),
             side: const BorderSide(
                 color: Colors.black87, style: BorderStyle.solid),
           ),

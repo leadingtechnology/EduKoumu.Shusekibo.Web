@@ -16,10 +16,10 @@ import 'package:shusekibo/shared/util/spacing.dart';
 
 class AwarenessRegistDialog extends ConsumerWidget {
   AwarenessRegistDialog({
-    Key? key,
+    super.key,
     required this.kizuki,
     this.opt = AwarenessOperationItem.add,
-  }) : super(key: key);
+  });
 
   final AwarenessKizukiModel kizuki;
   final AwarenessOperationItem opt;
@@ -29,14 +29,14 @@ class AwarenessRegistDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _meiboBox = ref.watch(awarenessMeibosCache);
+    final meiboBox = ref.watch(awarenessMeibosCache);
 
     bool juyo; //  = ref.watch(awarenessJuyoProvider);
-    List<AwarenessMeiboModel> meibos = [];
+    var meibos = <AwarenessMeiboModel>[];
 
     // Add Mode
     if (opt == AwarenessOperationItem.add) {
-      meibos = _meiboBox.values
+      meibos = meiboBox.values
           .toList()
           .where((e) => e.selectFlag ?? false)
           .toList();
@@ -59,11 +59,11 @@ class AwarenessRegistDialog extends ConsumerWidget {
         child: SimpleDialog(
           children: [
             // 1. title
-            Text("　気づきの編集",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            const Text('　気づきの編集',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
 
             // 2.1 student name
-            Divider(color: Colors.grey),
+            const Divider(color: Colors.grey),
             Container(
               padding: Spacing.all(12),
               child: Column(
@@ -75,10 +75,10 @@ class AwarenessRegistDialog extends ConsumerWidget {
                       Container(
                         width: 88,
                         alignment: Alignment.centerRight,
-                        child: Text(
+                        child: const Text(
                           '氏名',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14),
+                              fontWeight: FontWeight.bold, fontSize: 14,),
                         ),
                       ),
                       Spacing.width(12),
@@ -95,9 +95,9 @@ class AwarenessRegistDialog extends ConsumerWidget {
                                                     e.studentName ?? '',
                                                 studentId: e.studentId ?? 0,
                                                 photoUrl: e.photoUrl ?? '',
-                                              ))
-                                          .toList()),
-                                ))),
+                                              ),)
+                                          .toList(),),
+                                ),),),
                       if (opt == AwarenessOperationItem.edit)
                         Expanded(
                             child: SizedBox(
@@ -107,13 +107,13 @@ class AwarenessRegistDialog extends ConsumerWidget {
                             studentId: kizuki.studentId ?? 0,
                             photoUrl: 'api/images?seitoseq=${kizuki.seitoSeq}',
                           ),
-                        )),
+                        ),),
                       if (opt == AwarenessOperationItem.copy)
                         Expanded(
                             child: SizedBox(
                           width: 600,
                           child: AwarenessTemplateSearchStudent(),
-                        )),
+                        ),),
                     ],
                   ),
 
@@ -122,17 +122,18 @@ class AwarenessRegistDialog extends ConsumerWidget {
                     Container(
                       width: 88,
                       alignment: Alignment.centerRight,
-                      child: Text(
+                      child: const Text(
                         '分類',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14),
+                            fontWeight: FontWeight.bold, fontSize: 14,),
                       ),
                     ),
                     Spacing.width(12),
-                    Expanded(
+                    const Expanded(
                       child: AwarenessBunruiWidget(),
                     ),
-                  ]),
+                    //const (),
+                  ],),
 
                   Spacing.height(8),
                   // 2.3 kizuki

@@ -6,13 +6,13 @@ import 'package:shusekibo/app/widget/attendance/attendance_meibo_state.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_model.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/filter/filter_model.dart';
+import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/shared/http/api_provider.dart';
 import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 
 abstract class AttendanceTimedMeiboRepositoryProtocol {
   Future<AttendanceMeiboState> fetch(FilterModel filter); 
-  Future<AttendanceMeiboState> save(FilterModel filter); 
 }
 
 final attendanceTimedMeiboRepositoryProvider =
@@ -69,30 +69,27 @@ class AttendanceTimedMeiboRepository
     }
   }
 
-  @override
-  Future<AttendanceMeiboState> save(FilterModel filter) async {
+  Future<AttendanceMeiboState> save() async {
+    final filter = _ref.read(filterProvider);
 
-    final strDate =
-        DateFormat('yyyy-MM-dd').format(filter.targetDate ?? DateTime.now());
+    final strDate = DateFormat('yyyy-MM-dd')
+        .format(filter.targetDate ?? DateTime.now());
+
+    print('------ strDate: $strDate');
 
     final meibos = _ref.read(attendanceTimedMeibosCache).values.toList();
-    final json = jsonEncode(
-      meibos.map((v) => v.toNewJson()).toList(),
-    ); 
+    final json = jsonEncode(meibos
+        .map((v) => v.toNewJson())
+        .toList(),);
 
     final response = await _api.post2(
-      'api/shozoku/${filter.classId}/JigenbetsuShussekibo?date=$strDate',
-      json,
-    );
+        'api/shozoku/${filter.classId}/JigenbetsuShussekibo?date=$strDate',
+        json,);
 
     return response.when(
-      success: (success) async {
-        return const AttendanceMeiboState.loaded();
-      },
-      error: (error) {
-        return AttendanceMeiboState.error(error);
-      },
+      success: (success) {return const AttendanceMeiboState.loaded();}, 
+      error: (error) {return AttendanceMeiboState.error(error);},
     );
-  }
+  }   
 
 }

@@ -45,7 +45,7 @@ class HealthSeatWidget extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () async {
-        await ref.read(healthMeiboInitProvider.notifier).updateById(
+        ref.read(healthMeiboInitProvider.notifier).updateById(
               meibo,
               stamp,
               reason1,

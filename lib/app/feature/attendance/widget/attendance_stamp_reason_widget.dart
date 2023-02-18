@@ -81,7 +81,7 @@ class AttendanceStampReasonWidget extends ConsumerWidget {
             Row(
               children: [
                 const SizedBox(
-                  width: 106,
+                  width: 104,
                 ),
                 AttendanceStampRegistWidget(
                   stamps: unregistStamps,

@@ -70,7 +70,7 @@ class AttendanceTimedFilterWidget extends ConsumerWidget {
                     onPressed: () {
                       ref
                           .read(filterInitProvider.notifier)
-                          .updateAttendanceTimedFilter(
+                          .update(
                             targetDate: targetDate,
                             timed: timed,
                           );

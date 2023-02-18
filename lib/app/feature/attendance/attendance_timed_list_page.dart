@@ -53,7 +53,7 @@ class AttendanceTimedListPage extends ConsumerWidget {
                       child: Container(
                           alignment: Alignment.topLeft,
                           padding: Spacing.all(16),
-                          child: AttendanceTimedListView())),
+                          child: const AttendanceTimedListView(),),),
                 ],
               ),
             ),

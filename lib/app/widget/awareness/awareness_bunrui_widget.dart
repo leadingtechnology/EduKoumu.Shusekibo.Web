@@ -22,16 +22,31 @@ class AwarenessBunruiWidget extends ConsumerWidget {
         final gValue = ref.watch(awarenessBunruiProvider);
 
         return Wrap(
-          spacing: 10,
-          runSpacing: 10,
+          direction: Axis.horizontal,
+          spacing: 8,
+          runSpacing: 4,
           children: bunruiList!.map((item) {
-            return RadioListTile(
-              title: Text('${item.name}'),
-              value: item.id ?? 0,
-              groupValue: gValue,
-              onChanged: (selected) {
-                ref.read(awarenessBunruiProvider.notifier).state = item.id??0;
-              },
+            return Container(
+              width: 160,
+              child: Row(
+                children: [
+                  Radio(
+                    value: item.id ?? 0,
+                    groupValue: gValue,
+                    onChanged: (selected) {
+                      ref.read(awarenessBunruiProvider.notifier).state =
+                          item.id ?? 0;
+                    },
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                        ref.read(awarenessBunruiProvider.notifier).state =
+                            item.id ?? 0;
+                    },
+                    child: Text('${item.name}'),
+                  ),
+                ],
+              ),
             );
           }).toList(),
         );

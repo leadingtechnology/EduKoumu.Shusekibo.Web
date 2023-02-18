@@ -1,5 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:html' as html;
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/feature/auth/model/auth_state.dart';
 import 'package:shusekibo/app/feature/auth/repository/auth_repository.dart';
 import 'package:shusekibo/shared/model/token.dart';
@@ -26,7 +27,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<void> logout() async {
     await _tokenRepository.remove();
-    state = const AuthState.loggedOut();
+    html.window.location.reload();
   }
   
   Future<void> signUp(String name, String email, String password) async {

@@ -56,12 +56,11 @@ class HealthListPage extends ConsumerWidget {
                 child: Container(
                   color: Colors.grey[100],
                   padding: Spacing.all(16),
-                  child: HealthListView(),
+                  child: const HealthListView(),
                 ),
               ),
               // tools bar
-            ])),
-
+            ],),),
             // footer
             Spacing.height(8),
             const HealthFooterBar(

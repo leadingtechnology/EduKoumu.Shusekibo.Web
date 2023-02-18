@@ -34,21 +34,21 @@ class MyNavigationBar extends ConsumerWidget {
             },),
             const CompanyName(),
             Spacing.height(20),
-            Flexible(
+            const Flexible(
               fit: FlexFit.tight,
               child: NavBar(),
             ),
 
-            // NavBarItem(
-            //   icon: Icons.settings,
-            //   title: '設定',
-            //   active: menuId == 50 ? true : false,
-            //   touched: () {
-            //     ref.read(menuIdProvider.notifier).state = 50;
-            //   },
-            //   menuId: 'setting',
-            //   menuNo: 11,
-            // ),
+            NavBarItem(
+              icon: Icons.settings,
+              title: '設定',
+              active: menuId == 50 ? true : false,
+              touched: () {
+                ref.read(menuIdProvider.notifier).state = 50;
+              },
+              menuId: 'setting',
+              menuNo: 11,
+            ),
             NavBarItem(
               icon: Icons.logout,
               title: 'ログアウト',

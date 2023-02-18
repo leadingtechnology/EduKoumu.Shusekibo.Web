@@ -42,7 +42,7 @@ class _AttendanceTimedListWidgetState
     super.initState();
 
     final accessToken = ref.read(tokenProvider).access_token.toString();
-    filter = ref.read(attendanceTimedFilterProvider);
+    filter = ref.read(filterProvider);
 
     columns.addAll([
       PlutoColumn(title: '学年',    field: 'gakunen',   readOnly: true, type: PlutoColumnType.text(),               width: 70,  enableContextMenu:false, textAlign: PlutoColumnTextAlign.left, titleTextAlign: PlutoColumnTextAlign.center),
@@ -159,7 +159,8 @@ class _AttendanceTimedListWidgetState
       return;
     }
 
-    row.cells['mark']!.value = stamp.shukketsuJokyoCd=='999'?'':stamp.shukketsuJokyoNmRyaku;
+    row.cells['mark']!.value =
+        stamp.shukketsuJokyoCd == '999' ? '' : stamp.shukketsuJokyoNmRyaku;
     row.cells['reason1']!.value = reason1.shukketsuJiyuNmSeishiki ?? '';
     row.cells['reason2']!.value = reason2.shukketsuJiyuNmSeishiki ?? '';
     stateManager.notifyListeners();
@@ -175,14 +176,6 @@ class _AttendanceTimedListWidgetState
     }
     stateManager.notifyListeners();
   } 
-
-  void setAll(String mark, String reason1, String reason2){
-    for (final row in stateManager.rows) {
-      row.cells['mark']!.value = mark;
-      row.cells['reason1']!.value = reason1;
-      row.cells['reason2']!.value = reason2;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

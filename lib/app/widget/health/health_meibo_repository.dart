@@ -27,7 +27,8 @@ class HealthMeiboRepository implements HealthMeiboRepositoryProtocol {
   @override
   Future<HealthMeiboState> fetch(FilterModel filter ) async {
 
-    final strDate = DateFormat('yyyy-MM-dd').format(filter.targetDate?? DateTime.now());
+    final strDate =
+        DateFormat('yyyy-MM-dd').format(filter.targetDate ?? DateTime.now());
     final url = 'api/shozoku/${filter.classId}/KenkouKansatsubo?date=$strDate&kouryuGakkyu=true';
     final response = await _api.get(url);
 
@@ -64,7 +65,7 @@ class HealthMeiboRepository implements HealthMeiboRepositoryProtocol {
     
     final strDate = DateFormat('yyyy-MM-dd')
         .format(filter.targetDate ?? DateTime.now());
-
+    
     final meibos = _ref.read(healthMeibosCache).values.toList();
     final json = jsonEncode(meibos
         .map((v) => v.toNewJson())

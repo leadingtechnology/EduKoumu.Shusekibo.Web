@@ -10,6 +10,7 @@ import 'package:shusekibo/app/feature/awareness/awareness_page.dart';
 import 'package:shusekibo/app/feature/dashboard/widget/dashboard_page.dart';
 import 'package:shusekibo/app/feature/health/health_list_page.dart';
 import 'package:shusekibo/app/feature/health/health_seat_page.dart';
+import 'package:shusekibo/app/feature/system/setting_page.dart';
 
 import 'package:shusekibo/app/provider/app_start_provider.dart';
 import 'package:shusekibo/shared/widget/connection_unavailable_widget.dart';
@@ -54,8 +55,8 @@ class AppStartPageState extends ConsumerState<AppStartPage> {
             return HealthListPage();
           case 40:
             return AwarenessPage();
-          // case 50:
-          //   return SettingPage();
+          case 50:
+            return SettingPage();
           default:
             return DashboardPage();
         }

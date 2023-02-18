@@ -52,38 +52,77 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
   }
 
   Future<void> save() async {
-    state = await _repository.save();
+    final dantai = _ref.read(dantaiProvider);
+    await _homeRepository.fetch(dantai);
+
+    final response2 = await _repository.save();
+
+    if (mounted) {
+      state = response2;
+    }
+  }
+
+  // set stamp by Id
+  void updateById(HealthMeiboModel meibo, HealthStampModel stamp,
+      HealthReasonModel reason1, HealthReasonModel reason2,) {
     
-    await _homeRepository.fetch(
-      _ref.read(dantaiProvider),
-    );
-  }  
+    if (stamp.jokyoCd == '001') return;
+
+    // set all.
+    if (stamp.bunrui == '50') {
+      final meibos = _ref.read(healthMeibosCache).values.toList();
+      for (final m in meibos) {
+        updateBox(m, stamp, reason1, reason2);
+      }
+
+      return;
+    }
+
+    //clear all and set one
+    if (meibo.jokyoList![0].jokyoCode!.startsWith('5')) {
+
+      final meibos = _ref.read(healthMeibosCache).values.toList();
+      const s =
+          HealthStampModel(jokyoCd: '999', jokyoNmRyaku: ' ', jokyoKey: ' ');
+
+      for (final m in meibos) {
+        if (m.studentKihonId == meibo.studentKihonId) {
+          updateBox(meibo, stamp, reason1, reason2);
+        } else {
+          updateBox(m, s, const HealthReasonModel(), const HealthReasonModel());
+        }
+      }
+
+      return;
+    }
+
+    // set one
+    updateBox(meibo, stamp, reason1, reason2);
+  }
 
   // cover blank values
-  Future<void> updateByBlank() async {
+  void updateByBlank() {
     final meibos = _ref.read(healthMeibosCache).values.toList();
 
     if (meibos.isEmpty) return;
 
-    final stamp = _ref.read(healthRegistStampCache.notifier).state['100'];
+    final stamp = _ref.read(healthRegistStampCache)['100'];
+
     for (final m in meibos) {
       if (m.jokyoList![0].jokyoCode!.isEmpty) {
-        await updateBox(
-          m,
-          stamp!,
-          const HealthReasonModel(jiyuNmSeishiki: '健康'),
-          const HealthReasonModel(),
-        );
+        updateBox(m, stamp!, const HealthReasonModel(jiyuNmSeishiki: '健康'),
+            const HealthReasonModel(),);
       }
     }
   }
 
-  Future<void> updateBox(
+  void updateBox(
     HealthMeiboModel meibo,
     HealthStampModel stamp,
     HealthReasonModel reason1,
     HealthReasonModel reason2,
-  ) async {
+  ) {
+
     final status = stamp.jokyoCd == '999'
         ? HealthStatusModel(
             kokyoDate: DateTime.now(),
@@ -92,8 +131,7 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
             jiyu1Code: '',
             jiyu1: '',
             jiyu2: '',
-            isEditable: true,
-          )
+            isEditable: true,)
         : HealthStatusModel(
             kokyoDate: DateTime.now(),
             jokyoCode: stamp.jokyoCd,
@@ -101,8 +139,7 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
             jiyu1Code: reason1.jiyuCd,
             jiyu1: reason1.jiyuNmSeishiki ?? '',
             jiyu2: reason2.jiyuNmSeishiki ?? '',
-            isEditable: true,
-          );
+            isEditable: true,);
 
     final newMeibo = HealthMeiboModel(
         studentKihonId: meibo.studentKihonId,
@@ -114,45 +151,11 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
         name: meibo.name,
         genderCode: meibo.genderCode,
         photoUrl: meibo.photoUrl,
-        jokyoList: [status]);
+        jokyoList: [status],);
     
     final meibos = _ref.read(healthMeibosCache);
     meibos['${newMeibo.studentKihonId}'] = newMeibo;
-
     _ref.read(healthMeibosCache.notifier).state = meibos;
   }
-
-  // set stamp by Id
-  Future<void> updateById(HealthMeiboModel meibo, HealthStampModel stamp,
-      HealthReasonModel reason1, HealthReasonModel reason2) async {
-    if (stamp.jokyoCd == '001') return;
-    
-    final meibos = _ref.read(healthMeibosCache.notifier).state.values.toList();
-    // set all.
-    if (stamp.bunrui == '50') {
-      for (final m in meibos) {
-        await updateBox(m, stamp, reason1, reason2);
-      }
-      return;
-    }
-
-    //clear all and set one
-    print('meibo jokyo = ${meibo.jokyoList![0].jokyoCode}');
-    if (meibo.jokyoList![0].jokyoCode!.startsWith('5')) {
-      HealthStampModel s = const HealthStampModel(jokyoCd: '999', jokyoNmRyaku: ' ', jokyoKey: ' ');
-
-      for (HealthMeiboModel m in meibos) {
-        if (m.studentKihonId == meibo.studentKihonId)
-          await updateBox(meibo, stamp, reason1, reason2);
-        else
-          await updateBox(m, s, HealthReasonModel(), HealthReasonModel());
-      }
-      return;
-    }
-
-    // set one
-    await updateBox(meibo, stamp, reason1, reason2);
-  }
-
 
 }

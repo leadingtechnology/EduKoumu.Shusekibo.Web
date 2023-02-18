@@ -51,9 +51,10 @@ class AttendanceReasonWidget extends ConsumerWidget {
           children: [
             Spacing.width(10),
             Container(
+              height: 35,
               padding: const EdgeInsets.fromLTRB(5,0,0,0),
               decoration: BoxDecoration(
-                border: Border.all(width: 1),
+                border: Border.all(),
                 borderRadius: BorderRadius.circular(4),
               ),
               child: DropdownButtonHideUnderline(
@@ -76,9 +77,10 @@ class AttendanceReasonWidget extends ConsumerWidget {
             Spacing.width(4),
             if (reason2Items.isNotEmpty)
               Container(
+                height: 35,
                 padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 decoration: BoxDecoration(
-                  border: Border.all(width: 1),
+                  border: Border.all(),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: DropdownButtonHideUnderline(

@@ -12,11 +12,10 @@ class AttendanceTimedSearchWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(attendanceTimedFilterProvider);
+    final filter = ref.watch(filterProvider);
     
     return Container(
         padding: Spacing.all(4),
-        //color: Colors.green[100],
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

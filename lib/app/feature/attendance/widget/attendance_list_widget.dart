@@ -38,7 +38,7 @@ class _AttendanceListWidgetState extends ConsumerState<AttendanceListWidget> {
     super.initState();
     // "ref" can be used in all life-cycles of a StatefulWidget.
     final accessToken = ref.read(tokenProvider).access_token.toString();
-    filter = ref.read(attendanceFilterProvider);
+    filter = ref.read(filterProvider);
 
     columns.addAll([
       PlutoColumn(title: '学年',    field: 'gakunen',   readOnly: true, type: PlutoColumnType.text(), width: 70,  enableContextMenu:false, textAlign: PlutoColumnTextAlign.left, titleTextAlign: PlutoColumnTextAlign.center),

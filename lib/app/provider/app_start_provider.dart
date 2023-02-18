@@ -1,9 +1,9 @@
-import 'package:shusekibo/app/state/app_start_state.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/feature/auth/model/auth_state.dart';
 import 'package:shusekibo/app/feature/auth/provider/auth_provider.dart';
 import 'package:shusekibo/app/feature/navigation/nav_bar.dart';
+import 'package:shusekibo/app/state/app_start_state.dart';
 import 'package:shusekibo/shared/repository/token_repository.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final appStartProvider =
     StateNotifierProvider<AppStartNotifier, AppStartState>((ref) {

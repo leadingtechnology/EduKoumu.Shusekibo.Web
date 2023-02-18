@@ -85,39 +85,44 @@ class _HealthListWidgetState extends ConsumerState<HealthListWidget> {
   }
 
   void setReason(PlutoRow row, WidgetRef ref) async {
-    var stamp = ref.watch(healthStampProvider);
+    
+    final stamp = ref.watch(healthStampProvider);
     if(stamp.jokyoCd == '001') return ;
 
-    HealthReasonModel reason1 = ref.watch(healthReason1Provider);
-    HealthReasonModel reason2 = ref.watch(healthReason2Provider);
+    final reason1 = ref.watch(healthReason1Provider);
+    final reason2 = ref.watch(healthReason2Provider);
 
-    String studentNumber = row.cells['shusekiNo']!.value.toString();
+    final studentNumber = row.cells['shusekiNo']!.value.toString();
     if (studentNumber.isEmpty) return;
 
-    final meibos = ref.watch(healthMeibosCache).values.toList();
+    final meibos = ref.read(healthMeibosCache).values.toList();
     HealthMeiboModel meibo;
     try {
-      meibo = meibos.where((e) => e.studentNumber == studentNumber).toList().first;
+      meibo =
+          meibos.where((e) => e.studentNumber == studentNumber).toList().first;
     }catch(e){
       return ;
     }
 
-    await ref.read(healthMeiboInitProvider.notifier).updateById( meibo, stamp, reason1, reason2 );
+    ref
+        .read(healthMeiboInitProvider.notifier)
+        .updateById(meibo, stamp, reason1, reason2);
     
     // set all.
     if (stamp.bunrui == '50') {
-      stateManager.rows.forEach((r) {
+      for (final r in stateManager.rows) {
         r.cells['mark']!.value = stamp.jokyoNmRyaku;
         r.cells['reason1']!.value = reason1.jiyuNmSeishiki ?? '';
         r.cells['reason2']!.value = reason2.jiyuNmSeishiki ?? '';
-      });
+      }
       stateManager.notifyListeners();
+      
       return;
     }
 
     //clear all and set one
     if(row.cells['mark']!.value.toString().startsWith('臨')) {
-      stateManager.rows.forEach((r) {
+      for (final r in stateManager.rows) {
         if (r.sortIdx == row.sortIdx) {
           r.cells['mark']!.value = stamp.jokyoCd =='999'?'':stamp.jokyoNmRyaku;
           r.cells['reason1']!.value = reason1.jiyuNmSeishiki ?? '';
@@ -127,8 +132,9 @@ class _HealthListWidgetState extends ConsumerState<HealthListWidget> {
           r.cells['reason1']!.value = '';
           r.cells['reason2']!.value = '';
         }
-      });
+      }
       stateManager.notifyListeners();
+      
       return;
     }
 
@@ -139,13 +145,13 @@ class _HealthListWidgetState extends ConsumerState<HealthListWidget> {
   }
 
   void setBlank() {
-    stateManager.rows.forEach((row) {
+    for (final row in stateManager.rows) {
       if (row.cells['mark']!.value.toString().isEmpty) {
         row.cells['mark']!.value = '・';
         row.cells['reason1']!.value = '健康';
         row.cells['reason2']!.value = '';
       }
-    });
+    }
     stateManager.notifyListeners();
   } 
 
