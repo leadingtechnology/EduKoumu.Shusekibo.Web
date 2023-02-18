@@ -21,7 +21,7 @@ class AwarenessMeiboRepository implements AwarenessMeiboRepositoryProtocol {
 
   @override
   Future<AwarenessMeiboState> fetch(FilterModel filter) async {
-    final response = await _api.get('');
+    final response = await _api.get('api/shozoku/${filter.classId}/kizuki');
 
     response.when(
       success: (success) {},
