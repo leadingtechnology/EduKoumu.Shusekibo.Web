@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_meibo_state.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_reason_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_model.dart';
-import 'package:shusekibo/app/widget/attendance/attendance_status_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_repository.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_status_model.dart';
@@ -107,16 +106,26 @@ class AttendanceTimedMeiboInitNotifier
   // cover blank values
   void updateByBlank() {
     final meibos = _ref.read(attendanceTimedMeibosCache).values.toList();
+    final filter = _ref.read(filterProvider);
 
     if (meibos.isEmpty) return;
 
     final stamp = _ref.read(attendanceRegistStampCache)['100'];
 
     for (final m in meibos) {
-      if (m.jokyoList![0].shukketsuBunrui!.isEmpty) {
-        updateCache(m, stamp!, const AttendanceReasonModel(),
-            const AttendanceReasonModel(),);
-      }
+      final jokyos = m.jokyoList!
+          .where((e) =>
+              e.jigenIdx == filter.jigenIdx && e.shukketsuBunrui!.isNotEmpty,)
+          .toList();
+      
+      if (jokyos.isNotEmpty) continue;
+
+      updateCache(
+        m,
+        stamp!,
+        const AttendanceReasonModel(),
+        const AttendanceReasonModel(),
+      );
     }
 
     setState();

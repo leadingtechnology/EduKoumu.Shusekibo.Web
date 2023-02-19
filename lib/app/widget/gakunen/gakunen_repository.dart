@@ -34,6 +34,23 @@ class GakunenRepository implements GakunenRepositoryProtocol {
       final value = response.value;
       try {
         final gakunen = gakunenListFromJson(value as List<dynamic>);
+        
+        if (gakunen.isNotEmpty) {
+          final gk = gakunen.first;
+          final nasi = GakunenModel(
+            organizationId: gk.organizationId,
+            gakunenCode: '0',
+            gakunenName: '学年無し',
+            gakunenRyakusho: '学年無し',
+            kateiKbn: gk.kateiKbn,
+            zaisekiAgeLowLimit: gk.zaisekiAgeLowLimit,
+            isTantoGakunen: gk.isTantoGakunen,
+            id:0,
+            code: '0',
+            name: '学年無し',
+          );
+          gakunen.add(nasi);
+        }
 
         _ref.read(gakunenProvider.notifier).state = gakunen.first;
         _ref.read(gakunenCache.notifier).state['${dantai.id}'] = gakunen;
