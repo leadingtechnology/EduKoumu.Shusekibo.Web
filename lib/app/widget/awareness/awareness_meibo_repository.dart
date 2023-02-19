@@ -70,43 +70,31 @@ class AwarenessMeiboRepository implements AwarenessMeiboRepositoryProtocol {
 
     if (response is APISuccess) {
       final value = response.value as List;
-      print('------ save sucess : ${value.toString()}');
       try {
         // 1) change response to list
         final meibos = awarenessMeiboListFromJson(value);
 
-        // 2) save cache
-        final studentList = _ref
-            .read(awarenessMeibosCache)
-            .values
-            .toList()
-            .where((e) => e.selectFlag ?? false)
-            .toList();
-        
-        for (final m in studentList) {
-          final meibo =
-              meibos.where((e) => e.studentId == m.studentId).first;
+        // 2) save to cache
+        final meibosMap = _ref.read(awarenessMeibosCache);
 
-          if (meibo.kizukiCount == null || meibo.kizukiCount! <= 0) continue;
-          
+        for (var m in meibos) { 
           final meibo2 = AwarenessMeiboModel(
-            gakunen: meibo.gakunen,
-            shozokuId: meibo.shozokuId,
-            className: meibo.className,
-            shussekiNo: meibo.shussekiNo,
-            studentId: meibo.studentId,
-            studentName: meibo.studentName,
-            photoUrl: meibo.photoUrl,
-            genderCode: meibo.genderCode,
-            kizukiCount: meibo.kizukiCount,
+            gakunen: m.gakunen,
+            shozokuId: m.shozokuId,
+            className: m.className,
+            shussekiNo: m.shussekiNo,
+            studentId: m.studentId,
+            studentName: m.studentName,
+            photoUrl: m.photoUrl,
+            genderCode: m.genderCode,
+            kizukiCount: m.kizukiCount,
             selectFlag: false,
             changedFlag: true,
           );
-          
-          _ref.read(awarenessMeibosCache.notifier).state['${meibo.studentId}'] =
-              meibo2;
+          meibosMap['${m.studentId}'] = meibo2;
         }
-        _ref.read(awarenessCountProvider.notifier).state = 0;
+        _ref.read(awarenessMeibosCache.notifier).state = {};
+        _ref.read(awarenessMeibosCache.notifier).state= meibosMap;
 
         return const AwarenessMeiboState.loaded();
       } catch (e) {

@@ -37,8 +37,8 @@ class AwarenessFilterWidget extends ConsumerWidget {
     );
 
     if (newDateRange != null) {
-      ref.read(awarenessFilterBeginDateProvider.notifier).state = newDateRange.start;
-      ref.read(awarenessFilterEndDateProvider.notifier).state = newDateRange.end;
+      ref.read(beginDateProvider.notifier).state = newDateRange.start;
+      ref.read(endDateProvider.notifier).state = newDateRange.end;
     } else {
       return;
     }
@@ -47,8 +47,8 @@ class AwarenessFilterWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     int tabIndex = ref.watch(awarenessTabProvider);
 
-    final beginDate = ref.watch(awarenessFilterBeginDateProvider);
-    final endDate = ref.watch(awarenessFilterEndDateProvider);
+    final beginDate = ref.watch(beginDateProvider);
+    final endDate = ref.watch(endDateProvider);
     
     ThemeData themeData = Theme.of(context);
 
@@ -81,8 +81,8 @@ class AwarenessFilterWidget extends ConsumerWidget {
                       ),
                       onPressed: (){
                         ref.read(filterInitProvider.notifier).update(
-                          beginDate: ref.read(awarenessFilterBeginDateProvider), 
-                          endDate: ref.read(awarenessFilterEndDateProvider),
+                          beginDate: beginDate, 
+                          endDate: endDate,
                         );
                         Navigator.pop(context);
                       },

@@ -242,6 +242,7 @@ Future<void> _handlePressActionButton(
   //  await ref.read(awarenessMeiboListProvider.notifier).updateById(id);
 
   if (opt == AwarenessOperationItem.copy || opt == AwarenessOperationItem.edit)
+  
     await DialogUtil.show(
       context: context,
       builder: (BuildContext context) {
@@ -249,13 +250,14 @@ Future<void> _handlePressActionButton(
       },
     );
 
+    
+
   if (opt == AwarenessOperationItem.delete) {
-    await ref.read(awarenessKizukiInitProvider.notifier).delete(kizuki);
-    return;
+    await ref.read(awarenessKizukiInitProvider.notifier).delete(kizuki.id??0);
   }
 
-  if (opt == AwarenessOperationItem.favorite) return null;
-  if (opt == AwarenessOperationItem.template) return null;
+  if(opt == AwarenessOperationItem.copy){
+    await ref.read(awarenessKizukiInitProvider.notifier).fetch();
+  }
 
-  return null;
 }

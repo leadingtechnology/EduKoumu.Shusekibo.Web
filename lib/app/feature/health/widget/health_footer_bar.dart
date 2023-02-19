@@ -18,65 +18,63 @@ class HealthFooterBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final meibos = ref.watch(healthMeibosCache);
 
-    return Container(
-      //color: Colors.blue,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          OutlinedButton.icon(
-            onPressed: () {
-              ref.read(menuIdProvider.notifier).state = menuId; 
-            },
-            style: OutlinedButton.styleFrom(
-              backgroundColor: Colors.white,
-              fixedSize: const Size(140, 36),
-              side: const BorderSide(
-                color: Colors.black87,
-              ),
-            ),
-            icon: const Icon(FontAwesomeIcons.grip, size: 16,color: Colors.black),
-            label: Text(buttnoName,
-              style: const TextStyle(color: Colors.black, fontSize: 16),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        OutlinedButton.icon(
+          onPressed: () {
+            ref.read(menuIdProvider.notifier).state = menuId; 
+          },
+          style: OutlinedButton.styleFrom(
+            backgroundColor: Colors.white,
+            fixedSize: const Size(140, 36),
+            side: const BorderSide(
+              color: Colors.black87,
             ),
           ),
-          Spacing.width(12),
-          OutlinedButton(
-            onPressed: () async{
-              ref.read(healthMeiboInitProvider.notifier).updateByBlank();
-              helthGlobalKey.currentState?.setBlank();
-            },
-            style: OutlinedButton.styleFrom(
-              backgroundColor: Colors.white,
-              fixedSize: const Size(140, 36),
-              side: const BorderSide(
-                color: Colors.black87,
-              ),
-            ),
-            
-            child: const Text(
-              ' 空白のみ全出 ',
-              style: TextStyle(color: Colors.black, fontSize: 16),
+          icon: const Icon(FontAwesomeIcons.grip,
+              size: 16, color: Colors.black,),
+          label: Text(buttnoName,
+            style: const TextStyle(color: Colors.black, fontSize: 16),
+          ),
+        ),
+        Spacing.width(12),
+        OutlinedButton(
+          onPressed: () async{
+            ref.read(healthMeiboInitProvider.notifier).updateByBlank();
+            helthGlobalKey.currentState?.setBlank();
+          },
+          style: OutlinedButton.styleFrom(
+            backgroundColor: Colors.white,
+            fixedSize: const Size(140, 36),
+            side: const BorderSide(
+              color: Colors.black87,
             ),
           ),
+          
+          child: const Text(
+            ' 空白のみ全出 ',
+            style: TextStyle(color: Colors.black, fontSize: 16),
+          ),
+        ),
 
-          Expanded(child: Container()),
-          ElevatedButton(
-            onPressed: meibos.isEmpty
-                ? null
-                : () async {
-                    await ref.read(healthMeiboInitProvider.notifier).save();
-                    
-                    ToastHelper.showToast(context, '　保存しました　');
-                  },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF0056d2),
-              fixedSize: const Size(140, 36),
-            ),
-            child: const Text('保存', style: TextStyle(fontSize: 16),
-            ),
+        Expanded(child: Container()),
+        ElevatedButton(
+          onPressed: meibos.isEmpty
+              ? null
+              : () async {
+                  await ref.read(healthMeiboInitProvider.notifier).save();
+                  
+                  ToastHelper.showToast(context, '　保存しました　');
+                },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF0056d2),
+            fixedSize: const Size(140, 36),
           ),
-        ],
-      ),
+          child: const Text('保存', style: TextStyle(fontSize: 16),
+          ),
+        ),
+      ],
     );
   }
 }

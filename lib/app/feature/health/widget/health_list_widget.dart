@@ -8,7 +8,6 @@ import 'package:shusekibo/app/widget/filter/filter_model.dart';
 import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/app/widget/health/health_meibo_model.dart';
 import 'package:shusekibo/app/widget/health/health_meibo_provider.dart';
-import 'package:shusekibo/app/widget/health/health_reason_model.dart';
 import 'package:shusekibo/app/widget/health/health_reason_provider.dart';
 import 'package:shusekibo/app/widget/health/health_stamp_provider.dart';
 import 'package:shusekibo/shared/util/date_util.dart';

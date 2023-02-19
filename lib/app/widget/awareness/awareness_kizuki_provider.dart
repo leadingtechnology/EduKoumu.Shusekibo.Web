@@ -37,13 +37,13 @@ class AwarenessKizukiNotifier extends StateNotifier<AwarenessKizukiState> {
   
   Future<void> _init() async {
     if (_filter.classId != null) {
-      await _fetch();
+      await fetch();
     } else if (_filter.classId == null) {
       state = const AwarenessKizukiState.blank();
     }
   }
 
-  Future<void> _fetch() async {
+  Future<void> fetch() async {
     final response = await _repository.fetch();
     if (mounted) {
       state = response;
@@ -70,12 +70,8 @@ class AwarenessKizukiNotifier extends StateNotifier<AwarenessKizukiState> {
     await _repository.fetch();
   }
 
-  Future<void> delete(AwarenessKizukiModel kizuki) async {
-    final response = await _repository.delete(kizuki, '');
-    final res = await _rep.fetch(_filter);
-    final resp = await _repository.fetch();
-
-    _ref.read(awarenessKizukiCache.notifier).state.remove('${kizuki.id}');
+  Future<void> delete(int id) async {
+    final response = await _repository.delete(id);
     if (mounted) {
       state = response;
     }

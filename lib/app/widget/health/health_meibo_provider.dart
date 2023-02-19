@@ -98,6 +98,8 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
 
     // set one
     updateBox(meibo, stamp, reason1, reason2);
+
+    setState();
   }
 
   // cover blank values
@@ -114,7 +116,16 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
             const HealthReasonModel(),);
       }
     }
+
+    setState();
   }
+
+  void setState() {
+    final m = _ref.read(healthMeibosCache);
+    _ref.read(healthMeibosCache.notifier).state = {};
+    _ref.read(healthMeibosCache.notifier).state = m;
+  }
+
 
   void updateBox(
     HealthMeiboModel meibo,

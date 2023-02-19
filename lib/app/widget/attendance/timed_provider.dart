@@ -11,7 +11,7 @@ import 'package:shusekibo/app/widget/shozoku/shozoku_provider.dart';
 final timedInitProvider =
     StateNotifierProvider<TimedInitNotifier, TimedState>((ref) {
       final shozoku = ref.watch(shozokuProvider);
-      final targetDate = ref.watch(attendanceTimedFilterDateProvider);
+      final targetDate = ref.watch(targetDateProvider);
 
   return TimedInitNotifier(ref, shozoku, targetDate);
 });

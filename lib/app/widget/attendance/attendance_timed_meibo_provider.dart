@@ -111,6 +111,8 @@ class AttendanceTimedMeiboInitNotifier
             const AttendanceReasonModel(),);
       }
     }
+
+    setState();
   }
 
   void updateCache(
@@ -155,6 +157,12 @@ class AttendanceTimedMeiboInitNotifier
     final meibos = _ref.read(attendanceTimedMeibosCache);
     meibos['${newMeibo.studentKihonId}'] = newMeibo;
     _ref.read(attendanceTimedMeibosCache.notifier).state = meibos;
+  }
+
+  void setState() {
+    final m = _ref.read(attendanceTimedMeibosCache);
+    _ref.read(attendanceTimedMeibosCache.notifier).state = {};
+    _ref.read(attendanceTimedMeibosCache.notifier).state = m;
   }
 
   void updateBox(

@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shusekibo/app/widget/awareness/awareness_meibo_model.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 
 part 'awareness_meibo_state.freezed.dart';

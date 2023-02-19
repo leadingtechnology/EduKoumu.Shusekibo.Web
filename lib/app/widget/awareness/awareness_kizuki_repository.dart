@@ -94,13 +94,17 @@ class AwarenessKizukiRepository implements AwarenessKizukiRepositoryProtocol {
     }
   }
 
-  Future<AwarenessKizukiState> delete(
-      AwarenessKizukiModel kizuki, String dt,) async {
-    final response = await _api.delete(
-        'api/kizuki/${kizuki.id}?timestamp=${kizuki.timeStamp}', '',);
+  Future<AwarenessKizukiState> delete(int id) async {
+    final response = await _api.delete('api/kizuki/$id?timestamp=', '',);
 
     if (response is APISuccess) {
       try {
+        final kizuki = _ref.read(awarenessKizukiCache);
+        kizuki.remove('$id');
+
+        _ref.read(awarenessKizukiCache.notifier).state = {};
+        _ref.read(awarenessKizukiCache.notifier).state = kizuki;
+
         return const AwarenessKizukiState.loaded();
       } catch (e) {
         return AwarenessKizukiState.error(

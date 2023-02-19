@@ -21,13 +21,12 @@ class AttendanceFilterWidget extends ConsumerWidget {
         lastDate: DateTime(2023, 3, 31),
     );
     if (selected != null) {
-      ref.read(attendanceFilterDateProvider.notifier).state = selected;
+      ref.read(targetDateProvider.notifier).state = selected;
     }
   }
 
   Widget build(BuildContext context, WidgetRef ref) {
-    final targetDate = ref.watch(attendanceFilterDateProvider);
-    final FilterModel filter = ref.watch(filterProvider);
+    final targetDate = ref.watch(targetDateProvider);
 
     ThemeData themeData = Theme.of(context);
 
@@ -63,10 +62,7 @@ class AttendanceFilterWidget extends ConsumerWidget {
                         color: themeData.colorScheme.primary,
                       ),
                       onPressed: () {
-                        ref
-                            .read(filterInitProvider.notifier)
-                            .updateFilter(targetDate: targetDate);
-                        
+                        ref.read(filterInitProvider.notifier).update();
                         Navigator.pop(context);
                       },
                     ),

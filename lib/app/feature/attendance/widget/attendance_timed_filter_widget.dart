@@ -25,13 +25,13 @@ class AttendanceTimedFilterWidget extends ConsumerWidget {
     );
     
     if (selected != null) {
-      ref.read(attendanceTimedFilterDateProvider.notifier).state = selected;
+      ref.read(targetDateProvider.notifier).state = selected;
     }
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final targetDate = ref.watch(attendanceTimedFilterDateProvider);
+    final targetDate = ref.watch(targetDateProvider);
     final timed = ref.watch(timedProvider);
 
     final themeData = Theme.of(context);
@@ -68,12 +68,7 @@ class AttendanceTimedFilterWidget extends ConsumerWidget {
                       color: themeData.colorScheme.primary,
                     ),
                     onPressed: () {
-                      ref
-                          .read(filterInitProvider.notifier)
-                          .update(
-                            targetDate: targetDate,
-                            timed: timed,
-                          );
+                      ref.read(filterInitProvider.notifier).update();
                       Navigator.pop(context);
                     },
                   ),

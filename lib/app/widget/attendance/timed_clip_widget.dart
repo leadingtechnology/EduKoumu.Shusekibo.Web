@@ -20,7 +20,7 @@ class TimedClipWidget extends ConsumerWidget {
       error: (AppException error) {return Text('$error'); },
       loaded: () {
 
-        final targetDate = ref.watch(attendanceTimedFilterDateProvider);
+        final targetDate = ref.watch(targetDateProvider);
         final strDate = DateFormat('yyyy-MM-dd').format(targetDate);
         final shozoku = ref.watch(shozokuProvider);
         
