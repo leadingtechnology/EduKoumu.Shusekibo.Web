@@ -52,14 +52,12 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
   }
 
   Future<void> save() async {
-    final dantai = _ref.read(dantaiProvider);
-    await _homeRepository.fetch(dantai);
-
-    final response2 = await _repository.save();
-
+    final response = await _repository.save();
     if (mounted) {
-      state = response2;
+      state = response;
     }
+
+    await _homeRepository.fetch();
   }
 
   // set stamp by Id
@@ -74,6 +72,7 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
       for (final m in meibos) {
         updateBox(m, stamp, reason1, reason2);
       }
+      setState();
 
       return;
     }
@@ -92,7 +91,8 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
           updateBox(m, s, const HealthReasonModel(), const HealthReasonModel());
         }
       }
-
+      setState();
+      
       return;
     }
 

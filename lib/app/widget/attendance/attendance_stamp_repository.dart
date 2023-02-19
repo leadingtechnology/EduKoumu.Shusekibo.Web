@@ -68,10 +68,11 @@ class AttendanceStampRepository implements AttendanceStampRepositoryProtocol {
         );
 
         _ref.read(attendanceRegistStampCache.notifier).state = registStampMap;
-        _ref.read(attendanceUnegistStampCache.notifier).state = unregistStampMap;
+        _ref.read(attendanceUnegistStampCache.notifier).state =
+            unregistStampMap;
 
 
-        return AttendanceStampState.loaded();
+        return const AttendanceStampState.loaded();
       } catch (e) {
         return AttendanceStampState.error(
             AppException.errorWithMessage(e.toString()));

@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_filter_widget.dart';
 import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_footer_bar.dart';
 import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_search_widget.dart';
+import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_seat_widget.dart';
 import 'package:shusekibo/app/feature/attendance/widget/attendance_timed_stamp_reason_widget.dart';
-import 'package:shusekibo/app/feature/attendance/widget/seat_widget.dart';
 import 'package:shusekibo/app/feature/common/widget/base_scaffold_widget.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_provider.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
@@ -100,7 +100,7 @@ class AttendanceTimedSeatsGridView extends ConsumerWidget {
           ),
           itemCount: meibosmap.length,
           itemBuilder: (BuildContext context, int index) {
-            return SeatWidget(
+            return AttendanceTimedSeatWidget(
               meibo:  meibosmap.values.elementAt(index),
             );
           },

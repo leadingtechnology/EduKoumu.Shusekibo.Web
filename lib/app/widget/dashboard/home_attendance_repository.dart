@@ -1,14 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:shusekibo/app/widget/cache/cache_provider.dart';
+import 'package:shusekibo/app/widget/dantai/dantai_model.dart';
+import 'package:shusekibo/app/widget/dantai/dantai_provider.dart';
+import 'package:shusekibo/app/widget/dashboard/home_attendance_model.dart';
+import 'package:shusekibo/app/widget/dashboard/home_attendance_state.dart';
 import 'package:shusekibo/shared/http/api_provider.dart';
 import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
-import 'package:shusekibo/app/widget/dantai/dantai_model.dart';
-import 'package:shusekibo/app/widget/dashboard/home_attendance_model.dart';
-import 'package:shusekibo/app/widget/dashboard/home_attendance_state.dart';
 
 abstract class HomeAttendanceRepositoryProtocol {
-  Future<HomeAttendanceState> fetch(DantaiModel dantai); 
+  Future<HomeAttendanceState> fetch({DantaiModel? dantai}); 
 }
 
 final homeAttendanceRepositoryProvider = Provider(HomeAttendanceRepository.new);
@@ -20,11 +22,13 @@ class HomeAttendanceRepository implements HomeAttendanceRepositoryProtocol {
   final Ref _ref;
 
   @override
-  Future<HomeAttendanceState> fetch(DantaiModel dantai) async {
-    final today = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
+  Future<HomeAttendanceState> fetch({DantaiModel? dantai}) async {
+    dantai = dantai ?? _ref.read(dantaiProvider);
+
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
     var url = 'api/syukketsu/classbetsu?date=$today';
-    if (dantai.id != null){
+    if (dantai!.id != null){
       url = '$url&dantaiId=${dantai.id}';
     }
     final response = await _api.get(url);
@@ -41,7 +45,9 @@ class HomeAttendanceRepository implements HomeAttendanceRepositoryProtocol {
         final homeAttendance =
             homeAttendanceListFromJson(value as List<dynamic>);
 
-        return HomeAttendanceState.loaded(homeAttendance);
+        _ref.read(homeAttendanceCache.notifier).state = homeAttendance;
+
+        return HomeAttendanceState.loaded();
       } catch (e) {
         return HomeAttendanceState.error(
             AppException.errorWithMessage(e.toString()),);

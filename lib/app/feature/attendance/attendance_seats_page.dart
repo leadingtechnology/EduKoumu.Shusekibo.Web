@@ -69,7 +69,7 @@ class AttendanceSeatsPage extends ConsumerWidget {
 
 // ShuketuSeat
 class AttendanceSeatsGridView extends ConsumerWidget {
-  const AttendanceSeatsGridView({Key? key}) : super(key: key);
+  const AttendanceSeatsGridView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -92,12 +92,10 @@ class AttendanceSeatsGridView extends ConsumerWidget {
           itemCount: meibosmap.length,
           itemBuilder: (BuildContext context, int index) {
             return AttendanceSeatWidget(
-              index: index,
               meibo: meibosmap.values.elementAt(index),
             );
           },
         );
-       
       },
     );
   }

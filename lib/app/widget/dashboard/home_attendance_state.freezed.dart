@@ -19,21 +19,21 @@ mixin _$HomeAttendanceState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<HomeAttendanceModel> list) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<HomeAttendanceModel> list)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<HomeAttendanceModel> list)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) =>
@@ -120,7 +120,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<HomeAttendanceModel> list) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) {
     return loading();
@@ -130,7 +130,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<HomeAttendanceModel> list)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) {
     return loading?.call();
@@ -140,7 +140,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<HomeAttendanceModel> list)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {
@@ -193,7 +193,6 @@ abstract class _Loading implements HomeAttendanceState {
 abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
-  $Res call({List<HomeAttendanceModel> list});
 }
 
 /// @nodoc
@@ -205,84 +204,57 @@ class __$$_LoadedCopyWithImpl<$Res>
 
   @override
   _$_Loaded get _value => super._value as _$_Loaded;
-
-  @override
-  $Res call({
-    Object? list = freezed,
-  }) {
-    return _then(_$_Loaded(
-      list == freezed
-          ? _value._list
-          : list // ignore: cast_nullable_to_non_nullable
-              as List<HomeAttendanceModel>,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded(final List<HomeAttendanceModel> list) : _list = list;
-
-  final List<HomeAttendanceModel> _list;
-  @override
-  List<HomeAttendanceModel> get list {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_list);
-  }
+  const _$_Loaded();
 
   @override
   String toString() {
-    return 'HomeAttendanceState.loaded(list: $list)';
+    return 'HomeAttendanceState.loaded()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Loaded &&
-            const DeepCollectionEquality().equals(other._list, _list));
+        (other.runtimeType == runtimeType && other is _$_Loaded);
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_list));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
-      __$$_LoadedCopyWithImpl<_$_Loaded>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<HomeAttendanceModel> list) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) {
-    return loaded(list);
+    return loaded();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<HomeAttendanceModel> list)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) {
-    return loaded?.call(list);
+    return loaded?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<HomeAttendanceModel> list)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(list);
+      return loaded();
     }
     return orElse();
   }
@@ -323,12 +295,7 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements HomeAttendanceState {
-  const factory _Loaded(final List<HomeAttendanceModel> list) = _$_Loaded;
-
-  List<HomeAttendanceModel> get list;
-  @JsonKey(ignore: true)
-  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _Loaded() = _$_Loaded;
 }
 
 /// @nodoc
@@ -404,7 +371,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<HomeAttendanceModel> list) loaded,
+    required TResult Function() loaded,
     required TResult Function(AppException error) error,
   }) {
     return error(this.error);
@@ -414,7 +381,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<HomeAttendanceModel> list)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
   }) {
     return error?.call(this.error);
@@ -424,7 +391,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<HomeAttendanceModel> list)? loaded,
+    TResult Function()? loaded,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {

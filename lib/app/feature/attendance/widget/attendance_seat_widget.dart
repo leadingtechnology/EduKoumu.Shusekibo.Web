@@ -10,9 +10,8 @@ import 'package:shusekibo/app/widget/attendance/attendance_status_model.dart';
 import 'package:shusekibo/shared/util/spacing.dart';
 
 class AttendanceSeatWidget extends ConsumerWidget {
-  AttendanceSeatWidget({super.key, required this.index, required this.meibo});
+  AttendanceSeatWidget({super.key, required this.meibo});
 
-  final int index;
   final AttendanceMeiboModel meibo;
   final _baseUrl = dotenv.env['BASE_URL']!;
 
@@ -58,9 +57,9 @@ class AttendanceSeatWidget extends ConsumerWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                spreadRadius: 1.0,
+                spreadRadius: 1,
                 color: Colors.black26,
-                blurRadius: 2.0,
+                blurRadius: 2,
                 offset: Offset(2, 0),
               )
             ],
@@ -76,7 +75,7 @@ class AttendanceSeatWidget extends ConsumerWidget {
                       child: ClipOval(
                           child: Image.network(
                         url,
-                        headers: {"Authorization": "Bearer " + accessToken},
+                        headers: {'Authorization': 'Bearer $accessToken'},
                       ),),
                     ),
                     Expanded(

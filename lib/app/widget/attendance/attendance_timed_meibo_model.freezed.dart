@@ -40,7 +40,7 @@ mixin _$AttendanceTimedMeiboModel {
   @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
   String? get photoUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'JokyoList', disallowNullValue: false)
-  List<AttendanceStatusModel>? get jokyoList =>
+  List<AttendanceTimedStatusModel>? get jokyoList =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -74,7 +74,7 @@ abstract class $AttendanceTimedMeiboModelCopyWith<$Res> {
       @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
           String? photoUrl,
       @JsonKey(name: 'JokyoList', disallowNullValue: false)
-          List<AttendanceStatusModel>? jokyoList});
+          List<AttendanceTimedStatusModel>? jokyoList});
 }
 
 /// @nodoc
@@ -139,7 +139,7 @@ class _$AttendanceTimedMeiboModelCopyWithImpl<$Res>
       jokyoList: jokyoList == freezed
           ? _value.jokyoList
           : jokyoList // ignore: cast_nullable_to_non_nullable
-              as List<AttendanceStatusModel>?,
+              as List<AttendanceTimedStatusModel>?,
     ));
   }
 }
@@ -172,7 +172,7 @@ abstract class _$$_AttendanceTimedMeiboModelCopyWith<$Res>
       @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
           String? photoUrl,
       @JsonKey(name: 'JokyoList', disallowNullValue: false)
-          List<AttendanceStatusModel>? jokyoList});
+          List<AttendanceTimedStatusModel>? jokyoList});
 }
 
 /// @nodoc
@@ -241,7 +241,7 @@ class __$$_AttendanceTimedMeiboModelCopyWithImpl<$Res>
       jokyoList: jokyoList == freezed
           ? _value._jokyoList
           : jokyoList // ignore: cast_nullable_to_non_nullable
-              as List<AttendanceStatusModel>?,
+              as List<AttendanceTimedStatusModel>?,
     ));
   }
 }
@@ -269,7 +269,7 @@ class _$_AttendanceTimedMeiboModel extends _AttendanceTimedMeiboModel {
       @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
           this.photoUrl,
       @JsonKey(name: 'JokyoList', disallowNullValue: false)
-          final List<AttendanceStatusModel>? jokyoList})
+          final List<AttendanceTimedStatusModel>? jokyoList})
       : _jokyoList = jokyoList,
         super._();
 
@@ -303,10 +303,10 @@ class _$_AttendanceTimedMeiboModel extends _AttendanceTimedMeiboModel {
   @override
   @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
   final String? photoUrl;
-  final List<AttendanceStatusModel>? _jokyoList;
+  final List<AttendanceTimedStatusModel>? _jokyoList;
   @override
   @JsonKey(name: 'JokyoList', disallowNullValue: false)
-  List<AttendanceStatusModel>? get jokyoList {
+  List<AttendanceTimedStatusModel>? get jokyoList {
     final value = _jokyoList;
     if (value == null) return null;
     // ignore: implicit_dynamic_type
@@ -391,7 +391,7 @@ abstract class _AttendanceTimedMeiboModel extends AttendanceTimedMeiboModel {
           @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
               final String? photoUrl,
           @JsonKey(name: 'JokyoList', disallowNullValue: false)
-              final List<AttendanceStatusModel>? jokyoList}) =
+              final List<AttendanceTimedStatusModel>? jokyoList}) =
       _$_AttendanceTimedMeiboModel;
   const _AttendanceTimedMeiboModel._() : super._();
 
@@ -427,7 +427,7 @@ abstract class _AttendanceTimedMeiboModel extends AttendanceTimedMeiboModel {
   String? get photoUrl;
   @override
   @JsonKey(name: 'JokyoList', disallowNullValue: false)
-  List<AttendanceStatusModel>? get jokyoList;
+  List<AttendanceTimedStatusModel>? get jokyoList;
   @override
   @JsonKey(ignore: true)
   _$$_AttendanceTimedMeiboModelCopyWith<_$_AttendanceTimedMeiboModel>

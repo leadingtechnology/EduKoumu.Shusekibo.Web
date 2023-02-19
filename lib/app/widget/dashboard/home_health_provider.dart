@@ -41,7 +41,7 @@ class HomeHealthListProvider extends StateNotifier<HomeHealthState> {
   }
 
   Future<void> _fetch() async {
-    final response = await _repository.fetch(_dantai);
+    final response = await _repository.fetch(dantai:_dantai);
     if (mounted) {
       state = response;
     }

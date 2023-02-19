@@ -5,9 +5,9 @@ import 'package:pluto_grid/pluto_grid.dart';
 import 'package:shusekibo/app/feature/auth/provider/auth_provider.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_reason_provider.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_provider.dart';
-import 'package:shusekibo/app/widget/attendance/attendance_status_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_provider.dart';
+import 'package:shusekibo/app/widget/attendance/attendance_timed_status_model.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/filter/filter_model.dart';
 import 'package:shusekibo/app/widget/filter/filter_provider.dart';
@@ -76,16 +76,16 @@ class _AttendanceTimedListWidgetState
   }
 
   PlutoRow setPlutRow(AttendanceTimedMeiboModel e, int jigenIdx) {
-    AttendanceStatusModel jokyo;
+    AttendanceTimedStatusModel jokyo;
     if (e.jokyoList != null) {
       try {
         jokyo =
             e.jokyoList!.where((e) => e.jigenIdx == jigenIdx).toList().first;
       } catch (ex) {
-        jokyo = const AttendanceStatusModel();
+        jokyo = const AttendanceTimedStatusModel();
       }
     } else {
-      jokyo = const AttendanceStatusModel();
+      jokyo = const AttendanceTimedStatusModel();
     }
 
     return PlutoRow(
@@ -104,11 +104,11 @@ class _AttendanceTimedListWidgetState
   }
 
   void setReason(PlutoRow row, WidgetRef ref) async {
-    final stamp = ref.read(attendanceTimedStampProvider);
+    final stamp = ref.read(attendanceStampProvider);
     if (stamp.shukketsuJokyoCd == '001') return;
 
-    final reason1 = ref.watch(attendanceTimedReason1Provider);
-    final reason2 = ref.watch(attendanceTimedReason2Provider);
+    final reason1 = ref.watch(attendanceReason1Provider);
+    final reason2 = ref.watch(attendanceReason2Provider);
 
     final studentNumber = row.cells['shusekiNo']!.value.toString();
     if (studentNumber.isEmpty) return;

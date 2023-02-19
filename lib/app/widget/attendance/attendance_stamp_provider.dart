@@ -6,14 +6,8 @@ import 'package:shusekibo/app/widget/attendance/attendance_stamp_repository.dart
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_state.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 
-final attendanceStampProvider =
-    StateProvider<AttendanceStampModel>((ref) => const AttendanceStampModel());
+final attendanceStampProvider = StateProvider<AttendanceStampModel>((ref) => const AttendanceStampModel());
 final attendanceUnregistShowProvider = StateProvider<bool>((ref) => false);
-
-final attendanceTimedStampProvider =
-    StateProvider<AttendanceStampModel>((ref) => const AttendanceStampModel());
-final attendanceTimedUnregistShowProvider = StateProvider<bool>((ref) => false);
-
 
 final attendanceStampInitProvider =
     StateNotifierProvider<AttendanceStampNotifier, AttendanceStampState>(

@@ -5,6 +5,7 @@ import 'package:shusekibo/app/widget/attendance/attendance_stamp_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_status_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_repository.dart';
+import 'package:shusekibo/app/widget/attendance/attendance_timed_status_model.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/filter/filter_model.dart';
 import 'package:shusekibo/app/widget/filter/filter_provider.dart';
@@ -35,7 +36,6 @@ class AttendanceTimedMeiboInitNotifier
       _ref.read(attendanceTimedMeiboRepositoryProvider);
 
   Future<void> _init() async { 
-    print('attendance search filter: $_filter');
     
     if (_filter.classId != null && _filter.jigenIdx != null) {
       await _fetch();
@@ -69,6 +69,7 @@ class AttendanceTimedMeiboInitNotifier
       for (final m in meibos) {
         updateCache(m, stamp, reason1, reason2);
       }
+      setState();
 
       return;
     }
@@ -85,16 +86,22 @@ class AttendanceTimedMeiboInitNotifier
         if (m.studentKihonId == meibo.studentKihonId) {
           updateCache(meibo, stamp, reason1, reason2);
         } else {
-          updateCache(m, s, const AttendanceReasonModel(),
-              const AttendanceReasonModel());
+          updateCache(
+            m,
+            s,
+            const AttendanceReasonModel(),
+            const AttendanceReasonModel(),
+          );
         }
       }
+      setState();
 
       return;
     }
 
     // set one
     updateCache(meibo, stamp, reason1, reason2);
+    setState();
   }
 
   // cover blank values
@@ -124,7 +131,7 @@ class AttendanceTimedMeiboInitNotifier
     final filter = _ref.read(filterProvider);
     
     final status = stamp.shukketsuJokyoCd == '999'
-        ? AttendanceStatusModel(
+        ? AttendanceTimedStatusModel(
             jigenIdx: filter.jigenIdx,
             shukketsuBunrui: '',
             shukketsuKbn: '',
@@ -132,7 +139,7 @@ class AttendanceTimedMeiboInitNotifier
             jiyu1: '',
             jiyu2: '',
           )
-        : AttendanceStatusModel(
+        : AttendanceTimedStatusModel(
             jigenIdx: filter.jigenIdx,
             shukketsuBunrui: stamp.shukketsuBunrui,
             shukketsuKbn: stamp.shukketsuKbn,
@@ -163,6 +170,9 @@ class AttendanceTimedMeiboInitNotifier
     final m = _ref.read(attendanceTimedMeibosCache);
     _ref.read(attendanceTimedMeibosCache.notifier).state = {};
     _ref.read(attendanceTimedMeibosCache.notifier).state = m;
+
+    print('------ attendance timed cache : ${m.toString()}');
+
   }
 
   void updateBox(
@@ -175,7 +185,7 @@ class AttendanceTimedMeiboInitNotifier
     final filter = _ref.read(filterProvider);
 
     final status = stamp.shukketsuJokyoCd == '999'
-        ? AttendanceStatusModel(
+        ? AttendanceTimedStatusModel(
             jigenIdx: filter.jigenIdx,
             shukketsuBunrui: '',
             shukketsuKbn: '',
@@ -183,7 +193,7 @@ class AttendanceTimedMeiboInitNotifier
             jiyu1: '',
             jiyu2: '',
           )
-        : AttendanceStatusModel(
+        : AttendanceTimedStatusModel(
             jigenIdx: filter.jigenIdx,
             shukketsuBunrui: stamp.shukketsuBunrui,
             shukketsuKbn: stamp.shukketsuKbn,

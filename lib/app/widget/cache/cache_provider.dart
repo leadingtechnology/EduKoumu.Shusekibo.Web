@@ -8,6 +8,8 @@ import 'package:shusekibo/app/widget/awareness/awareness_bunrui_model.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_kizuki_model.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_meibo_model.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_model.dart';
+import 'package:shusekibo/app/widget/dashboard/home_attendance_model.dart';
+import 'package:shusekibo/app/widget/dashboard/home_health_model.dart';
 import 'package:shusekibo/app/widget/dashboard/tokobi_model.dart';
 import 'package:shusekibo/app/widget/gakunen/gakunen_model.dart';
 import 'package:shusekibo/app/widget/health/health_meibo_model.dart';
@@ -109,4 +111,12 @@ final awarenessMeibosCache =
 final awarenessKizukiCache =
     StateProvider<Map<String, AwarenessKizukiModel>>(
   (ref) => {},
+);
+
+//Dashboard
+final homeHealthCache = StateProvider<List<HomeHealthModel>>(
+  (ref) => [],
+);
+final homeAttendanceCache = StateProvider<List<HomeAttendanceModel>>(
+  (ref) => [],
 );

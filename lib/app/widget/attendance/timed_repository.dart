@@ -10,7 +10,7 @@ import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 
 abstract class TimedRepositoryProtocol {
-  Future<TimedState> fetch(ShozokuModel shozoku, DateTime _targetDate); 
+  Future<TimedState> fetch(ShozokuModel shozoku, DateTime targetDate); 
 }
 
 final timedRepositoryProvider = Provider(TimedRepository.new);

@@ -19,8 +19,8 @@ _$_AttendanceTimedMeiboModel _$$_AttendanceTimedMeiboModelFromJson(
       genderCode: json['GenderCode'] as String?,
       photoUrl: json['PhotoUrl'] as String?,
       jokyoList: (json['JokyoList'] as List<dynamic>?)
-          ?.map(
-              (e) => AttendanceStatusModel.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              AttendanceTimedStatusModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

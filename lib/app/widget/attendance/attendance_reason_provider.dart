@@ -21,12 +21,6 @@ final attendanceReason1Provider = StateProvider<AttendanceReasonModel>(
 final attendanceReason2Provider = StateProvider<AttendanceReasonModel>(
   (ref) => const AttendanceReasonModel(),
 );
-final attendanceTimedReason1Provider = StateProvider<AttendanceReasonModel>(
-  (ref) => const AttendanceReasonModel(),
-);
-final attendanceTimedReason2Provider = StateProvider<AttendanceReasonModel>(
-  (ref) => const AttendanceReasonModel(),
-);
 
 class AttendanceReasonNotifier
     extends StateNotifier<AttendanceReasonState> {

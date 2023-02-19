@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/dashboard/home_attendance_model.dart';
 import 'package:shusekibo/app/widget/dashboard/home_attendance_provider.dart';
 import 'package:shusekibo/app/widget/dashboard/home_health_provider.dart';
@@ -65,14 +66,16 @@ class HealthSummary extends ConsumerWidget {
     return state.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (AppException e){ return Text(e.toString()); },
-      loaded: (healthList){
+      loaded: (){
+        final healthList = ref.watch(homeHealthCache);
+
         return SingleChildScrollView(
           child: Column(
             children: healthList.map((e){
               String inputStates;
               var inputColor = Colors.pink[100];
 
-              if (e.shusseki! > 0) {
+              if (e.doneKenkoKansatsuFlg??false) {
                 inputStates = '　済　';
                 inputColor = Colors.greenAccent[100];
               } else {
@@ -172,7 +175,9 @@ class AttendanceSummary extends ConsumerWidget {
     return state.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (AppException e){ return Container(child: Text('${e.toString()}'),); },
-      loaded: (attendanceList){
+      loaded: (){
+        final attendanceList = ref.watch(homeAttendanceCache);
+
         return SingleChildScrollView(
           child: Column(
             children: attendanceList.map((e){
@@ -180,7 +185,7 @@ class AttendanceSummary extends ConsumerWidget {
               String inputStates;
               Color? inputColor = Colors.pink[100];
               
-              if (e.shusseki! > 0){
+              if (e.doneAttendanceFlg??false){
                 inputStates = '　済　';
                 inputColor = Colors.greenAccent[100];
               }else{

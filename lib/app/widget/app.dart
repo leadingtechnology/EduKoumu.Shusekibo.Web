@@ -12,6 +12,7 @@ class App extends ConsumerWidget {
   App({super.key});
 
   final _appRouter = AppRouter();
+  final locale = const Locale('ja', 'JP');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,11 +27,13 @@ class App extends ConsumerWidget {
       ),
       routeInformationProvider: _appRouter.routeInfoProvider(),
       routeInformationParser: _appRouter.defaultRouteParser(),
+      
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
+      locale: locale,
     );
   }
 }

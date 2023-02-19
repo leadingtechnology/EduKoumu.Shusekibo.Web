@@ -6,13 +6,13 @@ import 'package:shusekibo/app/widget/attendance/attendance_reason_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_status_model.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
-import 'package:shusekibo/app/widget/dantai/dantai_provider.dart';
 import 'package:shusekibo/app/widget/dashboard/home_attendance_repository.dart';
 import 'package:shusekibo/app/widget/filter/filter_model.dart';
 import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 
 final attendanceMeiboInitProvider =
-    StateNotifierProvider<AttendanceMeiboNotifier, AttendanceMeiboState>((ref) {
+    StateNotifierProvider<AttendanceMeiboNotifier, AttendanceMeiboState>(
+        (ref) {
   final filter = ref.watch(filterProvider);
 
   return AttendanceMeiboNotifier(ref, filter);
@@ -21,7 +21,6 @@ final attendanceMeiboInitProvider =
 final attendanceMeiboProvider =
     StateProvider<AttendanceMeiboModel>((ref) => const AttendanceMeiboModel());
 final attendanceShiftProvider = StateProvider<bool>((ref) => false);
-final attendanceCountProvider = StateProvider<int>((ref) => 0);
 
 class AttendanceMeiboNotifier extends StateNotifier<AttendanceMeiboState> {
   AttendanceMeiboNotifier(this._ref, this._filter)
@@ -53,17 +52,20 @@ class AttendanceMeiboNotifier extends StateNotifier<AttendanceMeiboState> {
   }
 
   Future<void> save() async {
-    await _repository.save();
-    await _homeRepository.fetch(_ref.read(dantaiProvider));
+    final response = await _repository.save();
+    if (mounted) {
+      state = response;
+    }
+    await _homeRepository.fetch();
   }
 
   // set stamp by Id
   void updateById(
-    AttendanceMeiboModel meibo,
-    AttendanceStampModel stamp,
-    AttendanceReasonModel reason1,
-    AttendanceReasonModel reason2,
-  ) async {
+      AttendanceMeiboModel meibo,
+      AttendanceStampModel stamp,
+      AttendanceReasonModel reason1,
+      AttendanceReasonModel reason2,){
+
     if (stamp.shukketsuJokyoCd == '001') return;
 
     // set all.
@@ -74,14 +76,17 @@ class AttendanceMeiboNotifier extends StateNotifier<AttendanceMeiboState> {
         updateBox(m, stamp, reason1, reason2);
       }
 
+      setState();
+
       return;
     }
 
     //clear all and set one
-    if (meibo.jokyoList![0].shukketsuBunrui == '50' ||
-        meibo.jokyoList![0].shukketsuBunrui == '60') {
+    if (meibo.jokyoList![0].shukketsuBunrui == '50' || 
+        meibo.jokyoList![0].shukketsuBunrui == '60') 
+    {
       final meibos = _ref.read(attendanceMeibosCache).values.toList();
-
+      
       const s = AttendanceStampModel(
         shukketsuJokyoCd: '999',
         shukketsuBunrui: '',
@@ -92,48 +97,34 @@ class AttendanceMeiboNotifier extends StateNotifier<AttendanceMeiboState> {
         if (m.studentKihonId == meibo.studentKihonId) {
           updateBox(meibo, stamp, reason1, reason2);
         } else {
-          updateBox(
-            m,
-            s,
-            const AttendanceReasonModel(),
-            const AttendanceReasonModel(),
-          );
+          updateBox(m, s, const AttendanceReasonModel(),
+              const AttendanceReasonModel(),);
         }
       }
-
       setState();
-      
+
       return;
     }
+
     // set one
     updateBox(meibo, stamp, reason1, reason2);
+    setState();
   }
 
   // cover blank values
   Future<void> updateByBlank() async {
     final meibos = _ref.read(attendanceMeibosCache).values.toList();
-
+    
     if (meibos.isEmpty) return;
 
     final stamp = _ref.read(attendanceRegistStampCache)['100'];
     for (final m in meibos) {
       if (m.jokyoList![0].shukketsuBunrui!.isEmpty) {
-        updateBox(
-          m,
-          stamp!,
-          const AttendanceReasonModel(),
-          const AttendanceReasonModel(),
-        );
+        updateBox(m, stamp!, const AttendanceReasonModel(),
+            const AttendanceReasonModel(),);
       }
     }
-
     setState();
-  }
-
-  void setState() {
-    final m = _ref.read(attendanceMeibosCache);
-    _ref.read(attendanceMeibosCache.notifier).state = {};
-    _ref.read(attendanceMeibosCache.notifier).state = m;
   }
 
   void updateBox(
@@ -169,14 +160,16 @@ class AttendanceMeiboNotifier extends StateNotifier<AttendanceMeiboState> {
       photoUrl: meibo.photoUrl,
       jokyoList: [status],
     );
-
+    
     _ref
         .read(attendanceMeibosCache.notifier)
         .state['${newMeibo.studentKihonId}'] = newMeibo;
+
   }
 
-  Future<void> getPhoto() async {
-    await _repository.save();
-    await _homeRepository.fetch(_ref.read(dantaiProvider));
-  }
+  void setState() {
+    final m = _ref.read(attendanceMeibosCache);
+    _ref.read(attendanceMeibosCache.notifier).state = {};
+    _ref.read(attendanceMeibosCache.notifier).state = m;
+  }  
 }

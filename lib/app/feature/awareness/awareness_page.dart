@@ -11,6 +11,7 @@ import 'package:shusekibo/app/widget/awareness/awareness_kizuki_model.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_kizuki_provider.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_meibo_provider.dart';
 import 'package:shusekibo/app/widget/common/header_bar.dart';
+import 'package:shusekibo/app/widget/dashboard/home_health_provider.dart';
 import 'package:shusekibo/shared/util/spacing.dart';
 
 class AwarenessRoute extends PageRouteInfo {

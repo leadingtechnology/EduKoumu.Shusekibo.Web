@@ -82,6 +82,7 @@ class AttendanceTimedMeiboRepository
         .map((v) => v.toNewJson())
         .toList(),);
 
+    print('------ attendance timed json: $json');
     final response = await _api.post2(
         'api/shozoku/${filter.classId}/JigenbetsuShussekibo?date=$strDate',
         json,);

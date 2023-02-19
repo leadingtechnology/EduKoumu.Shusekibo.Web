@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_status_model.dart';
+import 'package:shusekibo/app/widget/attendance/attendance_timed_status_model.dart';
 
 part 'attendance_timed_meibo_model.freezed.dart';
 part 'attendance_timed_meibo_model.g.dart';
@@ -33,7 +34,7 @@ class AttendanceTimedMeiboModel with _$AttendanceTimedMeiboModel {
     @JsonKey(name: 'GenderCode', disallowNullValue: false) String? genderCode,
     @JsonKey(name: 'PhotoUrl', disallowNullValue: false) String? photoUrl,
     @JsonKey(name: 'JokyoList', disallowNullValue: false)
-        List<AttendanceStatusModel>? jokyoList,
+        List<AttendanceTimedStatusModel>? jokyoList,
   }) = _AttendanceTimedMeiboModel;
   const AttendanceTimedMeiboModel._();
 

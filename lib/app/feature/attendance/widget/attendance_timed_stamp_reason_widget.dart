@@ -16,7 +16,7 @@ class AttendanceTimedStampReasonWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(attendanceStampInitProvider);
-    final unregistFlag = ref.watch(attendanceTimedUnregistShowProvider);
+    final unregistFlag = ref.watch(attendanceUnregistShowProvider);
 
     return state.when(
       loading: () {return Container();}, 
@@ -60,7 +60,7 @@ class AttendanceTimedStampReasonWidget extends ConsumerWidget {
               ),
               Spacing.width(8),
               IconButton(
-                onPressed: () {ref.read(attendanceTimedUnregistShowProvider.notifier).state = !unregistFlag; },
+                onPressed: () {ref.read(attendanceUnregistShowProvider.notifier).state = !unregistFlag; },
                 icon: unregistFlag?const FaIcon(FontAwesomeIcons.angleUp,):const FaIcon(FontAwesomeIcons.angleDown,),
               ),
               Expanded(

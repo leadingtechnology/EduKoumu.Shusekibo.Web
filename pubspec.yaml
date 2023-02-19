@@ -111,3 +111,9 @@ flutter_native_splash:
   #color: "#42a5f5"
   color: "#BFEEBB"
   image: assets/icons/koumu5.png
+
+# [Flutter Intl: Initialize] [Flutter Intl: Add locale]
+flutter_intl:
+  enabled: true
+  class_name: S
+  main_locale: ja_JP

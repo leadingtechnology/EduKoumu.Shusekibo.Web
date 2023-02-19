@@ -1,14 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:shusekibo/app/widget/cache/cache_provider.dart';
+import 'package:shusekibo/app/widget/dantai/dantai_model.dart';
+import 'package:shusekibo/app/widget/dantai/dantai_provider.dart';
+import 'package:shusekibo/app/widget/dashboard/home_health_model.dart';
+import 'package:shusekibo/app/widget/dashboard/home_health_state.dart';
 import 'package:shusekibo/shared/http/api_provider.dart';
 import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
-import 'package:shusekibo/app/widget/dantai/dantai_model.dart';
-import 'package:shusekibo/app/widget/dashboard/home_health_model.dart';
-import 'package:shusekibo/app/widget/dashboard/home_health_state.dart';
 
 abstract class HomeHealthRepositoryProtocol {
-  Future<HomeHealthState> fetch(DantaiModel dantai); 
+  Future<HomeHealthState> fetch({DantaiModel dantai}); 
 }
 
 final homeHealthRepositoryProvider = Provider(HomeHealthRepository.new);
@@ -20,12 +22,13 @@ class HomeHealthRepository implements HomeHealthRepositoryProtocol {
   final Ref _ref;
 
   @override
-  Future<HomeHealthState> fetch(DantaiModel dantai) async {
-    final today =
-        DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
+  Future<HomeHealthState> fetch({DantaiModel? dantai}) async {
+    dantai = dantai??_ref.read(dantaiProvider);
+
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
     var url = 'api/kenkou/classbetsu?date=$today';
-    if (dantai.id != null) {
+    if (dantai!.id != null) {
       url = '$url&dantaiId=${dantai.id}';
     }
     final response = await _api.get(url);
@@ -40,8 +43,9 @@ class HomeHealthRepository implements HomeHealthRepositoryProtocol {
       final value = response.value;
       try {
         final homeHealth = homeHealthListFromJson(value as List<dynamic>);
+        _ref.read(homeHealthCache.notifier).state = homeHealth;
      
-        return HomeHealthState.loaded(homeHealth);
+        return HomeHealthState.loaded();
       } catch (e) {
         return HomeHealthState.error(
             AppException.errorWithMessage(e.toString()),);
