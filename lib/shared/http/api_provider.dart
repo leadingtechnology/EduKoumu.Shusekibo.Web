@@ -317,7 +317,7 @@ class ApiProvider {
         } else {
           if (response.data['message'] != null) {
             return APIResponse.error(
-                AppException.errorWithMessage(response.toString()?? ''));
+                AppException.errorWithMessage(response.toString()));
           } else {
             return const APIResponse.error(AppException.error());
           }

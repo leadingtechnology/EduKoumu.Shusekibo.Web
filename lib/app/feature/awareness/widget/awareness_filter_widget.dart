@@ -22,6 +22,7 @@ class AwarenessFilterWidget extends ConsumerWidget {
         initialDateRange: initialDateRange,
         firstDate: DateTime(2022, 4, 1),
         lastDate: DateTime(2023, 3, 31),
+        locale: const Locale('ja'),
         builder: (context, child) {
             return Column(
               children: [

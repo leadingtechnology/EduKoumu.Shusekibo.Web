@@ -37,7 +37,7 @@ class AppTheme {
         secondaryContainer: Color(0xFFD6E8CD),
         onSecondary: Color(0xFFFFFFFF),
         error: Color(0xFFBA1B1B),
-        errorContainer: Color(0xFFFFCDD2),
+        errorContainer: Color(0xFFFFDAD4),
         onError: Color(0xFFFFFFFF),
         onErrorContainer: Color(0xFF410001),
         surface: Color(0xFFFCFCF6),

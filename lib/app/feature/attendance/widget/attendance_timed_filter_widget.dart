@@ -15,13 +15,14 @@ class AttendanceTimedFilterWidget extends ConsumerWidget {
 
   int selectedLocation = 0, selectedDate = 2, selectedTOD = 1;
 
-  _pickDate(BuildContext context, WidgetRef ref) async {
+  Future<void> _pickDate(BuildContext context, WidgetRef ref) async {
 
-    final DateTime? selected = await showDatePicker(
+    final selected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2022, 4, 1),
       lastDate: DateTime(2026, 3, 31),
+      locale: const Locale('ja'),
     );
     
     if (selected != null) {

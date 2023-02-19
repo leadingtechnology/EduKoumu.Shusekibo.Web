@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/app/widget/gakunen/gakunen_clip_widget.dart';
 import 'package:shusekibo/app/widget/shozoku/shozoku_clip_widget.dart';
-import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/shared/util/spacing.dart';
 
 
@@ -16,14 +16,15 @@ class HealthFilterWidget extends ConsumerWidget {
   int electedDate = 2;
   int selectedTOD = 1;
 
-  _pickDate(BuildContext context, WidgetRef ref) async {
+  Future<void> _pickDate(BuildContext context, WidgetRef ref) async {
     
     final selected = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2022, 4, 1),
-        lastDate: DateTime(2023, 3, 31))
-    ;
+        lastDate: DateTime(2023, 3, 31),
+        locale: const Locale('ja'),
+    );
     
     if (selected != null){
       ref.read(targetDateProvider.notifier).state = selected;
