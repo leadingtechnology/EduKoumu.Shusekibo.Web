@@ -70,6 +70,7 @@ class _AttendanceListWidgetState extends ConsumerState<AttendanceListWidget> {
       PlutoColumn(title: DateUtil.getWeekDate(filter.targetDate??DateTime.now()),    field: 'mark', readOnly: true, type: PlutoColumnType.text(),               width: 130, enableContextMenu: false, textAlign: PlutoColumnTextAlign.left, titleTextAlign: PlutoColumnTextAlign.center),
       PlutoColumn(title: '理由1',   field: 'reason1',   readOnly: true, type: PlutoColumnType.text(),               width: 216, enableContextMenu: false, textAlign: PlutoColumnTextAlign.left, titleTextAlign: PlutoColumnTextAlign.center),
       PlutoColumn(title: '理由2',   field: 'reason2',   readOnly: true, type: PlutoColumnType.text(),               width: 216, enableContextMenu: false, textAlign: PlutoColumnTextAlign.left, titleTextAlign: PlutoColumnTextAlign.center),
+      PlutoColumn(title: 'ID',    field: 'studentKihonId',  readOnly: true, type: PlutoColumnType.text(),     hide: true),
     ]);
 
     final meibos = ref.read(attendanceMeibosCache).values.toList();
@@ -88,6 +89,7 @@ class _AttendanceListWidgetState extends ConsumerState<AttendanceListWidget> {
       'mark': PlutoCell(value: e.jokyoList![0].ryaku ?? ''),
       'reason1': PlutoCell(value: e.jokyoList![0].jiyu1 ?? ''),
       'reason2': PlutoCell(value: e.jokyoList![0].jiyu2 ?? ''),
+      'studentKihonId': PlutoCell(value: e.studentKihonId),
     },);
   }
 
@@ -99,24 +101,19 @@ class _AttendanceListWidgetState extends ConsumerState<AttendanceListWidget> {
     final reason1 = ref.watch(attendanceReason1Provider);
     final reason2 = ref.watch(attendanceReason2Provider);
 
-    final studentNumber = row.cells['shusekiNo']!.value.toString();
-    if (studentNumber.isEmpty) return;
+    final studentKihonId = row.cells['studentKihonId']!.value.toString();
+    if (studentKihonId.isEmpty) return;
 
-    final meibos = ref.read(attendanceMeibosCache).values.toList();
-    AttendanceMeiboModel meibo;
-    try {
-      meibo =
-          meibos.where((e) => e.studentNumber == studentNumber).toList().first;
-    } catch (e) {
-      return;
-    }
+    final meibo = ref.read(attendanceMeibosCache)['$studentKihonId'];
 
-    ref.read(attendanceMeiboInitProvider.notifier).updateById(
+    if(meibo != null) {
+      ref.read(attendanceMeiboInitProvider.notifier).updateById(
           meibo,
           stamp,
           reason1,
           reason2,
         );
+    }
     
     // set all.
     if (stamp.shukketsuBunrui == '50' || stamp.shukketsuBunrui == '60') {

@@ -99,7 +99,7 @@ return ListView.separated(
           itemBuilder: (context, index) => ListTile(
             leading: ClipOval(
                 child: Image.network(
-              '${_baseUrl}api/images?seitoseq=${kizuki[index].seitoSeq}',
+              '${_baseUrl}${kizuki[index].photoUrl}',
               headers: {"Authorization": "Bearer " + accessToken},
             )),
             title: Text('${kizuki[index].studentName}'),

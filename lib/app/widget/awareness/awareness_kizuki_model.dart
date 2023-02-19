@@ -36,6 +36,7 @@ class AwarenessKizukiModel with _$AwarenessKizukiModel {
     @JsonKey(name: 'SeitoSeq', disallowNullValue: false)  String? seitoSeq,
     @JsonKey(name: 'StudentName', disallowNullValue: false)  String? studentName,
     @JsonKey(name: 'ExistPhoto', disallowNullValue: false)  bool? existPhoto,
+    @JsonKey(name: 'PhotoUrl', disallowNullValue: false) String? photoUrl,
     @JsonKey(name: 'TourokusyaId', disallowNullValue: false)  int? tourokusyaId,
     @JsonKey(name: 'TourokusyaName', disallowNullValue: false)  String? tourokusyaName,
     @JsonKey(name: 'JuyoFlg', disallowNullValue: false)  bool? juyoFlg,

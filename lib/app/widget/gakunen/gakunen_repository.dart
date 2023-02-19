@@ -40,14 +40,14 @@ class GakunenRepository implements GakunenRepositoryProtocol {
           final nasi = GakunenModel(
             organizationId: gk.organizationId,
             gakunenCode: '0',
-            gakunenName: '学年無し',
-            gakunenRyakusho: '学年無し',
+            gakunenName: '学年なし',
+            gakunenRyakusho: '学年なし',
             kateiKbn: gk.kateiKbn,
             zaisekiAgeLowLimit: gk.zaisekiAgeLowLimit,
             isTantoGakunen: gk.isTantoGakunen,
             id:0,
             code: '0',
-            name: '学年無し',
+            name: '学年なし',
           );
           gakunen.add(nasi);
         }

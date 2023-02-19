@@ -62,6 +62,8 @@ mixin _$AwarenessKizukiModel {
   String? get studentName => throw _privateConstructorUsedError;
   @JsonKey(name: 'ExistPhoto', disallowNullValue: false)
   bool? get existPhoto => throw _privateConstructorUsedError;
+  @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
+  String? get photoUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'TourokusyaId', disallowNullValue: false)
   int? get tourokusyaId => throw _privateConstructorUsedError;
   @JsonKey(name: 'TourokusyaName', disallowNullValue: false)
@@ -135,6 +137,8 @@ abstract class $AwarenessKizukiModelCopyWith<$Res> {
           String? studentName,
       @JsonKey(name: 'ExistPhoto', disallowNullValue: false)
           bool? existPhoto,
+      @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
+          String? photoUrl,
       @JsonKey(name: 'TourokusyaId', disallowNullValue: false)
           int? tourokusyaId,
       @JsonKey(name: 'TourokusyaName', disallowNullValue: false)
@@ -187,6 +191,7 @@ class _$AwarenessKizukiModelCopyWithImpl<$Res>
     Object? seitoSeq = freezed,
     Object? studentName = freezed,
     Object? existPhoto = freezed,
+    Object? photoUrl = freezed,
     Object? tourokusyaId = freezed,
     Object? tourokusyaName = freezed,
     Object? juyoFlg = freezed,
@@ -282,6 +287,10 @@ class _$AwarenessKizukiModelCopyWithImpl<$Res>
           ? _value.existPhoto
           : existPhoto // ignore: cast_nullable_to_non_nullable
               as bool?,
+      photoUrl: photoUrl == freezed
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       tourokusyaId: tourokusyaId == freezed
           ? _value.tourokusyaId
           : tourokusyaId // ignore: cast_nullable_to_non_nullable
@@ -372,6 +381,8 @@ abstract class _$$_AwarenessKizukiModelCopyWith<$Res>
           String? studentName,
       @JsonKey(name: 'ExistPhoto', disallowNullValue: false)
           bool? existPhoto,
+      @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
+          String? photoUrl,
       @JsonKey(name: 'TourokusyaId', disallowNullValue: false)
           int? tourokusyaId,
       @JsonKey(name: 'TourokusyaName', disallowNullValue: false)
@@ -426,6 +437,7 @@ class __$$_AwarenessKizukiModelCopyWithImpl<$Res>
     Object? seitoSeq = freezed,
     Object? studentName = freezed,
     Object? existPhoto = freezed,
+    Object? photoUrl = freezed,
     Object? tourokusyaId = freezed,
     Object? tourokusyaName = freezed,
     Object? juyoFlg = freezed,
@@ -521,6 +533,10 @@ class __$$_AwarenessKizukiModelCopyWithImpl<$Res>
           ? _value.existPhoto
           : existPhoto // ignore: cast_nullable_to_non_nullable
               as bool?,
+      photoUrl: photoUrl == freezed
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       tourokusyaId: tourokusyaId == freezed
           ? _value.tourokusyaId
           : tourokusyaId // ignore: cast_nullable_to_non_nullable
@@ -607,6 +623,8 @@ class _$_AwarenessKizukiModel extends _AwarenessKizukiModel {
           this.studentName,
       @JsonKey(name: 'ExistPhoto', disallowNullValue: false)
           this.existPhoto,
+      @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
+          this.photoUrl,
       @JsonKey(name: 'TourokusyaId', disallowNullValue: false)
           this.tourokusyaId,
       @JsonKey(name: 'TourokusyaName', disallowNullValue: false)
@@ -694,6 +712,9 @@ class _$_AwarenessKizukiModel extends _AwarenessKizukiModel {
   @JsonKey(name: 'ExistPhoto', disallowNullValue: false)
   final bool? existPhoto;
   @override
+  @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
+  final String? photoUrl;
+  @override
   @JsonKey(name: 'TourokusyaId', disallowNullValue: false)
   final int? tourokusyaId;
   @override
@@ -723,7 +744,7 @@ class _$_AwarenessKizukiModel extends _AwarenessKizukiModel {
 
   @override
   String toString() {
-    return 'AwarenessKizukiModel(id: $id, nendo: $nendo, karuteSettingId: $karuteSettingId, shubetsuCode: $shubetsuCode, shubetsuName: $shubetsuName, bunruiCode: $bunruiCode, bunruiName: $bunruiName, naiyou: $naiyou, gakkiId: $gakkiId, gakkiName: $gakkiName, gakunen: $gakunen, shozokuId: $shozokuId, shozokuBunrui: $shozokuBunrui, shozokuKbn: $shozokuKbn, shozokuCode: $shozokuCode, className: $className, shussekiNo: $shussekiNo, studentId: $studentId, seitoSeq: $seitoSeq, studentName: $studentName, existPhoto: $existPhoto, tourokusyaId: $tourokusyaId, tourokusyaName: $tourokusyaName, juyoFlg: $juyoFlg, torokuDate: $torokuDate, hasAttachment: $hasAttachment, commentCount: $commentCount, createDate: $createDate, updateDate: $updateDate, timeStamp: $timeStamp)';
+    return 'AwarenessKizukiModel(id: $id, nendo: $nendo, karuteSettingId: $karuteSettingId, shubetsuCode: $shubetsuCode, shubetsuName: $shubetsuName, bunruiCode: $bunruiCode, bunruiName: $bunruiName, naiyou: $naiyou, gakkiId: $gakkiId, gakkiName: $gakkiName, gakunen: $gakunen, shozokuId: $shozokuId, shozokuBunrui: $shozokuBunrui, shozokuKbn: $shozokuKbn, shozokuCode: $shozokuCode, className: $className, shussekiNo: $shussekiNo, studentId: $studentId, seitoSeq: $seitoSeq, studentName: $studentName, existPhoto: $existPhoto, photoUrl: $photoUrl, tourokusyaId: $tourokusyaId, tourokusyaName: $tourokusyaName, juyoFlg: $juyoFlg, torokuDate: $torokuDate, hasAttachment: $hasAttachment, commentCount: $commentCount, createDate: $createDate, updateDate: $updateDate, timeStamp: $timeStamp)';
   }
 
   @override
@@ -763,6 +784,7 @@ class _$_AwarenessKizukiModel extends _AwarenessKizukiModel {
                 .equals(other.studentName, studentName) &&
             const DeepCollectionEquality()
                 .equals(other.existPhoto, existPhoto) &&
+            const DeepCollectionEquality().equals(other.photoUrl, photoUrl) &&
             const DeepCollectionEquality()
                 .equals(other.tourokusyaId, tourokusyaId) &&
             const DeepCollectionEquality()
@@ -806,6 +828,7 @@ class _$_AwarenessKizukiModel extends _AwarenessKizukiModel {
         const DeepCollectionEquality().hash(seitoSeq),
         const DeepCollectionEquality().hash(studentName),
         const DeepCollectionEquality().hash(existPhoto),
+        const DeepCollectionEquality().hash(photoUrl),
         const DeepCollectionEquality().hash(tourokusyaId),
         const DeepCollectionEquality().hash(tourokusyaName),
         const DeepCollectionEquality().hash(juyoFlg),
@@ -875,6 +898,8 @@ abstract class _AwarenessKizukiModel extends AwarenessKizukiModel {
           final String? studentName,
       @JsonKey(name: 'ExistPhoto', disallowNullValue: false)
           final bool? existPhoto,
+      @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
+          final String? photoUrl,
       @JsonKey(name: 'TourokusyaId', disallowNullValue: false)
           final int? tourokusyaId,
       @JsonKey(name: 'TourokusyaName', disallowNullValue: false)
@@ -961,6 +986,9 @@ abstract class _AwarenessKizukiModel extends AwarenessKizukiModel {
   @override
   @JsonKey(name: 'ExistPhoto', disallowNullValue: false)
   bool? get existPhoto;
+  @override
+  @JsonKey(name: 'PhotoUrl', disallowNullValue: false)
+  String? get photoUrl;
   @override
   @JsonKey(name: 'TourokusyaId', disallowNullValue: false)
   int? get tourokusyaId;

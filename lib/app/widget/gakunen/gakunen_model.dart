@@ -30,5 +30,3 @@ class GakunenModel with _$GakunenModel {
 
   factory GakunenModel.fromJson(Map<String, dynamic> json) => _$GakunenModelFromJson(json);
 }
-
-

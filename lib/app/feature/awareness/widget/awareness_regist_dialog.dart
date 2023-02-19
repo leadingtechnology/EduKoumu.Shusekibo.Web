@@ -105,7 +105,7 @@ class AwarenessRegistDialog extends ConsumerWidget {
                           child: SeitoWidget(
                             studentName: kizuki.studentName ?? '',
                             studentId: kizuki.studentId ?? 0,
-                            photoUrl: 'api/images?seitoseq=${kizuki.seitoSeq}',
+                            photoUrl: kizuki.photoUrl ?? '',
                           ),
                         ),),
                       if (opt == AwarenessOperationItem.copy)
