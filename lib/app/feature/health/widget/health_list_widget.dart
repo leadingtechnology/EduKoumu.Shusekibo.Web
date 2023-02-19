@@ -52,7 +52,7 @@ class _HealthListWidgetState extends ConsumerState<HealthListWidget> {
 
           return ClipOval(child: Image.network(
             url,
-            headers: {"Authorization": "Bearer " + accessToken!},
+            headers: {'Authorization': 'Bearer $accessToken'},
           ));
 
         },
