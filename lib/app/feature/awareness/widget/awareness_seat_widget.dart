@@ -21,7 +21,7 @@ class AwarenessSeatWidget extends ConsumerWidget {
       changeColor = Colors.blue;
     }
 
-    String url = '${_baseUrl}${meibo.photoUrl}';
+    final url = '$_baseUrl${meibo.photoUrl}';
     final accessToken = ref.read(tokenProvider).access_token.toString();
 
     return GestureDetector(
@@ -33,7 +33,7 @@ class AwarenessSeatWidget extends ConsumerWidget {
       child: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 5, 5),
+            padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
             child: Container(
               decoration: const BoxDecoration(
                 //color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
@@ -90,18 +90,14 @@ class AwarenessSeatWidget extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           //Text('$a1'),
-                          meibo.kizukiCount != 0
-                              ? const FaIcon(
+                          if (meibo.kizukiCount != 0) const FaIcon(
                                   FontAwesomeIcons.lightbulb,
                                   size: 16,
-                                )
-                              : Container(),
-                          meibo.kizukiCount != 0
-                              ? Text(
+                                ) else Container(),
+                          if (meibo.kizukiCount != 0) Text(
                                   '${meibo.kizukiCount} 件',
                                   style: TextStyle(color: changeColor),
-                                )
-                              : Text(' '),
+                                ) else const Text(' '),
                         ],
                       )),
                 ],

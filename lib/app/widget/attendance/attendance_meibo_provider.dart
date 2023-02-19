@@ -22,6 +22,7 @@ final attendanceMeiboInitProvider =
 final attendanceMeiboProvider =
     StateProvider<AttendanceMeiboModel>((ref) => const AttendanceMeiboModel());
 final attendanceShiftProvider = StateProvider<bool>((ref) => false);
+final attendanceCountProvider = StateProvider<int>((ref) => 0);
 
 class AttendanceMeiboNotifier extends StateNotifier<AttendanceMeiboState> {
   AttendanceMeiboNotifier(this._ref, this._filter)

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:shusekibo/app/widget/awareness/awareness_kizuki_model.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_kizuki_state.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_provider.dart';
@@ -7,8 +8,6 @@ import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/shared/http/api_provider.dart';
 import 'package:shusekibo/shared/http/api_response.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
-
-import 'awareness_kizuki_model.dart';
 
 abstract class AwarenessKizukiRepositoryProtocol {
   Future<AwarenessKizukiState> fetch(); 

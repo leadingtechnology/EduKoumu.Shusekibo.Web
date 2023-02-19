@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shusekibo/app/widget/awareness/awareness_kizuki_provider.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_meibo_model.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_meibo_state.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
@@ -56,29 +57,38 @@ class AwarenessMeiboRepository implements AwarenessMeiboRepositoryProtocol {
     }
   }
 
-  @override
   Future<AwarenessMeiboState> save(String json) async {
-    final maibosMap = _ref.read(awarenessMeibosCache);
 
     final response = await _api.post2('api/kizuki', json);
 
+    response.when(
+      success: (success) {},
+      error: (error) {
+        return AwarenessMeiboState.error(error);
+      },
+    );    
+
     if (response is APISuccess) {
       final value = response.value as List;
+      print('------ save sucess : ${value.toString()}');
       try {
         // 1) change response to list
         final meibos = awarenessMeiboListFromJson(value);
 
-        // 2) save to hive with key
-        final studentList = maibosMap.values
+        // 2) save cache
+        final studentList = _ref
+            .read(awarenessMeibosCache)
+            .values
             .toList()
             .where((e) => e.selectFlag ?? false)
             .toList();
-            
+        
         for (final m in studentList) {
-          final meibo = meibos.where((e) => e.studentId == m.studentId).first;
-          
-          if (meibo.kizukiCount == null || meibo.kizukiCount! <= 0) continue;
+          final meibo =
+              meibos.where((e) => e.studentId == m.studentId).first;
 
+          if (meibo.kizukiCount == null || meibo.kizukiCount! <= 0) continue;
+          
           final meibo2 = AwarenessMeiboModel(
             gakunen: meibo.gakunen,
             shozokuId: meibo.shozokuId,
@@ -93,10 +103,10 @@ class AwarenessMeiboRepository implements AwarenessMeiboRepositoryProtocol {
             changedFlag: true,
           );
           
-          maibosMap['${meibo.studentId}'] = meibo2;
+          _ref.read(awarenessMeibosCache.notifier).state['${meibo.studentId}'] =
+              meibo2;
         }
-
-        _ref.read(awarenessMeibosCache.notifier).state = maibosMap;
+        _ref.read(awarenessCountProvider.notifier).state = 0;
 
         return const AwarenessMeiboState.loaded();
       } catch (e) {
@@ -109,5 +119,4 @@ class AwarenessMeiboRepository implements AwarenessMeiboRepositoryProtocol {
       return const AwarenessMeiboState.loading();
     }
   }
-
 }

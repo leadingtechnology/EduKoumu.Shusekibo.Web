@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/feature/auth/provider/auth_provider.dart';
-import 'package:shusekibo/app/widget/attendance/attendance_meibo_model.dart';
-import 'package:shusekibo/app/widget/attendance/attendance_reason_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_reason_provider.dart';
-import 'package:shusekibo/app/widget/attendance/attendance_stamp_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_stamp_provider.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_status_model.dart';
 import 'package:shusekibo/app/widget/attendance/attendance_timed_meibo_model.dart';
@@ -15,9 +12,8 @@ import 'package:shusekibo/shared/util/spacing.dart';
 
 
 class SeatWidget extends ConsumerWidget {
-  SeatWidget({super.key, required this.index, required this.meibo});
+  SeatWidget({super.key, required this.meibo});
 
-  final int index;
   final AttendanceTimedMeiboModel meibo;
   final _baseUrl = dotenv.env['BASE_URL']!;
 

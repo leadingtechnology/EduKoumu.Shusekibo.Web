@@ -25,9 +25,9 @@ final apiProvider = Provider<ApiProvider>(
 class ApiProvider {
   ApiProvider(this._ref) {
     _dio = Dio();
-    _dio.options.sendTimeout = 3000;
-    _dio.options.connectTimeout = 3000;
-    _dio.options.receiveTimeout = 3000;
+    _dio.options.sendTimeout = 3000;     // 
+    _dio.options.connectTimeout = 3000;  // 
+    _dio.options.receiveTimeout = 3000;  // 
     _dio.interceptors.add(
       RetryOnConnectionChangeInterceptor(
         requestRetrier: DioConnectivityRequestRetrier(

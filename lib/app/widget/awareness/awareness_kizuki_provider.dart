@@ -54,38 +54,30 @@ class AwarenessKizukiNotifier extends StateNotifier<AwarenessKizukiState> {
     final juyo = _ref.read(awarenessJuyoProvider);
     final burui = _ref.read(awarenessBunruiProvider);
 
-    final kizukiMap = _ref.read(awarenessKizukiCache);
-
-    final studentList = kizukiMap.values.toList();
-
     final id = _ref.read(awarenessEditProvider);
-    
-    final kizuki = kizukiMap['$id'];
+    final kizuki = _ref.read(awarenessKizukiCache)['$id'];
 
     final json = '''
 {
     "Id": ${kizuki!.id},
-    "Kizuki": "${str}",
+    "Kizuki": "$str",
     "JuyoFlg": $juyo,
-    "KaruteBunruiCode": ${burui},
+    "KaruteBunruiCode": $burui,
 }
    ''';
 
     await _repository.patch(id, json);
     await _repository.fetch();
-
   }
 
   Future<void> delete(AwarenessKizukiModel kizuki) async {
     final response = await _repository.delete(kizuki, '');
-    await _rep.fetch(_filter);
-    await _repository.fetch();
-    
-    //_ref.read(awarenessKizukiCache.notifier).state.remove('${kizuki.id}');
+    final res = await _rep.fetch(_filter);
+    final resp = await _repository.fetch();
 
+    _ref.read(awarenessKizukiCache.notifier).state.remove('${kizuki.id}');
     if (mounted) {
       state = response;
     }
   }
-  
 }

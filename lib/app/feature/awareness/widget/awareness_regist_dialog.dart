@@ -159,7 +159,7 @@ class AwarenessRegistDialog extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     OutlinedButton(
-                      child: Text(
+                      child: const Text(
                         '閉じる',
                         style: TextStyle(color: Colors.black),
                       ),
@@ -171,38 +171,40 @@ class AwarenessRegistDialog extends ConsumerWidget {
                     ),
                     Expanded(child: Container()),
                     ElevatedButton(
-                        child: Text('保存'),
                         style: ElevatedButton.styleFrom(
-                          primary: Color(0xFF0056d2),
+                          backgroundColor: const Color(0xFF0056d2),
                           padding: Spacing.xy(32, 0),
                         ),
                         onPressed: () async {
-                          final FormState? form = _formKey.currentState;
                           if (kizukiController.text == null ||
                               kizukiController.text.isEmpty) {
+                            
+                            ToastHelper.showToast(
+                              context, 
+                              '気づきを入力してください',
+                            );
+
                             return;
                           }
-                          if (ref.watch(awarenessCountProvider) <= 0) {
-                            return;
-                          }
-                          ref.read(awarenessCountProvider.notifier).state = 0;
 
                           if (opt == AwarenessOperationItem.edit) {
                             ref.read(awarenessEditProvider.notifier).state =
                                 kizuki.id!;
                             await ref
                                 .read(awarenessKizukiInitProvider.notifier)
-                                .patch('${kizukiController.text}');
+                                .patch(kizukiController.text);
                           } else {
                             await ref
                                 .read(awarenessMeiboInitProvider.notifier)
-                                .save('${kizukiController.text}', opt);
+                                .save(kizukiController.text, opt);
                           }
-                          ToastHelper.showToast(context, "　保存しました　");
+
+                          ToastHelper.showToast(context, '　保存しました　');
                           Navigator.of(context).pop();
-                        }),
+                        },
+                        child: const Text('保存')),
                   ],
-                ))
+                ),)
           ],
         ),
       ),

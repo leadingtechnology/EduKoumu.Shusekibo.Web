@@ -32,15 +32,14 @@ class SignInPage extends ConsumerWidget {
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        spreadRadius: 1.0,
+                        spreadRadius: 1,
                         color: Colors.black26,
-                        blurRadius: 10.0,
+                        blurRadius: 10,
                         offset: Offset(2, 0),
                       )
                     ],
                   ),
                   child: Wrap(
-                    direction: Axis.horizontal,
                     runAlignment: WrapAlignment.end,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
@@ -69,6 +68,7 @@ class SignInPage extends ConsumerWidget {
                                     constraints:
                                         const BoxConstraints(maxHeight: 50),
                                     child: TextFormField(
+                                      autofocus: true,
                                       decoration: const InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(

@@ -76,7 +76,7 @@ class AttendanceMeiboRepository implements AttendanceMeiboRepositoryProtocol {
     final meibos = _ref.read(attendanceMeibosCache).values.toList();
     
     final json = jsonEncode(meibos
-        .map((v) => v.toNewJson()).toList(),); //jsonEncode(meibos.map((i) => i.toJson()).toList()).toString();
+        .map((v) => v.toNewJson()).toList(),); 
 
     final response = await _api.post2(
         'api/shozoku/${filter.classId}/ShukketsuShussekibo?date=$strDate',

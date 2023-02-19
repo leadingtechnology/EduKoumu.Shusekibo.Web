@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/feature/auth/provider/auth_provider.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_bunrui_model.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_bunrui_provider.dart';
+import 'package:shusekibo/app/widget/awareness/awareness_meibo_provider.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/common/app_state.dart';
 import 'package:shusekibo/shared/http/api_provider.dart';
@@ -41,6 +42,8 @@ class AwarenessBunruiRepository implements AwarenessBunruiRepositoryProtocol {
 
         if (bunrui.isNotEmpty) {
           _ref.read(bunruiProvider.notifier).state = bunrui.first;
+          _ref.read(awarenessBunruiProvider.notifier).state =
+              '${bunrui.first.code}';
         }
         _ref.read(bunruiCache.notifier).state['${token.LoginId}'] = bunrui;
 

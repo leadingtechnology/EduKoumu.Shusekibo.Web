@@ -77,7 +77,7 @@ class AttendanceTimedSeatsPage extends ConsumerWidget {
 
 // ShuketuSeat
 class AttendanceTimedSeatsGridView extends ConsumerWidget {
-  const AttendanceTimedSeatsGridView({Key? key}) : super(key: key);
+  const AttendanceTimedSeatsGridView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -101,7 +101,6 @@ class AttendanceTimedSeatsGridView extends ConsumerWidget {
           itemCount: meibosmap.length,
           itemBuilder: (BuildContext context, int index) {
             return SeatWidget(
-              index: index,
               meibo:  meibosmap.values.elementAt(index),
             );
           },

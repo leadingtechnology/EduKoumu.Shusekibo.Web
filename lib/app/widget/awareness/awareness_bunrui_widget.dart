@@ -31,17 +31,17 @@ class AwarenessBunruiWidget extends ConsumerWidget {
               child: Row(
                 children: [
                   Radio(
-                    value: item.id ?? 0,
+                    value: item.code ?? 0,
                     groupValue: gValue,
                     onChanged: (selected) {
                       ref.read(awarenessBunruiProvider.notifier).state =
-                          item.id ?? 0;
+                          '${item.code}';
                     },
                   ),
                   GestureDetector(
                     onTap: () {
                         ref.read(awarenessBunruiProvider.notifier).state =
-                            item.id ?? 0;
+                            '${item.code}';
                     },
                     child: Text('${item.name}'),
                   ),
