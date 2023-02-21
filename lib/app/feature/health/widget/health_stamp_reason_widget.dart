@@ -98,8 +98,10 @@ class HealthStampReasonWidget extends ConsumerWidget {
           ),
         );
       },
-      error: (AppException error) {
-        return Text('$error');
+      error: (AppException e){
+          print('${e.toString()}');
+          
+          return Container();
       },
     );
 

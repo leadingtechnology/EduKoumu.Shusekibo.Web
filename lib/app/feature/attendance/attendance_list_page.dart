@@ -81,7 +81,11 @@ class AttendanceListView extends ConsumerWidget {
     return state.when(
       blank: Container.new,
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (AppException e) => Text(e.toString()),
+      error: (AppException e){
+          print('${e.toString()}');
+          
+          return Container();
+      },
       loaded: () {
         // Boxes.getHealthMeiboModelBox()
         return AttendanceListWidget(

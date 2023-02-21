@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:shusekibo/app/feature/navigation/nav_bar_item.dart';
+import 'package:shusekibo/app/widget/awareness/awareness_meibo_provider.dart';
 
 final menuIdProvider = StateProvider<int>((_) => 0);
 
@@ -50,7 +51,10 @@ class NavBar extends ConsumerWidget {
           title: '健康観察',
           active: menuId == 30 || menuId == 31 ? true : false,
           touched: () {
-            ref.read(menuIdProvider.notifier).state = 30;
+            if (ref.read(menuIdProvider) != 30 &&
+                ref.read(menuIdProvider) != 31) {
+              ref.read(menuIdProvider.notifier).state = 30;
+            }
           },
           menuId: 'health',
           menuNo: 30,
@@ -60,8 +64,10 @@ class NavBar extends ConsumerWidget {
           title: '気づき',
           active: menuId == 40 ? true : false,
           touched: () {
-            ref.read(menuIdProvider.notifier).state = 40; 
-            // ref.read(awarenessTabProvider.notifier).state = 0;
+            if (ref.read(menuIdProvider) != 40){
+              ref.read(menuIdProvider.notifier).state = 40; 
+              ref.read(awarenessTabProvider.notifier).state = 0;
+            }
             // globals.tabController?.animateTo(0);
           },
           menuId: 'awareness',

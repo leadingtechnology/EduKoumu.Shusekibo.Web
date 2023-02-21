@@ -65,7 +65,10 @@ class HealthSummary extends ConsumerWidget {
 
     return state.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (AppException e){ return Text(e.toString()); },
+      error: (AppException e){
+          print('${e.toString()}');
+          return Container();
+      },
       loaded: (){
         final healthList = ref.watch(homeHealthCache);
 
@@ -174,7 +177,11 @@ class AttendanceSummary extends ConsumerWidget {
 
     return state.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (AppException e){ return Container(child: Text('${e.toString()}'),); },
+      error: (AppException e){
+          print('${e.toString()}');
+          
+          return Container();
+      },
       loaded: (){
         final attendanceList = ref.watch(homeAttendanceCache);
 

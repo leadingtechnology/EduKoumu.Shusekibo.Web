@@ -92,9 +92,13 @@ class AttendanceTimedStampReasonWidget extends ConsumerWidget {
           // tools bar
         ],),
       );
-    }, error: (AppException error) {
-      return Text('$error');
-    },);
+    }, 
+      error: (AppException e){
+          print('${e.toString()}');
+
+          return Container();
+      },
+    );
   }  
 
 }

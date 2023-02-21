@@ -17,7 +17,11 @@ class HealthReasonWidget extends ConsumerWidget {
 
     return state.when(
       loading: () {return Container();},
-      error: (AppException error) { return Text('$error'); },
+      error: (AppException e){
+          print('${e.toString()}');
+
+          return Container();
+      },
       loaded: () {
 
         final reason1List =

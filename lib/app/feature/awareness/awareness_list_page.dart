@@ -9,6 +9,7 @@ import 'package:shusekibo/app/feature/awareness/widget/awareness_search_widget.d
 import 'package:shusekibo/app/feature/common/widget/dialog_util.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_kizuki_model.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_kizuki_provider.dart';
+import 'package:shusekibo/app/widget/awareness/awareness_meibo_provider.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_operation_item.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
@@ -90,45 +91,48 @@ class AwarenessListView extends ConsumerWidget {
     return state.when(
       blank: Container.new,
       loading: () => const Center(child: CircularProgressIndicator(),), 
-      error: (AppException e){ return Text(e.toString());},
+      error: (AppException e){
+          print('${e.toString()}');
+          return Container();
+      },
       loaded: () {
         final kizuki = ref.watch(awarenessKizukiCache).values.toList();
 
 return ListView.separated(
-          padding: EdgeInsets.only(top: 20.0),
+          padding: const EdgeInsets.only(top: 20.0),
           itemBuilder: (context, index) => ListTile(
             leading: ClipOval(
                 child: Image.network(
-              '${_baseUrl}${kizuki[index].photoUrl}',
-              headers: {"Authorization": "Bearer " + accessToken},
+              '$_baseUrl${kizuki[index].photoUrl}',
+              headers: {'Authorization': 'Bearer $accessToken'},
             )),
             title: Text('${kizuki[index].studentName}'),
             isThreeLine: true,
-            subtitle: Container(
-                child: Column(children: [
+            subtitle: Column(children: [
               Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [Text('${kizuki[index].naiyou}')]),
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [Text('${kizuki[index].naiyou}')]),
               Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text('${kizuki[index].tourokusyaName ?? ''}'),
-                    Spacing.width(10),
-                    SizedBox(
-                      width: 10,
-                      child: Text('|'),
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(kizuki[index].tourokusyaName ?? ''),
+                Spacing.width(10),
+                const SizedBox(
+                  width: 10,
+                  child: Text('|'),
+                ),
+                Text(
+                      DateUtil.getJapaneseDate(
+                          DateTime.parse(kizuki[index].torokuDate ?? ''),),
                     ),
-                    Text(
-                        '${DateUtil.getJapaneseDate(DateTime.parse(kizuki[index].torokuDate ?? ''))}'),
-                  ]),
-            ])),
-            selected: false,
-            trailing: popUpMenu(kizuki: kizuki[index]),
+              ],),
+            ],),
+            trailing: PopUpMenu(kizuki: kizuki[index]),
           ),
           itemCount: kizuki.length,
           separatorBuilder: (context, index) {
-            return Divider(
+            return const Divider(
               height: 0.5,
               indent: 75,
               endIndent: 20,
@@ -142,14 +146,14 @@ return ListView.separated(
   }
 }
 
-class popUpMenu extends ConsumerWidget {
-  popUpMenu({
-    Key? key,
+class PopUpMenu extends ConsumerWidget {
+  const PopUpMenu({
+    super.key,
     required this.kizuki,
-  }) : super(key: key);
+  });
 
   final AwarenessKizukiModel kizuki;
-  final TextStyle style = TextStyle(fontSize: 14);
+  final style = const TextStyle(fontSize: 14);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -237,20 +241,23 @@ Future<void> _handlePressActionButton(
     BuildContext context,
     AwarenessKizukiModel kizuki,
     AwarenessOperationItem opt,
-    WidgetRef ref) async {
+    WidgetRef ref,) async {
   //if (opt == AwarenessOperationItem.edit)
   //  await ref.read(awarenessMeiboListProvider.notifier).updateById(id);
 
-  if (opt == AwarenessOperationItem.copy || opt == AwarenessOperationItem.edit)
-  
+  if (opt == AwarenessOperationItem.copy ||
+      opt == AwarenessOperationItem.edit) {
+
+    ref.read(awarenessJuyoProvider.notifier).state = kizuki.juyoFlg??false;
+    ref.read(awarenessBunruiProvider.notifier).state = kizuki.bunruiCode??''; 
+
     await DialogUtil.show(
       context: context,
       builder: (BuildContext context) {
         return AwarenessRegistDialog(kizuki: kizuki, opt: opt);
       },
     );
-
-    
+  }
 
   if (opt == AwarenessOperationItem.delete) {
     await ref.read(awarenessKizukiInitProvider.notifier).delete(kizuki.id??0);

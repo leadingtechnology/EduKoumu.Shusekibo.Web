@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shusekibo/shared/http/api_provider.dart';
-import 'package:shusekibo/shared/http/api_response.dart';
-import 'package:shusekibo/shared/http/app_exception.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_model.dart';
 import 'package:shusekibo/app/widget/gakunen/gakunen_model.dart';
 import 'package:shusekibo/app/widget/gakunen/gakunen_provider.dart';
 import 'package:shusekibo/app/widget/gakunen/gakunen_state.dart';
+import 'package:shusekibo/shared/http/api_provider.dart';
+import 'package:shusekibo/shared/http/api_response.dart';
+import 'package:shusekibo/shared/http/app_exception.dart';
 
 abstract class GakunenRepositoryProtocol {
   Future<GakunenState> fetch(DantaiModel dantai);

@@ -78,7 +78,11 @@ class AttendanceSeatsGridView extends ConsumerWidget {
     return state.when(
       blank: Container.new,
       loading: () => const Center(child: CircularProgressIndicator(),), 
-      error: (AppException e){ return Text(e.toString());},
+      error: (AppException e){
+          print('${e.toString()}');
+          
+          return Container();
+      },
       loaded: () {
         final meibosmap = ref.watch(attendanceMeibosCache);
         

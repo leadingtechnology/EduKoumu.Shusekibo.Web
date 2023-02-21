@@ -60,11 +60,5 @@ class DantaiListProvider extends StateNotifier<DantaiState> {
     if (mounted) {
       state = response;
     }
-    final dantai = _ref.read(dantaiProvider);
-    await _gakunenRep.fetch(dantai);
-    await _shozokuRep.fetch(dantai);
-    final shozoku = _ref.read(shozokuProvider);
-    await _TimedRep.fetch(shozoku, DateTime.now());
-    _ref.read(filterInitProvider.notifier).update();
   }
 }

@@ -146,13 +146,13 @@ class AwarenessRegistDialog extends ConsumerWidget {
                       controller: kizukiController,
                     ),
                     Spacing.width(12),
-                  ]),
+                  ],),
                 ],
               ),
             ),
 
             // 3.buttom button
-            Divider(color: Colors.grey),
+            const Divider(color: Colors.grey),
             Container(
                 padding: Spacing.fromLTRB(16, 0, 16, 0),
                 child: Row(
