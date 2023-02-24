@@ -10,9 +10,7 @@ import 'package:shusekibo/app/feature/navigation/navigation_bar.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_kizuki_model.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_kizuki_provider.dart';
 import 'package:shusekibo/app/widget/awareness/awareness_meibo_provider.dart';
-import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/common/header_bar.dart';
-import 'package:shusekibo/app/widget/dashboard/home_health_provider.dart';
 import 'package:shusekibo/shared/util/spacing.dart';
 
 class AwarenessRoute extends PageRouteInfo {
@@ -104,6 +102,9 @@ class AwarenessPage extends ConsumerWidget {
   Future<void> _handlePressActionButton(
       BuildContext context, WidgetRef ref,) async {
     
+    ref.read(awarenessJuyoProvider.notifier).state = false;
+    ref.read(awarenessBunruiProvider.notifier).state = '10';
+
     await DialogUtil.show(
       context: context,
       builder: (BuildContext context) {
