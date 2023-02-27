@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
+import 'package:shusekibo/app/widget/health/health_reason_repository.dart';
 import 'package:shusekibo/app/widget/health/health_stamp_model.dart';
 import 'package:shusekibo/app/widget/health/health_stamp_provider.dart';
 import 'package:shusekibo/app/widget/health/health_stamp_state.dart';
@@ -18,6 +19,9 @@ class HealthStampRepository implements HealthStampRepositoryProtocol {
 
   late final ApiProvider _api = _ref.read(apiProvider);
   final Ref _ref;
+
+  late final HealthReasonRepository _reasonRep =
+      _ref.read(healthReasonRepositoryProvider);  
 
   @override
   Future<HealthStampState> fetch() async {
@@ -62,6 +66,10 @@ class HealthStampRepository implements HealthStampRepositoryProtocol {
 
         _ref.read(healthRegistStampCache.notifier).state = registStampMap;
         _ref.read(healthUnegistStampCache.notifier).state = unregistStampMap;
+
+        //初期処理時に理由情報も取得する。
+        final stamp = registStampList[1];
+        await _reasonRep.fetch(stamp);
 
         return HealthStampState.loaded();
       } catch (e) {

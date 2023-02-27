@@ -109,11 +109,12 @@ class HealthMeiboInitProvider extends StateNotifier<HealthMeiboState> {
     if (meibos.isEmpty) return;
 
     final stamp = _ref.read(healthRegistStampCache)['100'];
+    final reason1 = _ref.read(healthReason1Cache)['${stamp!.jokyoCd}']!.first;
+    const reason2 = HealthReasonModel();
 
     for (final m in meibos) {
       if (m.jokyoList![0].jokyoCode!.isEmpty) {
-        updateBox(m, stamp!, const HealthReasonModel(jiyuNmSeishiki: '健康'),
-            const HealthReasonModel(),);
+        updateBox(m, stamp, reason1, reason2);
       }
     }
 
