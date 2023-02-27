@@ -39,7 +39,7 @@ class HealthSearchWidget extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(3),
                             ),
                             child: Text( 
-                              '${filter.gakunenCode == '0' ? '' : filter.gakunenRyakusho }',
+                              '${filter.gakunenCode == '0' ? '' : filter.gakunenRyakusho ?? ''}',
                             ),
                         ),
                       ),
