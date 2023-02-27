@@ -13,8 +13,8 @@ class SignInPage extends ConsumerWidget {
 
   SignInPage({super.key});
   
-  final _emailController = TextEditingController(text: '');
-  final _passwordController = TextEditingController(text: '');
+  final _emailController = TextEditingController(text: 'login0001');
+  final _passwordController = TextEditingController(text: 'P@ssw0rd');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

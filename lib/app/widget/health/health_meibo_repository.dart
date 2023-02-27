@@ -29,7 +29,7 @@ class HealthMeiboRepository implements HealthMeiboRepositoryProtocol {
 
     final strDate =
         DateFormat('yyyy-MM-dd').format(filter.targetDate ?? DateTime.now());
-    final url = 'api/shozoku/${filter.classId}/KenkouKansatsubo?date=$strDate&kouryuGakkyu=true';
+    final url = 'api/shozoku/${filter.classId}/KenkouKansatsubo?date=$strDate&kouryuGakkyu=${filter.kouryuGakkyu}';
     final response = await _api.get(url);
 
     response.when(

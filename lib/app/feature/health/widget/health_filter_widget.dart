@@ -82,7 +82,19 @@ class HealthFilterWidget extends ConsumerWidget {
               ),
               Spacing.height(16),
               //  -- 2 --
-              const Text('クラス'),
+              Row(
+                children: [
+                  const Text('クラス'),
+                  Checkbox(
+                    activeColor: const Color(0xFF2D4E27),
+                    value: ref.watch(kouryuProvider),
+                    onChanged: (v) {
+                      ref.read(kouryuProvider.notifier).state = v ?? false;
+                    },
+                  ),
+                  const Text('交流学級で表示')
+                ],
+              ),
               Spacing.height(8),
               Container(
                 padding: Spacing.left(32),

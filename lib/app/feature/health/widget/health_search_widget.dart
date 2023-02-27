@@ -19,7 +19,7 @@ class HealthSearchWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Expanded(
-                flex: 3,
+                flex: 2,
                 child: Row(
                   children: [
                     Container(
@@ -35,20 +35,22 @@ class HealthSearchWidget extends ConsumerWidget {
                         child: Container(
                             padding: Spacing.x(4),
                             decoration: BoxDecoration(
-                              border: Border.all(width: 1),
+                              border: Border.all(),
                               borderRadius: BorderRadius.circular(3),
                             ),
-                            child: Text( '${filter.gakunenCode == '0' ? '' : filter.gakunenRyakusho }'),),
+                            child: Text( 
+                              '${filter.gakunenCode == '0' ? '' : filter.gakunenRyakusho }',
+                            ),
+                        ),
                       ),
                     )
                   ],
-                )),
+                ),),
             Expanded(
-              flex: 1,
               child: Container(),
             ),
             Expanded(
-                flex: 4,
+                flex: 3,
                 child: Row(
                   children: [
                     Container(
@@ -71,9 +73,26 @@ class HealthSearchWidget extends ConsumerWidget {
                       ),
                     )
                   ],
-                )),
+                ),),
             Expanded(
-              flex: 1,
+              flex: 3,
+              child: InkWell(
+                onTap: () {
+                  scaffoldKey.currentState?.openEndDrawer();
+                },
+                child: Row(
+                  children: [
+                    Checkbox(
+                      activeColor: const Color(0xFF2D4E27),
+                      value: filter.kouryuGakkyu ?? false,
+                      onChanged: (v) {},
+                    ),
+                    const Text('交流学級で表示')
+                  ],
+                ),
+              ),
+            ),                
+            Expanded(
               child: Container(),
             ),
             Expanded(

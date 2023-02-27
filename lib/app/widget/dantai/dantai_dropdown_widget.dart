@@ -4,8 +4,8 @@ import 'package:shusekibo/app/feature/auth/provider/auth_provider.dart';
 import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_model.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_provider.dart';
-import 'package:shusekibo/app/widget/gakunen/gakunen_provider.dart';
-import 'package:shusekibo/app/widget/shozoku/shozoku_provider.dart';
+import 'package:shusekibo/app/widget/filter/filter_model.dart';
+import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/shared/http/app_exception.dart';
 
 class DantaiDropdownWidget extends ConsumerWidget{
@@ -36,19 +36,11 @@ class DantaiDropdownWidget extends ConsumerWidget{
               color: Colors.white,
             ),
             onChanged: (DantaiModel? newValue) {
+              //if (ref.read(dantaiProvider) == newValue) return ;
+              
               ref.read(dantaiProvider.notifier).state = newValue!;
-
-              final gakunen = ref.read(gakunenCache)['${newValue.id}'];
-              if (gakunen!.isNotEmpty) {
-                ref.read(gakunenProvider.notifier).state = gakunen.first;
-
-                final shozoku = ref
-                    .read(shozokuCache)['${newValue.id}']!
-                    .where((e) => e.gakunenCode == gakunen.first.gakunenCode);
-                if (shozoku.isNotEmpty) {
-                  ref.read(shozokuProvider.notifier).state = shozoku.first;
-                }
-              }
+              ref.read(filterProvider.notifier).state = const FilterModel();
+              
             },
             items: dantaiList.map((value) {
               return DropdownMenuItem<DantaiModel>(
@@ -61,7 +53,7 @@ class DantaiDropdownWidget extends ConsumerWidget{
             }).toList(),
           ),
         );
-      }
+      },
     );
 
   }

@@ -7,9 +7,7 @@ import 'package:shusekibo/app/widget/cache/cache_provider.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_model.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_repository.dart';
 import 'package:shusekibo/app/widget/dantai/dantai_state.dart';
-import 'package:shusekibo/app/widget/filter/filter_provider.dart';
 import 'package:shusekibo/app/widget/gakunen/gakunen_repository.dart';
-import 'package:shusekibo/app/widget/shozoku/shozoku_provider.dart';
 import 'package:shusekibo/app/widget/shozoku/shozoku_repository.dart';
 
 final dantaiInitProvider =
